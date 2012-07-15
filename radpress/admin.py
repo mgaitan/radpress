@@ -40,13 +40,20 @@ class ArticleAdmin(EntryAdmin):
     form = ArticleForm
     inlines = [ArticleTagInline]
     list_display = (
-        'title', 'created_at', 'updated_at', 'tag_list', 'is_published')
+        'title', 'author', 'created_at', 'updated_at', 'tag_list',
+        'is_published')
     list_filter = ('is_published', 'tags')
 
     def tag_list(self, obj):
         tag_list = [tag.name for tag in obj.tags.all()]
 
         return ', '.join(tag_list)
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.author = request.user
+
+        obj.save()
 
 admin.site.register(Article, ArticleAdmin)
 
