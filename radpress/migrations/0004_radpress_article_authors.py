@@ -1,21 +1,30 @@
 # -*- coding: utf-8 -*-
 import datetime
 from south.db import db
-from south.v2 import SchemaMigration
+from south.v2 import DataMigration
 from django.db import models
 
 
-class Migration(SchemaMigration):
+class Migration(DataMigration):
+
     def forwards(self, orm):
-        # Adding field 'Article.author'
-        db.add_column('radpress_article', 'author',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['auth.User'], null=True),
-                      keep_default=False)
+        "Write your forwards methods here."
+        # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
+
+        User = orm['auth.User']
+
+        try:
+            user = User.objects.all()[0]
+
+            for article in orm.Article.objects.all():
+                article.author = user
+                article.save()
+
+        except IndexError:
+            pass
 
     def backwards(self, orm):
-        # Deleting field 'Article.author'
-        db.delete_column('radpress_article', 'author_id')
-
+        "Write your backwards methods here."
 
     models = {
         'auth.group': {
@@ -106,3 +115,4 @@ class Migration(SchemaMigration):
     }
 
     complete_apps = ['radpress']
+    symmetrical = True
