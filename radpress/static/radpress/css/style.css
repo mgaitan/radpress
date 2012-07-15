@@ -96,17 +96,25 @@ footer a.menu {
     border-bottom: 1px solid #ddd;
 }
 
-#articles .article a.more {
-    padding: 7px 15px;
+#articles .article-footer {
+    margin-top: 20px;
+    padding: 5px 10px;
     background-color: #ddd;
-    display: inline-block;
-    font-size: 14px;
-    color: #555;
+}
+
+#articles .article-footer .row-fluid,
+#articles .article-footer .span6 {
+    min-height: 0 !important;
+}
+
+#articles .article a.more {
+    font-size: 12px;
+    color: #005580;
     text-decoration: none;
 }
 
 #articles .article a.more:hover {
-    background-color: #ccc;
+    color: #08C;
 }
 
 #blog-form h1.page-title {
