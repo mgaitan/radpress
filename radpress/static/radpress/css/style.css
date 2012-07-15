@@ -96,14 +96,14 @@ footer a.menu {
     border-bottom: 1px solid #ddd;
 }
 
-#articles .article-footer {
+.article-footer {
     margin-top: 20px;
     padding: 5px 10px;
     background-color: #ddd;
 }
 
-#articles .article-footer .row-fluid,
-#articles .article-footer .span6 {
+.article-footer .row-fluid,
+.article-footer .span6 {
     min-height: 0 !important;
 }
 
