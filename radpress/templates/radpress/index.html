@@ -52,7 +52,28 @@
               </div>
 
               <div class="article-footer">
-                <a href="{% url radpress-detail object.slug %}" class="more">{% trans "Read the rest of this entry" %} →</a>
+                <div class="row-fluid">
+                  <div class="span6">
+                    <span>
+                      {% trans "Written by" %}:
+
+                      {% with object.author.get_full_name as full_name %}
+                        <b>
+                          {% if full_name %}
+                            {{ full_name }}
+                          {% else %}
+                            {{ object.author }}
+                          {% endif %}
+                        </b>
+                      {% endwith %}
+                    </span>
+                  </div>
+                  <div class="span6">
+                    <span>
+                      <a href="{% url radpress-detail object.slug %}" class="more pull-right">{% trans "Read the rest of this entry" %} →</a>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

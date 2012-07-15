@@ -1,5 +1,6 @@
 import os
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
@@ -96,6 +97,7 @@ class Entry(models.Model):
 
 
 class Article(Entry):
+    author = models.ForeignKey(User, null=True, editable=False)
     cover_image = models.ForeignKey(EntryImage, blank=True, null=True)
     tags = models.ManyToManyField(
         Tag, null=True, blank=True, through='ArticleTag')
