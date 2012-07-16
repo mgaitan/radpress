@@ -268,6 +268,11 @@ table.highlighttable td {
     }
 }
 
+/* Disqus Settings */
+#disqus_thread {
+    margin-top: 50px;
+}
+
 /* Default Pygmentize Output */
 .hll { background-color: #ffffcc }
 .c { color: #586E75 } /* Comment */
