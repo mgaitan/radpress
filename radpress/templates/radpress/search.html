@@ -1,0 +1,11 @@
+{% extends "radpress/base.html" %}
+
+{% load trans from i18n %}
+
+{% block content %}
+  <div id="search" class="set-content-margin">
+    <h1>{% trans "Search Results" %}</h1>
+
+    {{ object_list|length }}
+  </div>
+{% endblock %}

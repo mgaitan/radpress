@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import (
     DetailView, ListView, TemplateView, ArchiveIndexView)
@@ -93,3 +94,28 @@ class Preview(TemplateView):
 
     def post(self, request, *args, **kwargs):
         return super(Preview, self).get(request, *args, **kwargs)
+
+
+class Search(TemplateView):
+    template_name = 'radpress/search.html'
+    models = (Article, Page)
+
+    def get_queryset(self):
+        queryset = []
+        q = self.request.GET.get('q')
+
+        if not q:
+            return queryset
+
+        for model in self.models:
+            queryset += model.objects.filter(
+                Q(title__icontains=q) | Q(slug__icontains=q) |
+                Q(content__icontains=q))
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        data = super(Search, self).get_context_data(**kwargs)
+        data.update({'object_list': self.get_queryset()})
+
+        return data
