@@ -88,6 +88,10 @@
               <div id="sidebar">
                 {% block sidebar %}
                   <div class="sidebar-box">
+                    {%  include "radpress/_search_form.html" %}
+                  </div>
+
+                  <div class="sidebar-box">
                     {% include "radpress/_latest_posts.html" %}
                   </div>
 

@@ -6,26 +6,7 @@
   <div id="blog-archive" class="set-content-margin">
     <h1>{% trans "Blog Archive" %}</h1>
 
-    <ul>
-      {% for object in object_list %}
-        <li class="row-fluid">
-          <div class="span2">
-            <time data-datetime="{{ object.updated_at }}">
-              {{ object.updated_at|date:"b d, Y"|upper }}
-            </time>
-          </div>
-          <div class="span10">
-            <h2 class="article-title">
-              <a href="{% url radpress-detail object.slug %}">
-                {{ object.title }}
-              </a>
-            </h2>
-          </div>
-        </li>
-      {% empty %}
-        <li>{% trans "There's no blog entry." %}</li>
-      {% endfor %}
-    </ul>
+    {% include "radpress/_archive_list.html" %}
   </div>
 
   {% if page_obj %}
@@ -45,6 +26,10 @@
 {% endblock %}
 
 {% block sidebar %}
+  <div class="sidebar-box">
+    {% include "radpress/_search_form.html" %}
+  </div>
+
   <div id="archive-tags">
     <h2>{% trans "Tags" %}</h2>
 
