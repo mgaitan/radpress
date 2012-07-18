@@ -110,7 +110,7 @@ class Search(TemplateView):
         for model in self.models:
             queryset += model.objects.filter(
                 Q(title__icontains=q) | Q(slug__icontains=q) |
-                Q(content__icontains=q))
+                Q(content__icontains=q), is_published=True)
 
         return queryset
 
