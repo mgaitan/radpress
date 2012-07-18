@@ -6,7 +6,12 @@
 
 // General Functions
 var getParams = function() {
-    var params = window.location.href.split('?')[1].split('&');
+    var params = window.location.href.split('?')[1];
+    if (typeof(params) === 'undefined') {
+        return;
+    }
+
+    params = params.split('&');
     var paramsObj = {};
     var item;
 
@@ -19,8 +24,13 @@ var getParams = function() {
 };
 
 var getParam = function(key) {
-    var value = window.RADPESS_PARAMS[key];
-    value = decodeURIComponent(value).replace(/\+/g, ' ');
+    var value;
+    try {
+        value = window.RADPESS_PARAMS[key];
+        value = decodeURIComponent(value).replace(/\+/g, ' ');
+    } catch(e) {
+        value = null;
+    }
 
     return value;
 };
@@ -37,7 +47,6 @@ if (highlighttable.length) {
     var preWidth;
     var spaces = parseInt(articleDiv.css('padding-left').split('px')[0])
                + $('td.linenos').width();
-    console.log(spaces);
 
     $(window).on('load resize', function() {
         preWidth = articleContentDiv.width() - spaces;
