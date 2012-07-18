@@ -1,4 +1,4 @@
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.shortcuts import get_object_or_404
 from django.views.generic import (
     DetailView, ListView, TemplateView, ArchiveIndexView)
@@ -8,9 +8,11 @@ from radpress.settings import DATA
 
 class TagMixin(object):
     def get_context_data(self, **kwargs):
+        tags = Tag.objects.annotate(Count('article')).filter(
+            article__count__gt=0)
         data = super(TagMixin, self).get_context_data(**kwargs)
         data.update({
-            'tag_list': Tag.objects.values('name', 'slug').all()
+            'tag_list': tags.values('name', 'slug')
         })
 
         return data
