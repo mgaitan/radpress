@@ -9,7 +9,7 @@ from radpress.settings import DATA
 class TagMixin(object):
     def get_context_data(self, **kwargs):
         tags = Tag.objects.annotate(Count('article')).filter(
-            article__count__gt=0)
+            article__count__gt=0, article__is_published=True)
         data = super(TagMixin, self).get_context_data(**kwargs)
         data.update({
             'tag_list': tags.values('name', 'slug')
