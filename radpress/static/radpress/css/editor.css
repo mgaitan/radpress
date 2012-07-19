@@ -113,12 +113,13 @@
 }
 
 .markItUpHeader ul a {
-    display:block;
-    width:16px; height:16px;
+    margin-right: 10px;
+    padding: 0;
+    display: block;
+    width: 16px;
+    height:16px;
     text-indent:-10000px;
-    background-repeat:no-repeat;
-    padding:3px;
-    margin:0;
+    background: url('../img/editor.png') top left no-repeat;
 }
 
 .markItUpHeader ul ul a {
@@ -132,4 +133,54 @@
 .markItUpHeader ul ul a:hover  {
     color:#FFF;
     background-color:#000;
+}
+
+/* Restructuredtext Buttons */
+.markItUp .markItUpButton1 a {
+    background-position: -32px 0;
+}
+
+.markItUp .markItUpButton2 a {
+    background-position: -48px 0;
+}
+.markItUp .markItUpButton3 a {
+    background-position: -64px 0;
+}
+.markItUp .markItUpButton4 a {
+    background-position: -80px 0;
+}
+.markItUp .markItUpButton5 a {
+    background-position: -96px 0;
+}
+
+.markItUp .markItUpButton6 a {
+    /* bold. default position. */
+}
+.markItUp .markItUpButton7 a {
+    background-position: -112px 0;
+}
+
+.markItUp .markItUpButton8 a {
+    background-position: -144px 0;
+}
+.markItUp .markItUpButton9 a {
+    background-position: -160px 0;
+}
+
+.markItUp .markItUpButton10 a {
+    background-position: -176px 0;
+}
+.markItUp .markItUpButton11 a {
+    background-position: -128px 0;
+}
+
+.markItUp .markItUpButton12 a {
+    background-position: -208px 0;
+}
+.markItUp .markItUpButton13 a {
+    background-position: -16px 0;
+}
+
+.markItUp .preview a {
+    background-position: -192px 0;
 }

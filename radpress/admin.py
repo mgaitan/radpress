@@ -20,7 +20,7 @@ class MarkupAdminMixin(object):
         }
         js = (
             'radpress/markitup/jquery.markitup.js',
-            'radpress/markitup/sets/rest/set.js')
+            'radpress/markitup/set.js')
 
 
 class EntryAdmin(admin.ModelAdmin, MarkupAdminMixin):
