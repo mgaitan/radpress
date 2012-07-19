@@ -15,7 +15,7 @@ class MarkupAdminMixin(object):
     class Media:
         css = {
             'all': (
-                'radpress/markitup/skins/simple/style.css',
+                'radpress/css/editor.css',
                 'radpress/markitup/sets/rest/style.css')
         }
         js = (
