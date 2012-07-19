@@ -14,9 +14,7 @@ toggle_published.short_description = "Change published status of the article"
 class MarkupAdminMixin(object):
     class Media:
         css = {
-            'all': (
-                'radpress/css/editor.css',
-                'radpress/markitup/sets/rest/style.css')
+            'all': ('radpress/css/editor.css',)
         }
         js = (
             'radpress/markitup/jquery.markitup.js',
