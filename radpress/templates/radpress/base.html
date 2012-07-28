@@ -1,4 +1,5 @@
 {% load trans from i18n %}
+{% load url from future %}
 
 <!doctype html>
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
@@ -41,11 +42,11 @@
         <ul class="nav">
           <li class="divider-vertical"></li>
           <li>
-            <a href="{% url radpress-index %}">{% trans "Blog" %}</a>
+            <a href="{% url 'radpress-index' %}">{% trans "Blog" %}</a>
           </li>
           <li class="divider-vertical"></li>
           <li>
-            <a href="{% url radpress-archive %}">{% trans "Archive" %}</a>
+            <a href="{% url 'radpress-archive' %}">{% trans "Archive" %}</a>
           </li>
           <li class="divider-vertical"></li>
           {% for menu in RADPRESS_MENUS %}
@@ -58,7 +59,7 @@
 
         <ul class="nav pull-right">
           <li>
-            <a href="{% url radpress-rss %}">RSS</a>
+            <a href="{% url 'radpress-rss' %}">RSS</a>
           </li>
         </ul>
       </nav>
@@ -102,7 +103,7 @@
                       <div class="tags">
                         {% for tag in tag_list %}
                           <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-                             href="{% url radpress-archive %}?tag={{ tag.slug }}">
+                             href="{% url 'radpress-archive' %}?tag={{ tag.slug }}">
                              <i class="icon-tag icon-white"></i>
                              {{ tag.name }}
                           </a>
@@ -123,11 +124,11 @@
             </div>
             <div class="span3">
               {% if user.is_authenticated %}
-                <a href="{% url admin:logout %}?next={% url radpress-index %}" class="pull-right menu">
+                <a href="{% url 'admin:logout' %}?next={% url 'radpress-index' %}" class="pull-right menu">
                   {% trans "logout" %}
                 </a>
               {% endif %}
-              <a href="{% url admin:index %}" class="pull-right menu">
+              <a href="{% url 'admin:index' %}" class="pull-right menu">
                 {% trans "dashboard" %}
               </a>
             </div>
