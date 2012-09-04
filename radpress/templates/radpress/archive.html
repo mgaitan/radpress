@@ -1,6 +1,7 @@
 {% extends "radpress/base.html" %}
 
 {% load trans from i18n %}
+{% load url from future %}
 
 {% block content %}
   <div id="blog-archive" class="set-content-margin">
@@ -34,7 +35,7 @@
     <h2>{% trans "Tags" %}</h2>
 
     {% if enabled_tag %}
-      <a href="{% url radpress-archive %}" class="remove-tag">
+      <a href="{% url 'radpress-archive' %}" class="remove-tag">
         {% trans "remove tag" %}
       </a>
     {% endif %}
@@ -42,7 +43,7 @@
     <div class="tags">
       {% for tag in tag_list %}
         <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-           href="{% url radpress-archive %}?tag={{ tag.slug }}">
+           href="{% url 'radpress-archive' %}?tag={{ tag.slug }}">
           <i class="icon-tag icon-white"></i>
           {{ tag.name }}
         </a>
