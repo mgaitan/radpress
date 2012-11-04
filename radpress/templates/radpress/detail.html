@@ -10,7 +10,7 @@
   <div class="article">
     <div class="row-fluid">
       <div class="span2">
-        <time datetime="{{ object.updated_at.isoformat }}">{{ object.updated_at|date:"m F, Y"|upper }}</time>
+        <time datetime="{{ object.updated_at.isoformat }}">{{ object.updated_at|date:"d F, Y"|upper }}</time>
 
         {% if object.tags.count %}
           <div class="tags">
