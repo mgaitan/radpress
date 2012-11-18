@@ -1,3 +1,4 @@
+Pillow
 Sphinx
 South
 ipython
