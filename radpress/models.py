@@ -58,7 +58,6 @@ class EntryImage(ThumbnailModelMixin, models.Model):
 
 
 class EntryManager(models.Manager):
-
     def all_published(self, **kwargs):
         return self.filter(is_published=True, **kwargs)
 

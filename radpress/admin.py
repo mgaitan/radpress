@@ -63,7 +63,6 @@ admin.site.register(Page, PageAdmin)
 
 
 class TagAdmin(admin.ModelAdmin):
-
     def articles(self, obj):
         return obj.article_set.count()
 

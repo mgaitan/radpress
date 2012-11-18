@@ -5,7 +5,6 @@ from radpress.settings import DATA
 
 
 class ArticleFeed(Feed):
-
     def __init__(self):
         self.title = DATA.get('RADPRESS_TITLE')
         self.description = DATA.get('RADPRESS_DESCRIPTION')
