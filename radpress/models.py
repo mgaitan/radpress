@@ -1,3 +1,4 @@
+from django.template.defaultfilters import slugify
 import os
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -58,7 +59,6 @@ class EntryImage(ThumbnailModelMixin, models.Model):
 
 
 class EntryManager(models.Manager):
-
     def all_published(self, **kwargs):
         return self.filter(is_published=True, **kwargs)
 
@@ -92,6 +92,9 @@ class Entry(models.Model):
 
     def save(self, **kwargs):
         self.content_body = restructuredtext(self.content)
+
+        if not self.slug:
+            self.slug = slugify(self.title)
 
         super(Entry, self).save(**kwargs)
 

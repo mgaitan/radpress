@@ -27,7 +27,7 @@ class Pygments(Directive):
         except ValueError:
             # no lexer found - use the text one instead of an exception
             lexer = TextLexer()
-        # take an arbitrary option if more than one is given
+            # take an arbitrary option if more than one is given
         formatter = (
             self.options and VARIANTS[self.options.keys()[0]] or DEFAULT)
         parsed = highlight(u'\n'.join(self.content), lexer, formatter)
@@ -35,6 +35,5 @@ class Pygments(Directive):
 
 
 class More(Directive):
-
     def run(self):
         return MORE_TAG

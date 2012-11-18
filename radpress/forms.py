@@ -5,7 +5,6 @@ from radpress.models import Entry, Page
 
 
 class MarkupWidget(forms.Textarea):
-
     def render(self, name, value, attrs=None):
         html = super(MarkupWidget, self).render(name, value, attrs)
         html += """
@@ -21,7 +20,6 @@ class MarkupWidget(forms.Textarea):
 
 
 class EntryForm(forms.ModelForm):
-
     def __init__(self, *args, **kwargs):
         super(EntryForm, self).__init__(*args, **kwargs)
 
@@ -31,12 +29,10 @@ class EntryForm(forms.ModelForm):
 
 
 class ArticleForm(EntryForm):
-
     class Meta:
         model = Entry
 
 
 class PageForm(EntryForm):
-
     class Meta:
         model = Page

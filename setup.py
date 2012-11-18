@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
+import os
 from setuptools import setup, find_packages
 
 pkg_name = 'radpress'
 version = __import__(pkg_name).__version__
+
+# get requires from requirements/global.txt file.
+requires_file_name = os.path.join(
+    os.path.dirname(__file__), 'requirements', 'global.txt')
+with file(requires_file_name) as install_requires:
+    install_requires = map(lambda x: x.split(), install_requires.readlines())
 
 setup(
     name=pkg_name,
@@ -15,11 +22,5 @@ setup(
     packages=find_packages(exclude=['venv', 'demo', 'docs']),
     include_package_data=True,
     zip_safe=False,
-    install_requires=[
-        'Django>=1.4',
-        'docutils>=0.9',
-        'Pygments>=1.5',
-        'PIL>=1.1.7',
-        'easy-thumbnails>=1.0.3'
-    ]
+    install_requires=install_requires
 )
