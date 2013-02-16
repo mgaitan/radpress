@@ -12,3 +12,12 @@ DATA = {
 }
 
 MORE_TAG = '<!-- more -->'
+BOOTSTRAP_CSS = getattr(
+    settings, 'RADPRESS_BOOTSTRAP_CSS_PATH',
+    'radpress/css/bootstrap.min.css')
+BOOTSTRAP_RESPONSIVE_CSS = getattr(
+    settings, 'RADPRESS_BOOTSTRAP_RESPONSIVE_CSS_PATH', None)
+MODERNIZR = getattr(
+    settings, 'RADPRESS_MODERNIZR_PATH',
+    'radpress/js/modernizr.custom.68944.js')
+RST_SETTINGS = getattr(settings, 'RESTRUCTUREDTEXT_FILTER_SETTINGS', {})
