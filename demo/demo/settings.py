@@ -161,8 +161,8 @@ LOGGING = {
     }
 }
 
-RADPRESS_TITLE = 'Gokmen Gorgen'
-RADPRESS_DESCRIPTION = 'hahahaha.'
+RADPRESS_TITLE = 'Radpress demo'
+RADPRESS_DESCRIPTION = "Let's write a simple description to here."
 RADPRESS_LIMIT = 5
 #RADPRESS_DISQUS = ''
 #RADPRESS_COVER_SIZE = '652x248'
