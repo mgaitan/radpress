@@ -49,8 +49,8 @@ RADPRESS_BOOTSTRAP_RESPONSIVE_CSS_PATH
 
 **Default:** None, because it's included to custom bootstrap file.
 
-RADPRESS_MODERNIZR_JS_PATH
---------------------------
+RADPRESS_MODERNIZR_PATH
+-----------------------
 You can use your modernizr.js file or disable it.
 
 **Default:** radpress/js/moderinzr.custom.68944.js

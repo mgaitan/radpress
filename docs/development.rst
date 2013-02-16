@@ -21,8 +21,8 @@ customized for radpress.
 Bootstrap CSS Components
 ------------------------
 - Scaffolding: Normalize and reset, Body type and links, Grid system, Layouts
-- Base CSS: Labels and badges
-- Compoenents: Navs, tabs, and pills
+- Base CSS: Labels and badges, Buttons, Forms, Icons
+- Miscellaneous: Utilities
 - Responsive: all checkbox are selected.
 
 Modernizr Customization

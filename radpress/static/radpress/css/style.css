@@ -7,6 +7,36 @@ header {
   padding: 50px 50px 30px 50px;
   color: #eee;
 }
+
+/* navigation bar */
+.nav {
+    padding: 0;
+    margin: 0 50px;
+    list-style-type: none;
+}
+
+.nav li {
+    display: inline-block;
+    border-right: 1px solid #444;
+}
+
+.nav,
+.nav li.pull-right {
+    border-left: 1px solid #444;
+}
+
+.nav a {
+    padding: 10px 20px;
+    display: block;
+    color: #999;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: #fff;
+}
+/* end navigation bar */
+
 .article,
 .set-content-margin,
 footer {
@@ -14,9 +44,6 @@ footer {
 }
 .article img.cover {
     margin-top: 20px;
-}
-nav {
-    padding: 0 30px;
 }
 #wrapper {
   background: #EDEFF4;
@@ -39,6 +66,12 @@ nav {
 }
 .sidebar-box {
     margin-bottom: 50px;
+}
+
+.sidebar-box ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
 }
 footer {
   border-top: 1px solid #bbb;
