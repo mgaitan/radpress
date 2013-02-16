@@ -24,3 +24,15 @@ Bootstrap CSS Components
 - Base CSS: Labels and badges
 - Compoenents: Navs, tabs, and pills
 - Responsive: all checkbox are selected.
+
+Modernizr Customization
+=======================
+Radpress template written html5 format, so we added customized modernizr
+extension. You can change modernizr js file path or disable including it. For
+more information, please see the `configuration.rst` file.
+
+Modernizr Components
+--------------------
+- All CSS components selected.
+- All HTML5 components selected.
+- And left all other checkboxes as it is.
