@@ -36,3 +36,15 @@ RADPRESS_COVER_SIZE
 You can change default cover image size.
 
 **Default:** '799x300'
+
+RADPRESS_BOOTSTRAP_CSS
+----------------------
+`bootstrap.css` or `bootstrap.min.css` path.
+
+**Default:** {{ STATIC_URL }}radpress/bootstrap/css/bootstrap.min.css
+
+RADPRESS_BOOTSTRAP_RESPONSIVE_CSS
+---------------------------------
+`bootstrap-responsive.css` or `bootstrap.min.css` path.
+
+**Default:** None, because it's included to custom bootstrap file.
