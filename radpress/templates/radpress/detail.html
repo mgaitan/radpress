@@ -3,6 +3,7 @@
 {% load trans from i18n %}
 {% load url from future %}
 {% load thumbnail %}
+{% load radpress_datetime from radpress_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
@@ -10,7 +11,7 @@
   <div class="article">
     <div class="row-fluid">
       <div class="span2">
-        <time datetime="{{ object.updated_at.isoformat }}">{{ object.updated_at|date:"d F, Y"|upper }}</time>
+        {% radpress_datetime object.updated_at %}
 
         {% if object.tags.count %}
           <div class="tags">

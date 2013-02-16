@@ -34,3 +34,15 @@ def radpress_include_head():
     }
 
     return context
+
+
+@register.inclusion_tag('radpress/_datetime.html')
+def radpress_datetime(datetime):
+    """
+    Time format that compatible with html5.
+
+    Arguments:
+    - `datetime`: datetime.datetime
+    """
+    context = {'datetime': datetime}
+    return context
