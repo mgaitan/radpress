@@ -3,6 +3,7 @@
 {% load trans from i18n %}
 {% load url from future %}
 {% load thumbnail %}
+{% load radpress_datetime from radpress_tags %}
 
 {% block title %}{% trans "Mainpage" %}{% endblock %}
 
@@ -12,9 +13,8 @@
       {% for object in object_list %}
         <div class="article article-index">
           <div class="row-fluid">
-
             <div class="span2">
-              <time datetime="{{ object.updated_at.isoformat }}">{{ object.updated_at|date:"d F, Y"|upper }}</time>
+              {% radpress_datetime object.updated_at %}
 
               {% if object.tags.count %}
                 <div class="tags">
@@ -45,7 +45,9 @@
               </h1>
 
               {% if object.cover_image %}
-                <img class="thumbnail cover" src="{% thumbnail object.cover_image.image RADPRESS_COVER_SIZE sharpen crop='smart' %}" />
+                <img class="thumbnail cover"
+                     src="{% thumbnail object.cover_image.image RADPRESS_COVER_SIZE sharpen crop='smart' %}"
+                     alt="{{ object.cover_image.name }}" />
               {% endif %}
 
               <div class="article-content">
@@ -75,11 +77,12 @@
                     </span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              </div> {# article footer #}
+            </div> {# span10 #}
+          </div> {# row-fluid #}
+        </div> {# article-index #}
       {% endfor %}
+
       <h3 class="blog-archives">
         <a href="{% url 'radpress-archive' %}">{% trans "Blog Archives" %}</a>
       </h3>
