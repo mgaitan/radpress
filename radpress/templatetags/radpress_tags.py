@@ -2,24 +2,18 @@ from django import template
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.safestring import mark_safe
 from docutils.core import publish_parts
-from docutils.parsers.rst import directives
-from radpress.rst_directives import Pygments, More
 from radpress import settings as radpress_settings
+from radpress.rst_extensions.rstify import rstify
 
 register = template.Library()
 
 
-@register.filter
-def restructuredtext(value):
-    parts = publish_parts(
-        source=smart_str(value), writer_name='html',
-        settings_overrides=radpress_settings.RST_SETTINGS)
-
-    return mark_safe(force_unicode(parts['html_body']))
-
-restructuredtext.is_safe = True
-directives.register_directive('sourcecode', Pygments)
-directives.register_directive('more', More)
+@register.filter()
+def restructuredtext(text):
+    """
+    Convert rst content to html markup language in template files.
+    """
+    return mark_safe(rstify(text))
 
 
 @register.inclusion_tag('radpress/_head.html')

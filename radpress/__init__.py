@@ -5,6 +5,7 @@ __version_info__ = {
     'releaselevel': 'final',
 }
 
+
 def get_version():
     """
     Return the formatted version information

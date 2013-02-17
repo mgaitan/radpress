@@ -3,7 +3,7 @@
 {% load trans from i18n %}
 {% load url from future %}
 {% load thumbnail %}
-{% load radpress_datetime from radpress_tags %}
+{% load radpress_datetime restructuredtext from radpress_tags %}
 
 {% block title %}{{ object.title }}{% endblock %}
 
@@ -46,7 +46,8 @@
         {% endif %}
 
         <div class="article-content">
-          {{ object.content_body|safe }}
+          <!-- {{ object.content_body|safe }} -->
+          {{ object.content|restructuredtext }}
         </div>
 
         <div class="article-footer">
