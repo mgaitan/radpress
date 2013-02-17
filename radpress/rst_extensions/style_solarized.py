@@ -5,7 +5,8 @@ A Pygments_ style based on the dark background variant of Solarized_.
 .. _Solarized: http://ethanschoonover.com/solarized
 """
 from pygments.style import Style
-from pygments.token import Token, Comment, Name, Keyword, Generic, Number, Operator, String
+from pygments.token import (
+    Token, Comment, Name, Keyword, Generic, Number, Operator, String)
 
 BASE03 = '#002B36'
 BASE02 = '#073642'
@@ -23,6 +24,7 @@ VIOLET = '#6C71C4'
 BLUE = '#268BD2'
 CYAN = '#2AA198'
 GREEN = '#859900'
+
 
 class SolarizedStyle(Style):
     background_color = BASE03

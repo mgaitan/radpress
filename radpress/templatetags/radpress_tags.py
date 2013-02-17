@@ -1,7 +1,5 @@
 from django import template
-from django.utils.encoding import smart_str, force_unicode
 from django.utils.safestring import mark_safe
-from docutils.core import publish_parts
 from radpress import settings as radpress_settings
 from radpress.rst_extensions.rstify import rstify
 
