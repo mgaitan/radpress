@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
-from radpress.templatetags.radpress_tags import restructuredtext
+from radpress.rst_extensions.rstify import rstify
 from radpress.settings import MORE_TAG
 
 
@@ -91,7 +91,7 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        self.content_body = restructuredtext(self.content)
+        self.content_body = rstify(self.content)
 
         if not self.slug:
             self.slug = slugify(self.title)
