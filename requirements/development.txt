@@ -4,3 +4,4 @@ Pillow
 Sphinx
 South
 ipython
+ipdb
