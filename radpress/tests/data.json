@@ -1,0 +1,15 @@
+[
+    {
+        "pk": 1,
+        "model": "auth.user",
+        "fields": {
+            "username": "gokmen",
+            "first_name": "Gokmen",
+            "last_name": "Gorgen",
+            "is_active": true,
+            "is_superuser": true,
+            "is_staff": true,
+            "email": "gokmen@radpress.foo",
+        }
+    }
+]

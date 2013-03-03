@@ -1,14 +1,13 @@
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.test import TestCase
+from django.test.client import Client
 from radpress.models import Article
 from radpress.templatetags.radpress_tags import restructuredtext
 
 
 class Tests(TestCase):
-    """
-    Radpress tests.
-    """
+    fixture = 'test_data.json'
 
     def setUp(self):
         """
@@ -23,6 +22,7 @@ class Tests(TestCase):
         self.article_not_published = Article.objects.create(
             author=self.author,
             title="I Have A Dream...")
+        self.client = Client()
 
     def test_all_published_articles(self):
         self.assertEqual(Article.objects.all_published().count(), 1)
