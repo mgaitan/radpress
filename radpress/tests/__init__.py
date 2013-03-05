@@ -1,3 +1,4 @@
+import os.path
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.test import TestCase
@@ -7,21 +8,9 @@ from radpress.templatetags.radpress_tags import restructuredtext
 
 
 class Tests(TestCase):
-    fixture = 'test_data.json'
+    fixtures = [os.path.join(os.path.dirname(__file__), 'data.json')]
 
     def setUp(self):
-        """
-        Simple data for testing Radpress.
-        """
-        self.author = User.objects.create(username='radpress')
-        self.article = Article.objects.create(
-            author=self.author,
-            title="Welcome to Radpress!",
-            content="This entry is created for testing.",
-            is_published=True)
-        self.article_not_published = Article.objects.create(
-            author=self.author,
-            title="I Have A Dream...")
         self.client = Client()
 
     def test_all_published_articles(self):
