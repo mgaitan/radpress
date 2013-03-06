@@ -12,6 +12,8 @@ class Test(TestCase):
     def setUp(self):
         self.client = Client()
 
+        self.article1 = Article.objects.get(pk=1)
+
     def test_all_published_articles(self):
         self.assertEqual(Article.objects.all_published().count(), 1)
 
@@ -30,5 +32,14 @@ class Test(TestCase):
         self.assertEqual(Tag.objects.count(), 2)
 
         # create new tag and check slug
-        tag = Tag.objects.create(name='how I met your mother')
-        self.assertEqual(tag.slug, 'how-i-met-your-mother')
+        tag_name = 'how I met your mother'
+        tag = Tag.objects.create(name=tag_name)
+        self.assertEqual(tag.slug, slugify(tag_name))
+
+        # add tag to a published article and check count of tags
+        self.article1.articletag_set.create(tag=tag)
+        self.assertEqual(self.article1.tags.count(), 1)
+
+        # try to filter articles for tags
+        articles = Article.objects.filter(tags__name=tag_name)
+        self.assertEqual(articles.count(), 1)
