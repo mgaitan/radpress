@@ -1,13 +1,12 @@
 import os.path
-from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from django.test import TestCase
 from django.test.client import Client
-from radpress.models import Article
+from radpress.models import Article, Tag
 from radpress.templatetags.radpress_tags import restructuredtext
 
 
-class Tests(TestCase):
+class Test(TestCase):
     fixtures = [os.path.join(os.path.dirname(__file__), 'data.json')]
 
     def setUp(self):
@@ -25,3 +24,11 @@ class Tests(TestCase):
         for article in Article.objects.all():
             content_body = restructuredtext(article.content)
             self.assertEqual(article.content_body, content_body)
+
+    def test_tags(self):
+        # checks tag count from fixture
+        self.assertEqual(Tag.objects.count(), 2)
+
+        # create new tag and check slug
+        tag = Tag.objects.create(name='how I met your mother')
+        self.assertEqual(tag.slug, 'how-i-met-your-mother')

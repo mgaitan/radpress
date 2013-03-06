@@ -1,8 +1,8 @@
-from django.template.defaultfilters import slugify
 import os
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 from radpress.rst_extensions.rstify import rstify
@@ -32,6 +32,12 @@ class Tag(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def save(self, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+        return super(Tag, self).save(**kwargs)
 
 
 class EntryImage(ThumbnailModelMixin, models.Model):
