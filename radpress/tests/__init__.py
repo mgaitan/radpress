@@ -1,4 +1,5 @@
 import os.path
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.test import TestCase
@@ -13,7 +14,13 @@ class Test(TestCase):
     def setUp(self):
         self.client = Client()
 
+        # define article
         self.article1 = Article.objects.get(pk=1)
+
+        # define user
+        self.user1 = User.objects.get(pk=1)
+        self.user1.set_password('secret')
+        self.user1.save()
 
     def test_all_published_articles(self):
         # check published article count
@@ -31,7 +38,15 @@ class Test(TestCase):
             self.assertEqual(response.status_code, status_code)
 
     def test_preview_page(self):
+        # try to get response with GET method
+        response = self.client.get(reverse('radpress-preview'))
+        expected_status_code = 302  # because, login required
+        self.assertEqual(response.status_code, expected_status_code)
 
+        self.client.login(username='gokmen', password='secret')
+        response = self.client.get(reverse('radpress-preview'))
+        expected_status_code = 405 # because, view only allows `post` method
+        self.assertEqual(response.status_code, expected_status_code)
 
     def test_slugs(self):
         for article in Article.objects.all():

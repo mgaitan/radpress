@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import (
     DetailView, ListView, TemplateView, ArchiveIndexView)
 from radpress.models import Article, Page, Tag
@@ -85,6 +87,10 @@ class Archive(TagMixin, ArchiveIndexView):
 class Preview(TemplateView):
     template_name = 'radpress/preview.html'
     http_method_names = ['post']
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(Preview, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
         data = super(Preview, self).get_context_data(**kwargs)
