@@ -4,37 +4,6 @@
  * pull request with your changes. thanks.
  */
 
-// General Functions
-var getParams = function() {
-    var params = window.location.href.split('?')[1];
-    if (typeof(params) === 'undefined') {
-        return;
-    }
-
-    params = params.split('&');
-    var paramsObj = {};
-    var item;
-
-    $.each(params, function(key, value) {
-        item = value.split('=');
-        paramsObj[item[0]] = item[1];
-    });
-
-    return paramsObj;
-};
-
-var getParam = function(key) {
-    var value;
-    try {
-        value = window.RADPESS_PARAMS[key];
-        value = decodeURIComponent(value).replace(/\+/g, ' ');
-    } catch(e) {
-        value = null;
-    }
-
-    return value;
-};
-
 // Global Variables
 window.RADPESS_PARAMS = getParams();
 

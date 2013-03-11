@@ -277,6 +277,7 @@ table td.code {
 
 table td.linenos {
     vertical-align: top;
+    border-right: 1px solid #092932;
 }
 
 table td.linenos pre {
@@ -284,6 +285,15 @@ table td.linenos pre {
     width: 20px;
     text-align: right;
     background-color: #073642;
+}
+
+table.highlighttable {
+    border-collapse: collapse;
+    background-color: #073642;
+}
+
+table.highlighttable pre {
+    margin: 0;
 }
 
 table.highlighttable td {

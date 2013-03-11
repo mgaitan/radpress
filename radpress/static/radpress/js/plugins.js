@@ -8,4 +8,32 @@ window.log = function f(){ log.history = log.history || []; log.history.push(arg
 
 
 // place any jQuery/helper plugins in here, instead of separate, slower script files.
+var getParams = function() {
+    var params = window.location.href.split('?')[1];
+    if (typeof(params) === 'undefined') {
+        return {};
+    }
 
+    params = params.split('&');
+    var paramsObj = {};
+    var item;
+
+    $.each(params, function(key, value) {
+        item = value.split('=');
+        paramsObj[item[0]] = item[1];
+    });
+
+    return paramsObj;
+};
+
+var getParam = function(key) {
+    var value;
+    try {
+        value = window.RADPESS_PARAMS[key];
+        value = decodeURIComponent(value).replace(/\+/g, ' ');
+    } catch(e) {
+        value = null;
+    }
+
+    return value;
+};
