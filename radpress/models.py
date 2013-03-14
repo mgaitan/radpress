@@ -121,6 +121,10 @@ class Article(Entry):
 
         return content
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('radpress-detail', [self.slug])
+
 
 class ArticleTag(models.Model):
     tag = models.ForeignKey(Tag)
@@ -131,7 +135,9 @@ class ArticleTag(models.Model):
 
 
 class Page(Entry):
-    pass
+    @models.permalink
+    def get_absolute_url(self):
+        return ('radpress-page-detail', [self.slug])
 
 
 class Menu(models.Model):
