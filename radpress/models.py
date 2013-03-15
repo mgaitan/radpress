@@ -2,6 +2,7 @@ import os
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
@@ -26,9 +27,20 @@ class ThumbnailModelMixin(object):
         return res % (image.url, url, size[1])
 
 
+class TagManager(models.Manager):
+    def get_available_tags(self):
+        """
+        Receives list of available tags. To be available a tag, it should be
+        used by any published article.
+        """
+        return self.annotate(Count('article')).filter(
+            article__count__gt=0, article__is_published=True)
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
+    objects = TagManager()
 
     def __unicode__(self):
         return unicode(self.name)
