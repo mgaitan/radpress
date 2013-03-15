@@ -3,14 +3,6 @@ from radpress.models import Article, ArticleTag, EntryImage, Menu, Page, Tag
 from radpress.forms import ArticleForm, PageForm
 
 
-def toggle_published(modeladmin, request, queryset):
-    for obj in queryset:
-        obj.is_published = not obj.is_published
-        obj.save()
-
-toggle_published.short_description = "Change published status of the article"
-
-
 class MarkupAdminMixin(object):
     class Media:
         css = {
@@ -26,7 +18,6 @@ class EntryAdmin(admin.ModelAdmin, MarkupAdminMixin):
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('is_published',)
     search_fields = ('title',)
-    actions = [toggle_published]
 
 
 class ArticleTagInline(admin.TabularInline):
@@ -41,6 +32,7 @@ class ArticleAdmin(EntryAdmin):
         'title', 'author', 'created_at', 'updated_at', 'tag_list',
         'is_published')
     list_filter = ('is_published', 'tags')
+    list_editable = ('is_published',)
 
     def tag_list(self, obj):
         tag_list = [tag.name for tag in obj.tags.all()]
