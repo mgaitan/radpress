@@ -27,7 +27,6 @@ class EntryForm(forms.ModelForm):
         content = self.fields.get('content')
         content.widget = MarkupWidget()
 
-
 class ArticleForm(EntryForm):
     class Meta:
         model = Entry
@@ -36,3 +35,7 @@ class ArticleForm(EntryForm):
 class PageForm(EntryForm):
     class Meta:
         model = Page
+
+
+class ZenModeForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea)

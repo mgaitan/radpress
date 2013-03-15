@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, url
-from radpress.views import Archive, Detail, Index, Preview, PageDetail, Search
+from radpress.views import (
+    Archive, Detail, Index, Preview, PageDetail, Search, ZenModeView,
+    ZenModeUpdateView)
 from radpress.feeds import ArticleFeed
 
 urlpatterns = patterns(
@@ -28,6 +30,14 @@ urlpatterns = patterns(
     url(r'^search/$',
         view=Search.as_view(),
         name='radpress-search'),
+
+    url(r'^zen/$',
+        view=ZenModeView.as_view(),
+        name='radpress-zen-mode'),
+
+    url(r'zen/(?P<pk>\d+)/$',
+        view=ZenModeUpdateView.as_view(),
+        name='radpress-zen-mode-update'),
 
     url(r'^rss/$',
         view=ArticleFeed(),

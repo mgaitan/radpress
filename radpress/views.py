@@ -3,7 +3,8 @@ from django.db.models import Q, Count
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import (
-    DetailView, ListView, TemplateView, ArchiveIndexView)
+    ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView)
+from radpress.mixins import ZenModeViewMixin
 from radpress.models import Article, Page, Tag
 from radpress.settings import DATA
 
@@ -127,3 +128,11 @@ class Search(TemplateView):
         data.update({'object_list': self.get_queryset()})
 
         return data
+
+
+class ZenModeView(ZenModeViewMixin, FormView):
+    pass
+
+
+class ZenModeUpdateView(ZenModeViewMixin, UpdateView):
+    pass
