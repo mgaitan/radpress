@@ -1,27 +1,15 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q, Count
+from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import (
     ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView)
-from radpress.mixins import ZenModeViewMixin
-from radpress.models import Article, Page, Tag
+from radpress.mixins import ZenModeViewMixin, TagViewMixin
+from radpress.models import Article, Page
 from radpress.settings import DATA
 
 
-class TagMixin(object):
-    def get_context_data(self, **kwargs):
-        tags = Tag.objects.annotate(Count('article')).filter(
-            article__count__gt=0, article__is_published=True)
-        data = super(TagMixin, self).get_context_data(**kwargs)
-        data.update({
-            'tag_list': tags.values('name', 'slug')
-        })
-
-        return data
-
-
-class Index(TagMixin, ListView):
+class Index(TagViewMixin, ListView):
     template_name = 'radpress/index.html'
     model = Article
 
@@ -35,7 +23,7 @@ class Index(TagMixin, ListView):
         return data
 
 
-class Detail(TagMixin, DetailView):
+class Detail(TagViewMixin, DetailView):
     template_name = 'radpress/detail.html'
     model = Article
 
@@ -60,7 +48,7 @@ class PageDetail(Detail):
     model = Page
 
 
-class Archive(TagMixin, ArchiveIndexView):
+class Archive(TagViewMixin, ArchiveIndexView):
     template_name = 'radpress/archive.html'
     model = Article
     date_field = 'created_at'
