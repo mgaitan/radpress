@@ -1,0 +1,13 @@
+{% extends "radpress/base_no_body.html" %}
+
+{% block body %}
+  <div class="container">
+    <div id="zen-mode">
+      <textarea></textarea>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ STATIC_URL }}radpress/js/zen_mode.js"></script>
+{% endblock %}
