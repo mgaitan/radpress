@@ -7,7 +7,7 @@
   <div id="blog-archive" class="set-content-margin">
     <h1>{% trans "Blog Archive" %}</h1>
 
-    {% include "radpress/_archive_list.html" %}
+    {% include "radpress/partials/archive_list.html" %}
   </div>
 
   {% if page_obj %}
@@ -28,7 +28,7 @@
 
 {% block sidebar %}
   <div class="sidebar-box">
-    {% include "radpress/_search_form.html" %}
+    {% include "radpress/partials/search_form.html" %}
   </div>
 
   <div id="archive-tags">

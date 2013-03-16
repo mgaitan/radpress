@@ -72,11 +72,11 @@
               <div id="sidebar">
                 {% block sidebar %}
                   <div class="sidebar-box">
-                    {%  include "radpress/_search_form.html" %}
+                    {%  include "radpress/partials/search_form.html" %}
                   </div>
 
                   <div class="sidebar-box">
-                    {% include "radpress/_latest_posts.html" %}
+                    {% include "radpress/partials/latest_posts.html" %}
                   </div>
 
                   {% if tag_list %}
