@@ -8,7 +8,7 @@ from radpress.models import Article, Page
 from radpress.settings import DATA
 
 
-class Index(TagViewMixin, ListView):
+class IndexView(TagViewMixin, ListView):
     template_name = 'radpress/index.html'
     model = Article
 
@@ -16,7 +16,7 @@ class Index(TagViewMixin, ListView):
         return self.model.objects.all_published()[:DATA.get('RADPRESS_LIMIT')]
 
     def get_context_data(self, **kwargs):
-        data = super(Index, self).get_context_data(**kwargs)
+        data = super(IndexView, self).get_context_data(**kwargs)
         data.update({'by_more': True})
 
         return data
@@ -39,7 +39,7 @@ class PageDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Page
 
 
-class Archive(TagViewMixin, ArchiveIndexView):
+class ArchiveView(TagViewMixin, ArchiveIndexView):
     template_name = 'radpress/archive.html'
     model = Article
     date_field = 'created_at'
@@ -56,7 +56,7 @@ class Archive(TagViewMixin, ArchiveIndexView):
         return queryset.values('slug', 'title', 'updated_at')
 
     def get_context_data(self, **kwargs):
-        data = super(Archive, self).get_context_data(**kwargs)
+        data = super(ArchiveView, self).get_context_data(**kwargs)
         data.update({
             'enabled_tag': self.request.GET.get('tag')
         })
@@ -64,16 +64,16 @@ class Archive(TagViewMixin, ArchiveIndexView):
         return data
 
 
-class Preview(TemplateView):
+class PreviewView(TemplateView):
     template_name = 'radpress/preview.html'
     http_method_names = ['post']
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(Preview, self).dispatch(*args, **kwargs)
+        return super(PreviewView, self).dispatch(*args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        data = super(Preview, self).get_context_data(**kwargs)
+        data = super(PreviewView, self).get_context_data(**kwargs)
         data.update({
             'content': self.request.POST.get('data', '')
         })
@@ -81,10 +81,10 @@ class Preview(TemplateView):
         return data
 
     def post(self, request, *args, **kwargs):
-        return super(Preview, self).get(request, *args, **kwargs)
+        return super(PreviewView, self).get(request, *args, **kwargs)
 
 
-class Search(TemplateView):
+class SearchView(TemplateView):
     template_name = 'radpress/search.html'
     models = (Article, Page)
 
@@ -103,7 +103,7 @@ class Search(TemplateView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        data = super(Search, self).get_context_data(**kwargs)
+        data = super(SearchView, self).get_context_data(**kwargs)
         data.update({'object_list': self.get_queryset()})
 
         return data
