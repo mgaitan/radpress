@@ -1,10 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import (
     ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView)
-from radpress.mixins import ZenModeViewMixin, TagViewMixin
+from radpress.mixins import ZenModeViewMixin, TagViewMixin, EntryViewMixin
 from radpress.models import Article, Page
 from radpress.settings import DATA
 
@@ -23,18 +22,11 @@ class Index(TagViewMixin, ListView):
         return data
 
 
-class Detail(TagViewMixin, DetailView):
-    template_name = 'radpress/detail.html'
+class ArticleDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Article
 
-    def get_object(self, queryset=None):
-        obj = get_object_or_404(
-            self.model, slug=self.kwargs.get('slug'), is_published=True)
-
-        return obj
-
     def get_context_data(self, **kwargs):
-        data = super(Detail, self).get_context_data(**kwargs)
+        data = super(ArticleDetailView, self).get_context_data(**kwargs)
         data.update({
             'object_list': self.model.objects.all_published().values(
                 'slug', 'title', 'updated_at')[:DATA.get('RADPRESS_LIMIT')]
@@ -43,8 +35,7 @@ class Detail(TagViewMixin, DetailView):
         return data
 
 
-class PageDetail(Detail):
-    template_name = 'radpress/page_detail.html'
+class PageDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Page
 
 

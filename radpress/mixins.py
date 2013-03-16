@@ -1,5 +1,6 @@
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
+from django.utils.decorators import method_decorator
 from radpress.forms import ZenModeForm
 from radpress.models import Tag
 
@@ -30,3 +31,18 @@ class TagViewMixin(object):
         data.update({'tag_list': tags.values('name', 'slug')})
 
         return data
+
+
+class EntryViewMixin(object):
+    """
+    Checks model object is_published value. If it's not published, it will
+    raise Http404. It works only for Entry abstracted models that have
+    `is_published` fields: Article, Page.
+    """
+    def get_object(self, queryset=None):
+        obj = super(EntryViewMixin, self).get_object(queryset)
+
+        if not obj.is_published:
+            raise Http404
+
+        return obj

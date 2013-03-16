@@ -33,7 +33,7 @@ class Test(TestCase):
         for article in Article.objects.all():
             status_code = 200 if article.is_published else 404
             response = self.client.get(
-                reverse('radpress-detail', args=[article.slug]))
+                reverse('radpress-article-detail', args=[article.slug]))
 
             self.assertEqual(response.status_code, status_code)
 
@@ -45,7 +45,7 @@ class Test(TestCase):
 
         self.client.login(username='gokmen', password='secret')
         response = self.client.get(reverse('radpress-preview'))
-        expected_status_code = 405 # because, view only allows `post` method
+        expected_status_code = 405  # because, view only allows `post` method
         self.assertEqual(response.status_code, expected_status_code)
 
     def test_slugs(self):
