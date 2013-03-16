@@ -14,7 +14,7 @@ def restructuredtext(text):
     return mark_safe(rstify(text))
 
 
-@register.inclusion_tag('radpress/_head.html')
+@register.inclusion_tag('radpress/tags/head.html')
 def radpress_include_head():
     """
     Includes radpress css and js files.
@@ -28,7 +28,7 @@ def radpress_include_head():
     return context
 
 
-@register.inclusion_tag('radpress/_datetime.html')
+@register.inclusion_tag('radpress/tags/datetime.html')
 def radpress_datetime(datetime):
     """
     Time format that compatible with html5.
