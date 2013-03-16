@@ -16,7 +16,7 @@
         {% if object.tags.count %}
           <div class="tags">
             {% for tag in object.tags.all %}
-              <a class="label label-info" href="{% url 'radpress-archive' %}?tag={{ tag.slug }}">
+              <a class="label label-info" href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
                 <i class="icon-tag icon-white"></i>
                 {{ tag.name }}
               </a>

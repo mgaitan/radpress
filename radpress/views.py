@@ -8,15 +8,14 @@ from radpress.models import Article, Page
 from radpress.settings import DATA
 
 
-class IndexView(TagViewMixin, ListView):
-    template_name = 'radpress/index.html'
+class ArticleListView(TagViewMixin, ListView):
     model = Article
 
     def get_queryset(self):
         return self.model.objects.all_published()[:DATA.get('RADPRESS_LIMIT')]
 
     def get_context_data(self, **kwargs):
-        data = super(IndexView, self).get_context_data(**kwargs)
+        data = super(ArticleListView, self).get_context_data(**kwargs)
         data.update({'by_more': True})
 
         return data
@@ -39,8 +38,7 @@ class PageDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Page
 
 
-class ArchiveView(TagViewMixin, ArchiveIndexView):
-    template_name = 'radpress/archive.html'
+class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
     model = Article
     date_field = 'created_at'
     paginate_by = 25
@@ -56,7 +54,7 @@ class ArchiveView(TagViewMixin, ArchiveIndexView):
         return queryset.values('slug', 'title', 'updated_at')
 
     def get_context_data(self, **kwargs):
-        data = super(ArchiveView, self).get_context_data(**kwargs)
+        data = super(ArticleArchiveView, self).get_context_data(**kwargs)
         data.update({
             'enabled_tag': self.request.GET.get('tag')
         })

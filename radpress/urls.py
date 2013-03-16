@@ -1,19 +1,19 @@
 from django.conf.urls import patterns, url
 from radpress.views import (
-    ArchiveView, ArticleDetailView, IndexView, PreviewView, PageDetailView,
-    SearchView, ZenModeView, ZenModeUpdateView)
+    ArticleArchiveView, ArticleDetailView, ArticleListView, PreviewView,
+    PageDetailView, SearchView, ZenModeView, ZenModeUpdateView)
 from radpress.feeds import ArticleFeed
 
 urlpatterns = patterns(
     '',
 
     url(r'^$',
-        view=IndexView.as_view(),
-        name='radpress-index'),
+        view=ArticleListView.as_view(),
+        name='radpress-article-list'),
 
     url(r'^archives/$',
-        view=ArchiveView.as_view(),
-        name='radpress-archive'),
+        view=ArticleArchiveView.as_view(),
+        name='radpress-article-archive'),
 
     url(r'^detail/(?P<slug>[-\w]+)/$',
         view=ArticleDetailView.as_view(),

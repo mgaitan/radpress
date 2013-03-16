@@ -32,10 +32,10 @@
 
       <ul class="nav">
         <li>
-          <a href="{% url 'radpress-index' %}">{% trans "Blog" %}</a>
+          <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
         </li>
         <li>
-          <a href="{% url 'radpress-archive' %}">{% trans "Archive" %}</a>
+          <a href="{% url 'radpress-article-archive' %}">{% trans "Archive" %}</a>
         </li>
         {% for menu in RADPRESS_MENUS %}
           <li>
@@ -86,7 +86,7 @@
                       <div class="tags">
                         {% for tag in tag_list %}
                           <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-                             href="{% url 'radpress-archive' %}?tag={{ tag.slug }}">
+                             href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
                              <i class="icon-tag icon-white"></i>
                              {{ tag.name }}
                           </a>
@@ -110,7 +110,7 @@
           </div>
           <div class="span3">
             {% if user.is_authenticated %}
-              <a href="{% url 'admin:logout' %}?next={% url 'radpress-index' %}" class="pull-right menu">
+              <a href="{% url 'admin:logout' %}?next={% url 'radpress-article-list' %}" class="pull-right menu">
                 {% trans "logout" %}
               </a>
             {% endif %}
