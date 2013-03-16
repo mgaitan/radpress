@@ -39,7 +39,7 @@
               {% endif %}
 
               <h1 class="entry-title">
-                <a href="{% url 'radpress-detail' object.slug %}">
+                <a href="{{ object.get_absolute_url }}">
                   {{ object.title }}
                 </a>
               </h1>
@@ -73,7 +73,7 @@
                   </div>
                   <div class="span6">
                     <span>
-                      <a href="{% url 'radpress-detail' object.slug %}" class="more pull-right">{% trans "Read the rest of this entry" %} →</a>
+                      <a href="{{ object.get_absolute_url }}" class="more pull-right">{% trans "Read the rest of this entry" %} →</a>
                     </span>
                   </div>
                 </div>

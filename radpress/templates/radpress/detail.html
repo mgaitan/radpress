@@ -36,7 +36,7 @@
         {% endif %}
 
         <h1 class="entry-title">
-          <a href="{% url 'radpress-detail' object.slug %}">
+          <a href="{{ object.get_absolute_url }}">
             {{ object.title }}
           </a>
         </h1>

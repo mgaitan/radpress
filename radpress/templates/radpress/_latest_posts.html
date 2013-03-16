@@ -6,7 +6,7 @@
 <ul>
   {% for object in object_list %}
     <li>
-      <a href="{% url 'radpress-detail' object.slug %}">
+      <a href="{{ object.get_absolute_url }}">
         <h4>{{ object.title }}</h4>
       </a>
     </li>
