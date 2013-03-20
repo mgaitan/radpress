@@ -38,7 +38,7 @@
 					previewTemplatePath:	'~/templates/preview.html',
 					previewParser:			false,
 					previewParserPath:		'',
-					previewParserVar:		'data',
+					previewParserVar:		'content',
 					resizeHandle:			true,
 					beforeInsert:			'',
 					afterInsert:			'',

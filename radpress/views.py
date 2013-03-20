@@ -73,7 +73,7 @@ class PreviewView(TemplateView):
     def get_context_data(self, **kwargs):
         data = super(PreviewView, self).get_context_data(**kwargs)
         data.update({
-            'content': self.request.POST.get('data', '')
+            'content': self.request.POST.get('content', '')
         })
 
         return data

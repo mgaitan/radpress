@@ -4,12 +4,13 @@ var containerHeight;
 var formDiv = container.find('#zen-mode');
 var previewDiv = container.find('#zen-preview');
 var textarea = container.find('textarea');
+var buttons = previewDiv.find('.button-group');
 
 var generateContent = function() {
     var data = formDiv.find('form').serialize();
 
     $.ajax({
-        url: formDiv.find('form').attr('action'),
+        url: formDiv.find('form').data('preview-url'),
         data: data,
         type: 'POST',
         success: function(response) {
@@ -20,13 +21,14 @@ var generateContent = function() {
 
 var resizeContent = function() {
     containerHeight = $(window).height() - containerMargin * 2;
-    previewDiv.find('.content-space').height(containerHeight -     previewDiv.find('.button-group').height());
+    previewDiv.find('.content-space').height(containerHeight - previewDiv.find('.button-group').height());
     textarea.height(containerHeight);
 };
 
 // set container margin
 container.css('padding', containerMargin + 'px');
 
+// connect signals
 $(window).on('load resize', function() {
     resizeContent();
 });
@@ -40,4 +42,8 @@ textarea.on('keyup', function(e) {
     if (e.keyCode == 13) {
         generateContent();
     }
+});
+
+buttons.find('.zen-button-save').on('click', function() {
+    formDiv.find('form').submit();
 });

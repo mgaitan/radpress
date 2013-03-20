@@ -16,16 +16,17 @@
     <div class="row-fluid">
       <div class="span7">
         <div id="zen-mode">
-          <form action="{% url 'radpress-preview' %}" method="POST">
+          <form action="" method="POST" data-preview-url="{% url 'radpress-preview' %}">
             {% csrf_token %}
-            <textarea name="data"></textarea>
+
+            {{ form.content }}
           </form>
         </div>
       </div>
       <div class="span5">
         <div id="zen-preview">
           <div class="button-group">
-            <a class="zen-button" href="#">
+            <a class="zen-button zen-button-save" href="#">
               {% trans "Save" %}
             </a>
           </div>
