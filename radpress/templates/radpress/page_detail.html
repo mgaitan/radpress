@@ -1,11 +1,9 @@
-{% extends "radpress/base_content.html" %}
+{% extends "radpress/base.html" %}
 
-{% load url from future %}
-
-{% block content %}
+{% block base_content %}
   <div class="article">
     <h1 class="entry-title">
-      <a href="{% url 'radpress-page-detail' object.slug %}">
+      <a href="{{ object.get_absolute_url }}">
         {{ object.title }}
       </a>
     </h1>
