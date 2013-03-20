@@ -3,6 +3,10 @@
 {% load trans from i18n %}
 {% load url from future %}
 
+{% block heads %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}radpress/css/style.css" />
+{% endblock %}
+
 {% block body %}
   <div class="container">
     <header>
@@ -41,8 +45,8 @@
         </div>
       {% endif %}
 
-      <div class="row">
-        {% block base_content %}
+      {% block base_content %}
+        <div class="row">
           <div class="span9">
             <div id="content" class="{% block content_class %}{% endblock %}">
               {% block content %}{% endblock %}
@@ -77,8 +81,8 @@
               {% endblock %}
             </div>
           </div>
-        {% endblock %}
-      </div>
+        </div> {# /row #}
+      {% endblock %}
     </div> {# /wrapper #}
   </div> {# /container #}
 

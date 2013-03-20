@@ -1,5 +1,3 @@
-{% load trans from i18n %}
-{% load url from future %}
 {% load radpress_include_head from radpress_tags %}
 
 <!doctype html>
@@ -19,7 +17,7 @@
     <meta name="author" content="{{ RADPRESS_TITLE }}">
     <meta name="viewport" content="width=device-width">
     {% radpress_include_head %}
-    {% block extraheads %}{% endblock %}
+    {% block heads %}{% endblock %}
   </head>
   <body>
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->

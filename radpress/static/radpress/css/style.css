@@ -316,32 +316,6 @@ table.highlighttable td {
     margin-top: 50px;
 }
 
-/* Zen Mode */
-#zen-mode {
-    margin: 50px 0;
-}
-
-#zen-mode textarea {
-    width: 100%;
-    height: 500px;
-    background-color: transparent;
-    color: #fff;
-    font-size: 1.5em;
-    line-height: 1em;
-    border: none;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    resize: none;
-    font-family: monospace;
-}
-
 /* Default Pygmentize Output */
 .hll { background-color: #ffffcc }
 .c { color: #586E75 } /* Comment */

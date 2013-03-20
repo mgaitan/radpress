@@ -1,13 +1,3 @@
 {% load restructuredtext from radpress_tags %}
 
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="{{ STATIC_URL }}radpress/css/preview.css">
-</head>
-
-<body>
-  {{ content|restructuredtext }}
-</body>
-</html>
+{{ content|restructuredtext }}
