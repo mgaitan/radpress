@@ -1,5 +1,6 @@
 {% extends "radpress/base_no_body.html" %}
 
+{% load trans from i18n %}
 {% load url from future %}
 
 {% block heads %}
@@ -13,7 +14,7 @@
 {% block body %}
   <div id="zen-container">
     <div class="row-fluid">
-      <div class="span6">
+      <div class="span7">
         <div id="zen-mode">
           <form action="{% url 'radpress-preview' %}" method="POST">
             {% csrf_token %}
@@ -21,18 +22,14 @@
           </form>
         </div>
       </div>
-      <div class="span6">
+      <div class="span5">
         <div id="zen-preview">
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
-          output will be here.
+          <div class="button-group">
+            <a class="zen-button" href="#">
+              {% trans "Save" %}
+            </a>
+          </div>
+          <div class="content-space"></div>
         </div>
       </div>
     </div>
