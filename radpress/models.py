@@ -126,11 +126,7 @@ class Article(Entry):
     @property
     def content_by_more(self):
         content_list = self.content_body.split(MORE_TAG, 1)
-        content = content_list[0]
-
-        if len(content_list) > 1:
-            content = content.strip() + '</div>'
-
+        content = content_list[0].strip()
         return content
 
     @models.permalink
