@@ -26,11 +26,10 @@ var resizeContent = function() {
 };
 
 var addMetadataExample = function() {
-    var template = '.. metadata::\n'
-        + '  :title: Hello world\n'
-        + '  :slug: hello-world\n'
-        + '  :tags: world, big bang, foo\n\n'
-        + 'It all started with the big bang!';
+    var template = 'Hello world\n###########\n'
+            + ':slug: hello-world\n'
+            + ':tags: world, big bang, foo\n\n'
+            + 'It all started with the big bang!';
 
     textarea.val(template);
 };
