@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.utils.decorators import method_decorator
 from radpress.forms import ZenModeForm
@@ -18,6 +19,16 @@ class ZenModeViewMixin(object):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ZenModeViewMixin, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        # save new entry
+        entry = form.save()
+
+        # define success url
+        self.success_url = reverse('radpress-zen-mode-update', args=[entry.pk])
+
+        # and redirect
+        return super(ZenModeViewMixin, self).form_valid(form)
 
 
 class TagViewMixin(object):

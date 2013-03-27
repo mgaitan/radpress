@@ -1,7 +1,9 @@
 from django import forms
 from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
-from radpress.models import Entry, Page
+from django.utils.translation import ugettext as _
+from radpress.models import Article, Entry, Page
+from radpress.rst_extensions.rstify import parse_rst_data
 
 
 class MarkupWidget(forms.Textarea):
@@ -27,6 +29,7 @@ class EntryForm(forms.ModelForm):
         content = self.fields.get('content')
         content.widget = MarkupWidget()
 
+
 class ArticleForm(EntryForm):
     class Meta:
         model = Entry
@@ -39,3 +42,17 @@ class PageForm(EntryForm):
 
 class ZenModeForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea)
+
+    def clean_content(self):
+        field = self.cleaned_data.get('content')
+        self.data = parse_rst_data(field, metadata=True)
+
+        if self.data.get('title') is None or self.data.get('slug') is None:
+            msg = _("Title or slug can not be empty.")
+            raise forms.ValidationError(msg)
+
+        return field
+
+    def save(self):
+        article = Article.objects.create(**self.data)
+        return article
