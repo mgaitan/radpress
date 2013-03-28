@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from radpress.models import Article, Entry, Page
-from radpress.rst_extensions.rstify import parse_rst_data
+from radpress.readers import RstReader
 
 
 class MarkupWidget(forms.Textarea):
@@ -45,7 +45,7 @@ class ZenModeForm(forms.Form):
 
     def clean_content(self):
         field = self.cleaned_data.get('content')
-        self.data = parse_rst_data(field, metadata=True)
+        self.data = RstReader(field).read()
 
         if self.data.get('title') is None or self.data.get('slug') is None:
             msg = _("Title or slug can not be empty.")
