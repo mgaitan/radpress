@@ -1,5 +1,5 @@
 from django.contrib import admin
-from radpress.models import Article, ArticleTag, EntryImage, Menu, Page, Tag
+from radpress.models import Article, EntryImage, Menu, Page, Tag
 from radpress.forms import ArticleForm, PageForm
 
 
@@ -20,14 +20,8 @@ class EntryAdmin(admin.ModelAdmin, MarkupAdminMixin):
     search_fields = ('title',)
 
 
-class ArticleTagInline(admin.TabularInline):
-    model = ArticleTag
-    extra = 1
-
-
 class ArticleAdmin(EntryAdmin):
     form = ArticleForm
-    inlines = [ArticleTagInline]
     list_display = (
         'title', 'author', 'created_at', 'updated_at', 'tag_list',
         'is_published')
