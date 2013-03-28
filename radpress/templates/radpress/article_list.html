@@ -31,7 +31,7 @@
             <div class="span10">
               {% if user.is_superuser %}
                 <div class="btn-group pull-right">
-                  <a href="{% url 'admin:radpress_article_change' object.id %}" class="btn btn-mini">
+                  <a href="{% url 'radpress-zen-mode-update' object.pk %}" class="btn btn-mini">
                     <i class="icon-edit"></i>
                     {% trans "Edit" %}
                   </a>
