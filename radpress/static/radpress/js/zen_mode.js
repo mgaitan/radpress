@@ -28,7 +28,8 @@ var resizeContent = function() {
 var addMetadataExample = function() {
     var template = 'Hello world\n###########\n'
             + ':slug: hello-world\n'
-            + ':tags: world, big bang, foo\n\n'
+            + ':tags: world, big bang, foo\n'
+            + ':is_published: no\n\n'
             + 'It all started with the big bang!';
 
     textarea.val(template);
@@ -59,3 +60,10 @@ textarea.on('keyup', function(e) {
 buttons.find('.zen-button-save').on('click', function() {
     formDiv.find('form').submit();
 });
+
+var alerts = $('.alert');
+if (alerts.length) {
+    setTimeout(function() {
+        alerts.fadeOut();
+    }, 3000);
+}

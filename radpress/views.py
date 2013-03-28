@@ -112,4 +112,4 @@ class ZenModeView(ZenModeViewMixin, FormView):
 
 
 class ZenModeUpdateView(ZenModeViewMixin, UpdateView):
-    pass
+    model = Article

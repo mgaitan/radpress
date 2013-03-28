@@ -18,7 +18,10 @@ class Reader(object):
 
 class RstReader(Reader):
     def _parse_metadata(self, document):
-        output = {'title': document.get('title')}
+        output = {
+            'title': document.get('title'),
+            'published': False
+        }
 
         for docinfo in document.traverse(docutils.nodes.docinfo):
             for element in docinfo.children:
@@ -28,6 +31,12 @@ class RstReader(Reader):
                 name_elem, body_elem = element.children
                 name = name_elem.astext().lower()
                 value = body_elem.astext()
+
+                if name == 'tags':
+                    value = set([t.strip() for t in value.split(',')])
+
+                elif name == 'published':
+                    value = value == 'yes'
 
                 output[name] = value
 

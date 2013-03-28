@@ -20,6 +20,12 @@ class ZenModeViewMixin(object):
     def dispatch(self, *args, **kwargs):
         return super(ZenModeViewMixin, self).dispatch(*args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super(ZenModeViewMixin, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+
+        return kwargs
+
     def form_valid(self, form):
         # save new entry
         entry = form.save()

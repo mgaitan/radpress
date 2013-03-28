@@ -6,8 +6,8 @@ from django.db.models import Count
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from easy_thumbnails.files import get_thumbnailer
-from radpress.rst_extensions.rstify import rstify
 from radpress.settings import MORE_TAG
+from radpress.readers import RstReader
 
 
 class ThumbnailModelMixin(object):
@@ -109,7 +109,10 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        self.content_body = rstify(self.content)
+        content_body, metadata = RstReader(self.content).read()
+
+        if not self.content_body:
+            self.content_body = content_body
 
         if not self.slug:
             self.slug = slugify(self.title)
