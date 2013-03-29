@@ -30,11 +30,6 @@ class EntryForm(forms.ModelForm):
         content.widget = MarkupWidget()
 
 
-class ArticleForm(EntryForm):
-    class Meta:
-        model = Entry
-
-
 class PageForm(EntryForm):
     class Meta:
         model = Page
@@ -43,7 +38,7 @@ class PageForm(EntryForm):
 class ZenModeForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ['content']
+        fields = ('content', )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -67,13 +62,22 @@ class ZenModeForm(forms.ModelForm):
 
         return field
 
-    def save(self):
+    def save(self, **kwargs):
         title = self.metadata.get('title')
         slug = self.metadata.get('slug')
         content = self.cleaned_data.get('content')
         is_published = self.metadata.get('published')
 
-        if self.instance is not None:
+        if self.instance.pk is None:
+            article = Article.objects.create(
+                author=self.user,
+                title=title,
+                slug=slug,
+                content=content,
+                content_body=self.content_body,
+                is_published=is_published)
+
+        else:
             article = self.instance
             article.title = title
             article.slug = slug
@@ -84,13 +88,14 @@ class ZenModeForm(forms.ModelForm):
 
             article.articletag_set.all().delete()
 
-        else:
-            article = Article.objects.create(
-                author=self.user, title=title, slug=slug, content=content,
-                content_body=self.content_body, is_published=is_published)
-
         for tag_name in self.metadata.get('tags'):
             tag = Tag.objects.get_or_create(name=tag_name)[0]
             article.articletag_set.create(tag=tag)
 
         return article
+
+    def save_m2m(self):
+        # TODO: this method added for fixing admin form error. But why we need
+        # to this method, i don't know. Please find better way to solve this
+        # problem.
+        pass

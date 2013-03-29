@@ -1,6 +1,6 @@
 from django.contrib import admin
 from radpress.models import Article, EntryImage, Menu, Page, Tag
-from radpress.forms import ArticleForm, PageForm
+from radpress.forms import PageForm, ZenModeForm
 
 
 class MarkupAdminMixin(object):
@@ -20,8 +20,8 @@ class EntryAdmin(admin.ModelAdmin, MarkupAdminMixin):
     search_fields = ('title',)
 
 
-class ArticleAdmin(EntryAdmin):
-    form = ArticleForm
+class ArticleAdmin(admin.ModelAdmin):
+    form = ZenModeForm
     list_display = (
         'title', 'author', 'created_at', 'updated_at', 'tag_list',
         'is_published')
