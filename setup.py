@@ -18,7 +18,7 @@ setup(
     author=u'Gökmen Görgen',
     author_email='gokmen@radity.com',
     license='GPLv3',
-    url='https://github.com/radity/radpress',
+    url='https://github.com/gkmngrgn/radpress',
     packages=find_packages(exclude=['venv', 'demo', 'docs']),
     include_package_data=True,
     zip_safe=False,
