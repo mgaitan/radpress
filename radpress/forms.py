@@ -53,7 +53,7 @@ class ZenModeForm(forms.ModelForm):
             msg = _("Title or slug can not be empty.")
             raise forms.ValidationError(msg)
 
-        if (self.instance is None
+        if (self.instance.pk is None
                 and Article.objects.filter(slug=slug).exists()):
 
             msg = _("Slug should be unique.")
