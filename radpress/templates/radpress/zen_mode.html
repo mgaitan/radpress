@@ -43,6 +43,11 @@
                      {% endif %}">
               {% trans "Go to admin panel" %}
             </a>
+            {% if object.pk %}
+              <a class="zen-button" href="{% url 'radpress-article-detail' object.slug %}">
+                {% trans "View on site" %}
+              </a>
+            {% endif %}
             <a class="zen-button" href="#">
               {% trans "Help" %}
             </a>

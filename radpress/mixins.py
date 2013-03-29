@@ -60,7 +60,7 @@ class EntryViewMixin(object):
     def get_object(self, queryset=None):
         obj = super(EntryViewMixin, self).get_object(queryset)
 
-        if not obj.is_published:
+        if not obj.is_published and not self.request.user.is_superuser:
             raise Http404
 
         return obj
