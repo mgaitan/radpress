@@ -34,17 +34,6 @@
 
   <div class="container">
     <div id="wrapper">
-      {% if messages %}
-        <div id="message">
-          {% for message in messages %}
-            <div class="alert{% if message.tags %} {{ message.tags }}{% endif %}">
-              <button class="close" data-dismiss="alert">×</button>
-              {{ message }}
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-
       {% block base_content %}
         <div class="row">
           <div class="span9">
