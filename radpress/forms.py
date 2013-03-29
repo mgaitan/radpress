@@ -20,8 +20,19 @@ class ZenModeForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(ZenModeForm, self).__init__(*args, **kwargs)
 
+        content_initial = [
+            "Title here",
+            "##########",
+            ":slug: title-here",
+            ":tags: world, big bang, sheldon",
+            ":published: no",
+            "",
+            "Content here..."
+        ]
+
         content = self.fields['content']
         content.widget = forms.Textarea(attrs={'class': 'zen-mode-textarea'})
+        content.initial = '\n'.join(content_initial)
 
     def clean_content(self):
         field = self.cleaned_data.get('content')

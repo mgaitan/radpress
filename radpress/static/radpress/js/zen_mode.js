@@ -26,16 +26,6 @@ var resizeContent = function() {
     textarea.height(containerHeight);
 };
 
-var addMetadataExample = function() {
-    var template = 'Hello world\n###########\n'
-            + ':slug: hello-world\n'
-            + ':tags: world, big bang, foo\n'
-            + ':published: no\n\n'
-            + 'It all started with the big bang!';
-
-    textarea.val(template);
-};
-
 // set container margin
 container.css('padding', containerMargin + 'px');
 
@@ -45,9 +35,6 @@ $(window).on('load resize', function() {
 });
 
 $(window).on('load', function() {
-    if (textarea.val() === '') {
-        addMetadataExample();
-    }
     generateContent();
 });
 
