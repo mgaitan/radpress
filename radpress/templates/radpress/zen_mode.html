@@ -35,7 +35,15 @@
             <a class="zen-button zen-button-save" href="#">
               {% trans "Save" %}
             </a>
-            <a class="zen-button zen-button-save" href="#">
+            <a class="zen-button"
+               href="{% if object.pk %}
+                       {% url 'admin:radpress_article_change' object.pk %}
+                     {% else %}
+                       {% url 'admin:radpress_article_add' %}
+                     {% endif %}">
+              {% trans "Go to admin panel" %}
+            </a>
+            <a class="zen-button" href="#">
               {% trans "Help" %}
             </a>
           </div>
