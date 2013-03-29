@@ -3,25 +3,16 @@ from radpress.models import Article, EntryImage, Menu, Page, Tag
 from radpress.forms import PageForm, ZenModeForm
 
 
-class MarkupAdminMixin(object):
+class ZenModeAdminMixin(object):
+    form = ZenModeForm
+
     class Media:
         css = {
-            'all': ('radpress/css/editor.css',)
+            'all': ('radpress/css/zen_mode_admin.css',)
         }
-        js = (
-            'radpress/markitup/jquery.markitup.js',
-            'radpress/markitup/set.js')
 
 
-class EntryAdmin(admin.ModelAdmin, MarkupAdminMixin):
-    list_display = ['title', 'created_at', 'updated_at', 'is_published']
-    prepopulated_fields = {'slug': ('title',)}
-    list_filter = ('is_published',)
-    search_fields = ('title',)
-
-
-class ArticleAdmin(admin.ModelAdmin):
-    form = ZenModeForm
+class ArticleAdmin(ZenModeAdminMixin, admin.ModelAdmin):
     list_display = (
         'title', 'author', 'created_at', 'updated_at', 'tag_list',
         'is_published')
@@ -34,6 +25,7 @@ class ArticleAdmin(admin.ModelAdmin):
         return ', '.join(tag_list)
 
     def save_model(self, request, obj, form, change):
+        # TODO: is it required?
         if not change:
             obj.author = request.user
 
@@ -42,7 +34,7 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 
 
-class PageAdmin(EntryAdmin):
+class PageAdmin(admin.ModelAdmin):
     form = PageForm
 
 admin.site.register(Page, PageAdmin)

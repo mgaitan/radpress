@@ -20,6 +20,9 @@ class ZenModeForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(ZenModeForm, self).__init__(*args, **kwargs)
 
+        content = self.fields['content']
+        content.widget = forms.Textarea(attrs={'class': 'zen-mode-textarea'})
+
     def clean_content(self):
         field = self.cleaned_data.get('content')
         self.content_body, self.metadata = RstReader(field).read()
