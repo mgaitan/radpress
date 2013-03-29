@@ -20,6 +20,13 @@ class ZenModeForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(ZenModeForm, self).__init__(*args, **kwargs)
 
+        if self.instance.pk is None:
+            zen_mode_url = reverse('radpress-zen-mode')
+
+        else:
+            zen_mode_url = reverse(
+                'radpress-zen-mode-update', args=[self.instance.pk])
+
         content_initial = [
             "Title here",
             "##########",
@@ -33,6 +40,8 @@ class ZenModeForm(forms.ModelForm):
         content = self.fields['content']
         content.widget = forms.Textarea(attrs={'class': 'zen-mode-textarea'})
         content.initial = '\n'.join(content_initial)
+        content.help_text = _("You can also edit with "
+                              "<a href='%s'>zen mode</a>.") % zen_mode_url
 
     def clean_content(self):
         field = self.cleaned_data.get('content')
