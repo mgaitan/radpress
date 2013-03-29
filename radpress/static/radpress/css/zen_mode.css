@@ -40,9 +40,10 @@ body, html {
     box-shadow: 0 0 10px #0e0e0e;
 }
 
-#zen-preview .content-space {
+#zen-preview-content {
     padding: 0 15px;
     overflow: auto;
+    font-size: 16px;
 }
 
 #zen-preview .button-group {

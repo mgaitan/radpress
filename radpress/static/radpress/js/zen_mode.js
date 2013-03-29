@@ -14,14 +14,15 @@ var generateContent = function() {
         data: data,
         type: 'POST',
         success: function(response) {
-            previewDiv.find('.content-space').html(response);
+            previewDiv.find('.title.space').html(response.title);
+            previewDiv.find('.content.space').html(response.content);
         }
     });
 };
 
 var resizeContent = function() {
     containerHeight = $(window).height() - containerMargin * 2;
-    previewDiv.find('.content-space').height(containerHeight - previewDiv.find('.button-group').height());
+    previewDiv.find('#zen-preview-content').height(containerHeight - previewDiv.find('.button-group').height());
     textarea.height(containerHeight);
 };
 
@@ -29,7 +30,7 @@ var addMetadataExample = function() {
     var template = 'Hello world\n###########\n'
             + ':slug: hello-world\n'
             + ':tags: world, big bang, foo\n'
-            + ':is_published: no\n\n'
+            + ':published: no\n\n'
             + 'It all started with the big bang!';
 
     textarea.val(template);

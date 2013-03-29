@@ -2,9 +2,12 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.generic import (
-    ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView)
-from radpress.mixins import ZenModeViewMixin, TagViewMixin, EntryViewMixin
+    ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView,
+    View)
+from radpress.mixins import (
+    ZenModeViewMixin, TagViewMixin, EntryViewMixin, JSONResponseMixin)
 from radpress.models import Article, Page
+from radpress.readers import RstReader
 from radpress.settings import DATA
 
 
@@ -62,24 +65,22 @@ class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
         return data
 
 
-class PreviewView(TemplateView):
-    template_name = 'radpress/preview.html'
-    http_method_names = ['post']
+class PreviewView(JSONResponseMixin, View):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(PreviewView, self).dispatch(*args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        data = super(PreviewView, self).get_context_data(**kwargs)
-        data.update({
-            'content': self.request.POST.get('content', '')
-        })
-
-        return data
-
     def post(self, request, *args, **kwargs):
-        return super(PreviewView, self).get(request, *args, **kwargs)
+        content = request.POST.get('content', '')
+        content_body, metadata = RstReader(content).read()
+        context = {
+            'content': content_body,
+            'title': metadata.get('title'),
+            'tags': list(metadata.get('tags', []))
+        }
+
+        return self.render_to_response(context)
 
 
 class SearchView(TemplateView):

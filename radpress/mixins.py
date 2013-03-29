@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import Http404
+from django.http import Http404, HttpResponse
+from django.utils import simplejson as json
 from django.utils.decorators import method_decorator
 from radpress.forms import ZenModeForm
 from radpress.models import Tag
@@ -63,3 +64,14 @@ class EntryViewMixin(object):
             raise Http404
 
         return obj
+
+
+class JSONResponseMixin(object):
+    def render_to_response(self, context):
+        return self.get_json_response(self.convert_context_to_json(context))
+
+    def get_json_response(self, content, **kwargs):
+        return HttpResponse(content, content_type='application/json', **kwargs)
+
+    def convert_context_to_json(self, context):
+        return json.dumps(context)
