@@ -1,8 +1,7 @@
 from django import forms
 from django.core.urlresolvers import reverse
-from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
-from radpress.models import Article, Entry, Page, Tag
+from radpress.models import Article, Page, Tag
 from radpress.readers import RstReader
 
 
