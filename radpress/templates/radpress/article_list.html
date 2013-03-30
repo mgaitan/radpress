@@ -19,7 +19,7 @@
               {% if object.tags.count %}
                 <div class="tags">
                   {% for tag in object.tags.all %}
-                    <a class="label label-info" href="{% url 'radpress-archive' %}?tag={{ tag.slug }}">
+                    <a class="label label-info" href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
                       <i class="icon-tag icon-white"></i>
                       {{ tag.name }}
                     </a>
@@ -31,7 +31,7 @@
             <div class="span10">
               {% if user.is_superuser %}
                 <div class="btn-group pull-right">
-                  <a href="{% url 'admin:radpress_article_change' object.id %}" class="btn btn-mini">
+                  <a href="{% url 'radpress-zen-mode-update' object.pk %}" class="btn btn-mini">
                     <i class="icon-edit"></i>
                     {% trans "Edit" %}
                   </a>
@@ -39,7 +39,7 @@
               {% endif %}
 
               <h1 class="entry-title">
-                <a href="{% url 'radpress-detail' object.slug %}">
+                <a href="{{ object.get_absolute_url }}">
                   {{ object.title }}
                 </a>
               </h1>
@@ -73,7 +73,7 @@
                   </div>
                   <div class="span6">
                     <span>
-                      <a href="{% url 'radpress-detail' object.slug %}" class="more pull-right">{% trans "Read the rest of this entry" %} →</a>
+                      <a href="{{ object.get_absolute_url }}" class="more pull-right">{% trans "Read the rest of this entry" %} →</a>
                     </span>
                   </div>
                 </div>
@@ -84,7 +84,7 @@
       {% endfor %}
 
       <h3 class="blog-archives">
-        <a href="{% url 'radpress-archive' %}">{% trans "Blog Archives" %}</a>
+        <a href="{% url 'radpress-article-archive' %}">{% trans "Blog Archives" %}</a>
       </h3>
     {% else %}
       <p class="set-content-margin">{% trans "There's no post for now." %}</p>

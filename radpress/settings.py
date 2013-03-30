@@ -21,3 +21,12 @@ MODERNIZR = getattr(
     settings, 'RADPRESS_MODERNIZR_PATH',
     'radpress/js/modernizr.custom.68944.js')
 RST_SETTINGS = getattr(settings, 'RESTRUCTUREDTEXT_FILTER_SETTINGS', {})
+RST_SETTINGS.update({
+    'initial_header_level': 2,
+    'doctitle_xform': True,
+    'language_code': 'en',
+    'footnote_references': 'superscript',
+    'trim_footnote_reference_space': True,
+    'default_reference_context': 'view',
+    'link_base': '',
+})

@@ -9,6 +9,10 @@ Radpress is a simple blog application for Djangonauts. It doesn't use WYSIWYG
 editor. The default markup syntax is `reStructuredText`_ and you can preview
 your entry simply before published it.
 
+.. image:: static/zen_mode.png
+   :height: 443
+   :width: 727
+
 Installation
 ------------
 You can install Radpress with `pip` or `easy_install`::

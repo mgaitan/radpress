@@ -1,33 +1,43 @@
 from django.conf.urls import patterns, url
-from radpress.views import Archive, Detail, Index, Preview, PageDetail, Search
+from radpress.views import (
+    ArticleArchiveView, ArticleDetailView, ArticleListView, PreviewView,
+    PageDetailView, SearchView, ZenModeView, ZenModeUpdateView)
 from radpress.feeds import ArticleFeed
 
 urlpatterns = patterns(
     '',
 
     url(r'^$',
-        view=Index.as_view(),
-        name='radpress-index'),
+        view=ArticleListView.as_view(),
+        name='radpress-article-list'),
 
     url(r'^archives/$',
-        view=Archive.as_view(),
-        name='radpress-archive'),
+        view=ArticleArchiveView.as_view(),
+        name='radpress-article-archive'),
 
     url(r'^detail/(?P<slug>[-\w]+)/$',
-        view=Detail.as_view(),
-        name='radpress-detail'),
+        view=ArticleDetailView.as_view(),
+        name='radpress-article-detail'),
 
     url(r'^p/(?P<slug>[-\w]+)/$',
-        view=PageDetail.as_view(),
+        view=PageDetailView.as_view(),
         name='radpress-page-detail'),
 
     url(r'^preview/$',
-        view=Preview.as_view(),
+        view=PreviewView.as_view(),
         name='radpress-preview'),
 
     url(r'^search/$',
-        view=Search.as_view(),
+        view=SearchView.as_view(),
         name='radpress-search'),
+
+    url(r'^zen/$',
+        view=ZenModeView.as_view(),
+        name='radpress-zen-mode'),
+
+    url(r'zen/(?P<pk>\d+)/$',
+        view=ZenModeUpdateView.as_view(),
+        name='radpress-zen-mode-update'),
 
     url(r'^rss/$',
         view=ArticleFeed(),
