@@ -11,6 +11,10 @@ from radpress.readers import RstReader
 from radpress.settings import DATA
 
 
+class JSONView(JSONResponseMixin, View):
+    pass
+
+
 class ArticleListView(TagViewMixin, ListView):
     model = Article
 
@@ -65,7 +69,7 @@ class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
         return data
 
 
-class PreviewView(JSONResponseMixin, View):
+class PreviewView(JSONView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
