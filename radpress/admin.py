@@ -1,46 +1,23 @@
 from django.contrib import admin
-from radpress.models import Article, ArticleTag, EntryImage, Menu, Page, Tag
-from radpress.forms import ArticleForm, PageForm
+from radpress.models import Article, EntryImage, Menu, Page, Tag
+from radpress.forms import PageForm, ZenModeForm
 
 
-def toggle_published(modeladmin, request, queryset):
-    for obj in queryset:
-        obj.is_published = not obj.is_published
-        obj.save()
+class ZenModeAdminMixin(object):
+    form = ZenModeForm
 
-toggle_published.short_description = "Change published status of the article"
-
-
-class MarkupAdminMixin(object):
     class Media:
         css = {
-            'all': ('radpress/css/editor.css',)
+            'all': ('radpress/css/zen_mode_admin.css',)
         }
-        js = (
-            'radpress/markitup/jquery.markitup.js',
-            'radpress/markitup/set.js')
 
 
-class EntryAdmin(admin.ModelAdmin, MarkupAdminMixin):
-    list_display = ['title', 'created_at', 'updated_at', 'is_published']
-    prepopulated_fields = {'slug': ('title',)}
-    list_filter = ('is_published',)
-    search_fields = ('title',)
-    actions = [toggle_published]
-
-
-class ArticleTagInline(admin.TabularInline):
-    model = ArticleTag
-    extra = 1
-
-
-class ArticleAdmin(EntryAdmin):
-    form = ArticleForm
-    inlines = [ArticleTagInline]
+class ArticleAdmin(ZenModeAdminMixin, admin.ModelAdmin):
     list_display = (
         'title', 'author', 'created_at', 'updated_at', 'tag_list',
         'is_published')
     list_filter = ('is_published', 'tags')
+    list_editable = ('is_published',)
 
     def tag_list(self, obj):
         tag_list = [tag.name for tag in obj.tags.all()]
@@ -48,6 +25,7 @@ class ArticleAdmin(EntryAdmin):
         return ', '.join(tag_list)
 
     def save_model(self, request, obj, form, change):
+        # TODO: is it required?
         if not change:
             obj.author = request.user
 
@@ -56,7 +34,7 @@ class ArticleAdmin(EntryAdmin):
 admin.site.register(Article, ArticleAdmin)
 
 
-class PageAdmin(EntryAdmin):
+class PageAdmin(admin.ModelAdmin):
     form = PageForm
 
 admin.site.register(Page, PageAdmin)

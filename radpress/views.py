@@ -1,51 +1,38 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q, Count
-from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from django.utils.decorators import method_decorator
 from django.views.generic import (
-    DetailView, ListView, TemplateView, ArchiveIndexView)
-from radpress.models import Article, Page, Tag
+    ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView,
+    View)
+from radpress.mixins import (
+    ZenModeViewMixin, TagViewMixin, EntryViewMixin, JSONResponseMixin)
+from radpress.models import Article, Page
+from radpress.readers import RstReader
 from radpress.settings import DATA
 
 
-class TagMixin(object):
-    def get_context_data(self, **kwargs):
-        tags = Tag.objects.annotate(Count('article')).filter(
-            article__count__gt=0, article__is_published=True)
-        data = super(TagMixin, self).get_context_data(**kwargs)
-        data.update({
-            'tag_list': tags.values('name', 'slug')
-        })
-
-        return data
+class JSONView(JSONResponseMixin, View):
+    pass
 
 
-class Index(TagMixin, ListView):
-    template_name = 'radpress/index.html'
+class ArticleListView(TagViewMixin, ListView):
     model = Article
 
     def get_queryset(self):
         return self.model.objects.all_published()[:DATA.get('RADPRESS_LIMIT')]
 
     def get_context_data(self, **kwargs):
-        data = super(Index, self).get_context_data(**kwargs)
+        data = super(ArticleListView, self).get_context_data(**kwargs)
         data.update({'by_more': True})
 
         return data
 
 
-class Detail(TagMixin, DetailView):
-    template_name = 'radpress/detail.html'
+class ArticleDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Article
 
-    def get_object(self, queryset=None):
-        obj = get_object_or_404(
-            self.model, slug=self.kwargs.get('slug'), is_published=True)
-
-        return obj
-
     def get_context_data(self, **kwargs):
-        data = super(Detail, self).get_context_data(**kwargs)
+        data = super(ArticleDetailView, self).get_context_data(**kwargs)
         data.update({
             'object_list': self.model.objects.all_published().values(
                 'slug', 'title', 'updated_at')[:DATA.get('RADPRESS_LIMIT')]
@@ -54,13 +41,11 @@ class Detail(TagMixin, DetailView):
         return data
 
 
-class PageDetail(Detail):
-    template_name = 'radpress/page_detail.html'
+class PageDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Page
 
 
-class Archive(TagMixin, ArchiveIndexView):
-    template_name = 'radpress/archive.html'
+class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
     model = Article
     date_field = 'created_at'
     paginate_by = 25
@@ -76,7 +61,7 @@ class Archive(TagMixin, ArchiveIndexView):
         return queryset.values('slug', 'title', 'updated_at')
 
     def get_context_data(self, **kwargs):
-        data = super(Archive, self).get_context_data(**kwargs)
+        data = super(ArticleArchiveView, self).get_context_data(**kwargs)
         data.update({
             'enabled_tag': self.request.GET.get('tag')
         })
@@ -84,27 +69,25 @@ class Archive(TagMixin, ArchiveIndexView):
         return data
 
 
-class Preview(TemplateView):
-    template_name = 'radpress/preview.html'
-    http_method_names = ['post']
+class PreviewView(JSONView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        return super(Preview, self).dispatch(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        data = super(Preview, self).get_context_data(**kwargs)
-        data.update({
-            'content': self.request.POST.get('data', '')
-        })
-
-        return data
+        return super(PreviewView, self).dispatch(*args, **kwargs)
 
     def post(self, request, *args, **kwargs):
-        return super(Preview, self).get(request, *args, **kwargs)
+        content = request.POST.get('content', '')
+        content_body, metadata = RstReader(content).read()
+        context = {
+            'content': content_body,
+            'title': metadata.get('title'),
+            'tags': list(metadata.get('tags', []))
+        }
+
+        return self.render_to_response(context)
 
 
-class Search(TemplateView):
+class SearchView(TemplateView):
     template_name = 'radpress/search.html'
     models = (Article, Page)
 
@@ -123,7 +106,15 @@ class Search(TemplateView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        data = super(Search, self).get_context_data(**kwargs)
+        data = super(SearchView, self).get_context_data(**kwargs)
         data.update({'object_list': self.get_queryset()})
 
         return data
+
+
+class ZenModeView(ZenModeViewMixin, FormView):
+    pass
+
+
+class ZenModeUpdateView(ZenModeViewMixin, UpdateView):
+    model = Article

@@ -33,7 +33,7 @@ class ArticleFeed(Feed):
         return item.title
 
     def item_link(self, item):
-        return reverse_lazy('radpress-detail', args=[item.slug])
+        return item.get_absolute_url()
 
     def item_pubdate(self, item):
         return item.created_at

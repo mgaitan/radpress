@@ -2,11 +2,12 @@ import os
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Count
 from django.template.defaultfilters import slugify
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 from easy_thumbnails.files import get_thumbnailer
-from radpress.rst_extensions.rstify import rstify
 from radpress.settings import MORE_TAG
+from radpress.readers import RstReader
 
 
 class ThumbnailModelMixin(object):
@@ -26,9 +27,20 @@ class ThumbnailModelMixin(object):
         return res % (image.url, url, size[1])
 
 
+class TagManager(models.Manager):
+    def get_available_tags(self):
+        """
+        Receives list of available tags. To be available a tag, it should be
+        used by any published article.
+        """
+        return self.annotate(Count('article')).filter(
+            article__count__gt=0, article__is_published=True)
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
+    objects = TagManager()
 
     def __unicode__(self):
         return unicode(self.name)
@@ -97,7 +109,10 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        self.content_body = rstify(self.content)
+        content_body, metadata = RstReader(self.content).read()
+
+        if not self.content_body:
+            self.content_body = content_body
 
         if not self.slug:
             self.slug = slugify(self.title)
@@ -114,12 +129,12 @@ class Article(Entry):
     @property
     def content_by_more(self):
         content_list = self.content_body.split(MORE_TAG, 1)
-        content = content_list[0]
-
-        if len(content_list) > 1:
-            content = content.strip() + '</div>'
-
+        content = content_list[0].strip()
         return content
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('radpress-article-detail', [self.slug])
 
 
 class ArticleTag(models.Model):
@@ -131,7 +146,9 @@ class ArticleTag(models.Model):
 
 
 class Page(Entry):
-    pass
+    @models.permalink
+    def get_absolute_url(self):
+        return ('radpress-page-detail', [self.slug])
 
 
 class Menu(models.Model):
