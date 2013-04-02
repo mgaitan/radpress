@@ -1,7 +1,7 @@
 from django import forms
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
-from radpress.models import Article, Page, Tag
+from radpress.models import Article, EntryImage, Page, Tag
 from radpress.readers import RstReader
 
 
@@ -65,27 +65,31 @@ class ZenModeForm(forms.ModelForm):
         slug = self.metadata.get('slug')
         content = self.cleaned_data.get('content')
         is_published = self.metadata.get('published')
+        image_id = self.metadata.get('image', '')
 
-        if self.instance.pk is None:
-            article = Article.objects.create(
-                author=self.user,
-                title=title,
-                slug=slug,
-                content=content,
-                content_body=self.content_body,
-                is_published=is_published)
-
-        else:
+        if self.instance.pk is not None:
             article = self.instance
-            article.title = title
-            article.slug = slug
-            article.content = content
-            article.content_body = self.content_body
-            article.is_published = is_published
-            article.save()
+        else:
+            article = Article()
 
-            article.articletag_set.all().delete()
+        article.title = title
+        article.slug = slug
+        article.content = content
+        article.content_body = self.content_body
+        article.is_published = is_published
 
+        # update cover image if it specified
+        try:
+            image = EntryImage.objects.get(id=int(image_id))
+        except (EntryImage.DoesNotExist, ValueError):
+            image = None
+        article.cover_image = image
+
+        # save article
+        article.save()
+
+        # reset tags
+        article.articletag_set.all().delete()
         for tag_name in self.metadata.get('tags'):
             tag = Tag.objects.get_or_create(name=tag_name)[0]
             article.articletag_set.create(tag=tag)

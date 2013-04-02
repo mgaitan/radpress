@@ -6,7 +6,7 @@ from django.views.generic import (
     View)
 from radpress.mixins import (
     ZenModeViewMixin, TagViewMixin, EntryViewMixin, JSONResponseMixin)
-from radpress.models import Article, Page
+from radpress.models import Article, EntryImage, Page
 from radpress.readers import RstReader
 from radpress.settings import DATA
 
@@ -78,10 +78,17 @@ class PreviewView(JSONView):
     def post(self, request, *args, **kwargs):
         content = request.POST.get('content', '')
         content_body, metadata = RstReader(content).read()
+        image_id = metadata.get('image', '')
+        try:
+            image_url = EntryImage.objects.get(id=int(image_id)).image.url
+        except (EntryImage.DoesNotExist, ValueError):
+            image_url = ''
+
         context = {
             'content': content_body,
             'title': metadata.get('title'),
-            'tags': list(metadata.get('tags', []))
+            'tags': list(metadata.get('tags', [])),
+            'image_url': image_url
         }
 
         return self.render_to_response(context)
