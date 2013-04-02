@@ -32,7 +32,7 @@ class ZenModeForm(forms.ModelForm):
             ":slug: title-here",
             ":tags: world, big bang, sheldon",
             ":published: no",
-            ":image: ID"
+            ":image: ID",
             "",
             "Content here..."
         ]
@@ -71,7 +71,7 @@ class ZenModeForm(forms.ModelForm):
         if self.instance.pk is not None:
             article = self.instance
         else:
-            article = Article()
+            article = Article(author=self.user)
 
         article.title = title
         article.slug = slug
