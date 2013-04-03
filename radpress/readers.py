@@ -1,4 +1,5 @@
 import docutils
+from docutils.core import publish_programmatically
 from docutils.writers import html4css1
 from django.utils.encoding import force_unicode, smart_str
 from radpress.rst_extensions import register_directives
@@ -43,7 +44,7 @@ class RstReader(Reader):
         return output
 
     def _get_publisher(self):
-        output, pub = docutils.core.publish_programmatically(
+        output, pub = publish_programmatically(
             source=self.source,
             source_path=None,
             source_class=docutils.io.StringInput,

@@ -32,7 +32,7 @@ class ZenModeForm(forms.ModelForm):
             ":slug: title-here",
             ":tags: world, big bang, sheldon",
             ":published: no",
-            ":image: ID",
+            ":image: not specified",
             "",
             "Content here..."
         ]
