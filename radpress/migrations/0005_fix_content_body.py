@@ -15,6 +15,24 @@ class Migration(DataMigration):
                 content_body, metadata = RstReader(entry.content).read()
                 entry.content_body = content_body
 
+                if model_name == 'radpress.Article':
+                    if entry.cover_image:
+                        image_id = entry.cover_image.id
+                    else:
+                        image_id = 'not specified'
+
+                    tags = entry.tags.all().values_list('name', flat=True)
+                    published = 'yes' if entry.is_published else 'no'
+
+                    metadata = [
+                        entry.title,
+                        '#' * len(entry.title),
+                        ':slug: %s' % entry.slug,
+                        ':tags: %s' % ', '.join(tags),
+                        ':published: %s' % published,
+                        ':image: %s' % image_id,
+                        '\n']
+                    entry.content = '\n'.join(metadata) + entry.content
 
                 entry.save()
 
