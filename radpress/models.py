@@ -1,3 +1,4 @@
+import datetime
 import os
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -97,7 +98,7 @@ class Entry(models.Model):
     content_body = models.TextField(editable=False)
     is_published = models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(default=datetime.datetime.now)
 
     objects = EntryManager()
 
@@ -116,6 +117,9 @@ class Entry(models.Model):
 
         if not self.slug:
             self.slug = slugify(self.title)
+
+        if not kwargs.pop('skip_updated_at', False):
+            self.updated_at = datetime.datetime.now()
 
         super(Entry, self).save(**kwargs)
 

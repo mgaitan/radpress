@@ -24,15 +24,16 @@ class Migration(DataMigration):
                     tags = entry.tags.all().values_list('name', flat=True)
                     published = 'yes' if entry.is_published else 'no'
 
-                    metadata = [
+                    content = [
                         entry.title,
                         '#' * len(entry.title),
                         ':slug: %s' % entry.slug,
                         ':tags: %s' % ', '.join(tags),
                         ':published: %s' % published,
                         ':image: %s' % image_id,
-                        '\n']
-                    entry.content = '\n'.join(metadata) + entry.content
+                        '',
+                        entry.content]
+                    entry.content = '\n'.join(content)
 
                 entry.save()
 
@@ -88,7 +89,7 @@ class Migration(DataMigration):
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'tags': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['radpress.Tag']", 'null': 'True', 'through': u"orm['radpress.ArticleTag']", 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'})
         },
         u'radpress.articletag': {
             'Meta': {'object_name': 'ArticleTag'},
@@ -117,7 +118,7 @@ class Migration(DataMigration):
             'is_published': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '50'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'})
         },
         u'radpress.tag': {
             'Meta': {'object_name': 'Tag'},
