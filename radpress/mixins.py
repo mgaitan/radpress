@@ -61,7 +61,15 @@ class EntryViewMixin(object):
         obj = super(EntryViewMixin, self).get_object(queryset)
 
         if not obj.is_published and not self.request.user.is_superuser:
-            raise Http404
+            # To open the unpublished entry page, you should be a super user or
+            # entry's author:
+            if hasattr(obj, 'author'):
+                user_can_read = obj.author == self.request.user
+            else:
+                user_can_read = False
+
+            if not user_can_read:
+                raise Http404
 
         return obj
 
