@@ -58,7 +58,7 @@ class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
         if tag:
             queryset = queryset.filter(tags__slug=tag)
 
-        return queryset.values('slug', 'title', 'updated_at')
+        return queryset
 
     def get_context_data(self, **kwargs):
         data = super(ArticleArchiveView, self).get_context_data(**kwargs)
