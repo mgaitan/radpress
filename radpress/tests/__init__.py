@@ -18,9 +18,14 @@ class Test(TestCase):
         self.article1 = Article.objects.get(pk=1)
 
         # define user
-        self.user1 = User.objects.get(pk=1)
+        self.user1 = User.objects.get(username='gokmen')
         self.user1.set_password('secret')
         self.user1.save()
+
+        # define second user password
+        self.user2 = User.objects.get(username='defne')
+        self.user2.set_password('secret')
+        self.user2.save()
 
     def test_all_published_articles(self):
         # check published article count
@@ -74,3 +79,51 @@ class Test(TestCase):
         # try to filter articles for tags
         articles = Article.objects.filter(tags__name=tag_name)
         self.assertEqual(articles.count(), 1)
+
+    def test_access_not_published_article(self):
+        """
+        If user is not authenticated, user can not access not published
+        articles and pages.
+        """
+        article = Article.objects.get(slug='i-have-a-dream')
+        page = Page.objects.get(slug='page-3-not-published')
+
+        def get_responses():
+            response_article = self.client.get(
+                reverse('radpress-article-detail', args=[article.slug]))
+            response_page = self.client.get(
+                reverse('radpress-page-detail', args=[page.slug]))
+
+            return response_article, response_page
+
+        # if user is not authenticated to site:
+        response_article, response_page = get_responses()
+        self.assertEqual(response_article.status_code, 404)
+        self.assertEqual(response_page.status_code, 404)
+
+        # if user is not superuser and not author of the entries:
+        self.client.login(username=self.user2.username, password='secret')
+        self.assertFalse(self.user2.is_superuser)
+        response_article, response_page = get_responses()
+        self.assertEqual(response_article.status_code, 404)
+        self.assertEqual(response_page.status_code, 404)
+
+        # if user is superuser but not the author of entries:
+        self.user2.is_superuser = True
+        self.user2.save()
+        self.assertTrue(self.user2.is_superuser)
+        response_article, response_page = get_responses()
+        self.assertEqual(response_article.status_code, 200)
+        self.assertEqual(response_page.status_code, 200)
+
+        # if user is not superuser but the author of entries:
+        article.author = self.user2
+        article.save()
+
+        self.user2.is_superuser = False
+        self.user2.save()
+
+        self.assertFalse(self.user2.is_superuser)
+        response_article, response_page = get_responses()
+        self.assertEqual(response_article.status_code, 200)
+        self.assertEqual(response_page.status_code, 404)

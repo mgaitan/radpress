@@ -138,7 +138,7 @@ class Article(Entry):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('radpress-article-detail', [self.slug])
+        return 'radpress-article-detail', [self.slug]
 
 
 class ArticleTag(models.Model):
