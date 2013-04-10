@@ -3,6 +3,8 @@
 {% load trans from i18n %}
 {% load url from future %}
 
+{% load radpress_widget_latest_posts from radpress_tags %}
+
 {% block heads %}
   <link rel="stylesheet" href="{{ STATIC_URL }}radpress/css/style.css" />
 {% endblock %}
@@ -49,7 +51,7 @@
                 </div>
 
                 <div class="sidebar-box">
-                  {% include "radpress/partials/latest_posts.html" %}
+                  {% radpress_widget_latest_posts %}
                 </div>
 
                 {% if tag_list %}

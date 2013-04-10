@@ -31,15 +31,6 @@ class ArticleListView(TagViewMixin, ListView):
 class ArticleDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Article
 
-    def get_context_data(self, **kwargs):
-        data = super(ArticleDetailView, self).get_context_data(**kwargs)
-        data.update({
-            'object_list': self.model.objects.all_published().values(
-                'slug', 'title', 'updated_at')[:DATA.get('RADPRESS_LIMIT')]
-        })
-
-        return data
-
 
 class PageDetailView(TagViewMixin, EntryViewMixin, DetailView):
     model = Page
