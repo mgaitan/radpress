@@ -1,13 +1,18 @@
 Radpress
 ========
-Radpress is a simple blogging application for Djangonauts. It uses
-`restructuredtext`_ format for articles and pages.
+Radpress is a simple blog application for Djangonauts. It doesn't use WYSIWYG
+editor. The default markup syntax is `reStructuredText`_ and you can preview
+your entry simply before published it.
 
-See this url for more information: https://radpress.readthedocs.org/en/latest/
-
-.. image:: docs/static/zen_mode.png
-   :height: 443
-   :width: 727
+Features
+--------
+- Zen mode for writing articles
+- Disqus support for comment and reactions
+- Useful sidebar widgets; tag cloud, latest posts
+- Adding page links in navigation bar
+- Listing archives for date or tag
+- Author information for articles
+- Simple theme like as Octopress.
 
 Authors
 -------
