@@ -1,9 +1,10 @@
 -r global.txt
+-r travis.txt
 
 Pillow
 Sphinx
 South
 ipython
 ipdb
-django-extensions
 pygraphviz
+
