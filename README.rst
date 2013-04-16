@@ -1,5 +1,8 @@
 Radpress
 ========
+
+.. image:: https://travis-ci.org/gkmngrgn/radpress.png?branch=develop
+
 Radpress is a simple blog application for Djangonauts. It doesn't use WYSIWYG
 editor. The default markup syntax is `reStructuredText`_ and you can preview
 your entry simply before published it.
