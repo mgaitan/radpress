@@ -4,7 +4,15 @@ from django.http import Http404, HttpResponse
 from django.utils import simplejson as json
 from django.utils.decorators import method_decorator
 from radpress.forms import ZenModeForm
-from radpress.models import Tag
+from radpress.models import Menu, Tag
+
+
+class BaseViewMixin(object):
+    def get_context_data(self, **kwargs):
+        context = super(BaseViewMixin, self).get_context_data(**kwargs)
+        context.update({'RADPRESS_MENUS': Menu.objects.get_menu_context()})
+
+        return context
 
 
 class ZenModeViewMixin(object):

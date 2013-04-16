@@ -1,8 +1,6 @@
 # Django settings for demo project.
 import sys
-
 import os
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 PROJECT_ROOT = os.path.split(os.path.realpath(os.path.dirname(__file__)))[0]
 
@@ -95,8 +93,6 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
     #    'django.template.loaders.eggs.Loader',
     )
-
-TEMPLATE_CONTEXT_PROCESSORS += ('radpress.context_processors.context_data',)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

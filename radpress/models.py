@@ -152,12 +152,26 @@ class ArticleTag(models.Model):
 class Page(Entry):
     @models.permalink
     def get_absolute_url(self):
-        return ('radpress-page-detail', [self.slug])
+        return 'radpress-page-detail', [self.slug]
+
+
+class MenuManager(models.Manager):
+    def get_menu_context(self):
+        menus = []
+        for menu in Menu.objects.filter(page__is_published=True):
+            menus.append({
+                'url': menu.page.get_absolute_url(),
+                'title': menu.page.title
+            })
+
+        return menus
 
 
 class Menu(models.Model):
     order = models.PositiveSmallIntegerField(default=3)
     page = models.ForeignKey(Page, unique=True)
+
+    objects = MenuManager()
 
     class Meta:
         unique_together = ('order', 'page')
