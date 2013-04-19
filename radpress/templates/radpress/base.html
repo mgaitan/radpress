@@ -1,99 +1,85 @@
 {% extends "radpress/base_no_body.html" %}
 
-{% load trans from i18n %}
+{% load blocktrans trans from i18n %}
 {% load url from future %}
 
+{% load radpress_static_url from radpress_tags %}
 {% load radpress_widget_latest_posts from radpress_tags %}
 
 {% block heads %}
-  <link rel="stylesheet" href="{{ STATIC_URL }}radpress/css/style.css" />
+  <link href="{% radpress_static_url 'css/style.css' %}" media="all" type="text/css" rel="stylesheet" />
+  <link href="{% radpress_static_url 'css/media-queries.css' %}" media="screen" type="text/css" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
-  <div class="container">
-    <header>
-      <h1>{{ RADPRESS_TITLE }}</h1>
-      <h2>{{ RADPRESS_DESCRIPTION }}</h2>
-    </header>
-
-    <ul class="nav">
-      <li>
-        <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
-      </li>
-      <li>
-        <a href="{% url 'radpress-article-archive' %}">{% trans "Archive" %}</a>
-      </li>
-      {% for menu in RADPRESS_MENUS %}
-      <li>
-        <a href="{{ menu.url }}">{{ menu.title }}</a>
-      </li>
-      {% endfor %}
-      <li class="pull-right">
-        <a href="{% url 'radpress-rss' %}">RSS</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="container">
-    <div id="wrapper">
-      {% block base_content %}
-        <div class="row">
-          <div class="span9">
-            <div id="content" class="{% block content_class %}{% endblock %}">
-              {% block content %}{% endblock %}
-            </div>
+  <div id="wrapper" class="clearfix">
+    <div id="main" class="clearfix">
+      <div class="header-wrapper clearfix">
+        <div class="logo-default">
+          <div class="logo-text">
+            <a href="{% url 'radpress-article-list' %}" title="{{ RADPRESS_TITLE }}">{{ RADPRESS_TITLE }}</a>
+            {% if RADPRESS_DESCRIPTION %}
+              <br />
+              <span>{{ RADPRESS_DESCRIPTION }}</span>
+            {% endif %}
           </div>
-          <div class="span3 sidebar-span">
-            <div id="sidebar">
-              {% block sidebar %}
-                <div class="sidebar-box">
-                  {%  include "radpress/partials/search_form.html" %}
-                </div>
-
-                <div class="sidebar-box">
-                  {% radpress_widget_latest_posts %}
-                </div>
-
-                {% if tag_list %}
-                  <div class="sidebar-box">
-                    <h2>{% trans "Tag Cloud" %}</h2>
-
-                    <div class="tags">
-                      {% for tag in tag_list %}
-                        <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-                           href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
-                          <i class="icon-tag icon-white"></i>
-                           {{ tag.name }}
-                        </a>
-                      {% endfor %}
-                    </div>
-                  </div>
-                {% endif %}
-              {% endblock %}
-            </div>
-          </div>
-        </div> {# /row #}
-      {% endblock %}
-    </div> {# /wrapper #}
-  </div> {# /container #}
-
-  <div class="container">
-    <footer>
-      <div class="row-fluid">
-        <div class="span9">
-          <p>Copyright &copy; {% now "Y" %} - Gökmen Görgen - Powered by RADPRESS</p>
-        </div>
-        <div class="span3">
-          {% if user.is_authenticated %}
-            <a href="{% url 'admin:logout' %}?next={% url 'radpress-article-list' %}" class="pull-right menu">
-              {% trans "logout" %}
-            </a>
-          {% endif %}
-          <a href="{% url 'admin:index' %}" class="pull-right menu">
-            {% trans "dashboard" %}
-          </a>
         </div>
       </div>
-    </footer>
-  </div>  {# /container #}
+      <div class="secondary-menu-wrap">
+        <div class="menu-hello-menu-container">
+          <ul id="menu-hello-menu-1" class="secondary-menu">
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11">
+              <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
+            </li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11">
+              <a href="{% url 'radpress-article-archive' %}">{% trans "Archive" %}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {% block base_content %}
+        <div id="content">
+          {% block content %}{% endblock %}
+        </div>
+
+        <div id="sidebar">
+          <div id="search-2" class="widget widget_search">
+            {% include "radpress/partials/search_form.html" %}
+          </div>
+
+          <div id="recent-posts-2" class="widget">
+            {% radpress_widget_latest_posts %}
+          </div>
+
+            {% if tag_list %}
+              <div class="sidebar-box">
+                <h2>{% trans "Tag Cloud" %}</h2>
+
+                <div class="tags">
+                  {% for tag in tag_list %}
+                    <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
+                       href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
+                      <i class="icon-tag icon-white"></i>
+                      {{ tag.name }}
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+        </div>
+      {% endblock %}
+
+      <div id="footer" class="clearfix">
+        <div class="footer-copy">
+          <div class="menu-footer-wrapper">
+            <p class="copyright">
+              © {% now "Y" %} -
+              {% blocktrans with url="https://github.com/gkmngrgn/radpress" %}Powered by <a href="{{ url }}" target="_blank">RadPress</a>{% endblocktrans %}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}
