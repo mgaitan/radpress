@@ -22,5 +22,11 @@ setup(
     packages=find_packages(exclude=['venv', 'demo', 'docs']),
     include_package_data=True,
     zip_safe=False,
-    install_requires=install_requires
+    install_requires=install_requires,
+    classifiers=[
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Framework :: Django",
+        "Environment :: Web Environment"
+    ]
 )
