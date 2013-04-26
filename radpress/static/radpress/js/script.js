@@ -4,6 +4,37 @@
  * pull request with your changes. thanks.
  */
 
+// place any jQuery/helper plugins in here, instead of separate, slower script files.
+var getParams = function() {
+    var params = window.location.href.split('?')[1];
+    if (typeof(params) === 'undefined') {
+        return {};
+    }
+
+    params = params.split('&');
+    var paramsObj = {};
+    var item;
+
+    $.each(params, function(key, value) {
+        item = value.split('=');
+        paramsObj[item[0]] = item[1];
+    });
+
+    return paramsObj;
+};
+
+var getParam = function(key) {
+    var value;
+    try {
+        value = window.RADPESS_PARAMS[key];
+        value = decodeURIComponent(value).replace(/\+/g, ' ');
+    } catch(e) {
+        value = null;
+    }
+
+    return value;
+};
+
 // Global Variables
 window.RADPESS_PARAMS = getParams();
 
@@ -28,7 +59,26 @@ if (searchForm.length) {
     var qName = 'q';
     var q = getParam(qName);
 
-    if (typeof(q) !== 'undefined') {
+    if (q != '' && q != 'undefined') {
         searchForm.find('input[name="' + qName + '"]').val(q);
     }
+}
+
+
+var shareUrls = $('.meta-info .share a');
+if (shareUrls.length) {
+    var url;
+
+    $.each(shareUrls, function(key, url) {
+        url = $(this).attr('href') + window.location.href + $(this).data('url').replace(/^\/|\/$/g, '') + '/';
+        $(this).attr('href', url);
+    });
+
+    shareUrls.on('click', function() {
+        window.open(
+            $(this).attr('href'),
+            $(this).text(),
+            'width=450,height=300,left=' + (screen.availWidth / 2 - 375) + ',top=' + (screen.availHeight / 2 - 150) + '');
+        return false;
+    });
 }

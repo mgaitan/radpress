@@ -9,60 +9,7 @@
 
 {% block content %}
   {% for object in object_list %}
-    <div class="post-wrap">
-      <div class="post-5 post type-post status-publish format-gallery hentry category-uncategorized post">
-        <div class="box">
-          {% if object.cover_image %}
-            <div class="gallery-wrap">
-              <a href="{{ object.get_absolute_url }}" title="{{ object.title }}">
-                <img src="{{ object.cover_image.image.url }}" alt="{{ object.cover_image.name }}" />
-              </a>
-            </div>
-            <div class="clear"></div>
-          {% endif %}
-          <div class="frame">
-            <div class="title-wrap">
-              <h2 class="entry-title">
-                <a href="{{ object.get_absolute_url }}" title="{{ object.title }}">
-                  {{ object.title }}
-                </a>
-              </h2>
-              <div class="title-meta">
-                <span>{{ object.author|radpress_full_name }}</span>
-                <span>{% radpress_datetime object.updated_at %}</span>
-              </div>
-            </div>
-            <div class="post-content">
-              {{ object.content_by_more|safe }}
-            </div>
-            <div class="bar">
-              <div class="bar-frame clearfix">
-                <div class="meta-info">
-                  <div class="share">
-                    <!-- google plus -->
-                    <a class="share-google" href="https://plus.google.com/share?url=http://localhost/wordpress/?p=5" onclick="window.open('https://plus.google.com/share?url=http://localhost/wordpress/?p=5','gplusshare','width=450,height=300,left='+(screen.availWidth/2-375)+',top='+(screen.availHeight/2-150)+'');return false;">google</a>
-
-                    <!-- facebook -->
-                    <a class="share-facebook" onclick="window.open('http://www.facebook.com/share.php?u=http://localhost/wordpress/?p=5','facebook','width=450,height=300,left='+(screen.availWidth/2-375)+',top='+(screen.availHeight/2-150)+'');return false;" href="http://www.facebook.com/share.php?u=http://localhost/wordpress/?p=5" title="Hello World" target="blank">facebook</a>
-
-                    <!-- twitter -->
-                    <a class="share-twitter" onclick="window.open('http://twitter.com/home?status=Hello World - http://localhost/wordpress/?p=5','twitter','width=450,height=300,left='+(screen.availWidth/2-375)+',top='+(screen.availHeight/2-150)+'');return false;" href="http://twitter.com/home?status=Hello World - http://localhost/wordpress/?p=5" title="Hello World" target="blank">twitter</a>
-                  </div>
-                  <div class="categories">
-                    <div class="title entypo">i</div>
-                    {% for tag in object.tags.all %}
-                      <a rel="tag" title="{% blocktrans %}View all posts in {{ tag.name }}{% endblocktrans %}" href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
-                        {{ tag.name }}
-                      </a>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    {% include "radpress/partials/entry.html" %}
   {% empty %}
     <p>{% trans "There's no post for now." %}</p>
   {% endfor %}

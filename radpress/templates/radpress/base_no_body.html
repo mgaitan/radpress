@@ -19,22 +19,11 @@
   <body>
     {% block body %}{% endblock %}
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{{ STATIC_URL }}radpress/js/libs/jquery-1.7.2.min.js"><\/script>')</script>
+    <script src="{% radpress_static_url 'js/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% radpress_static_url 'js/script.js' %}" type="text/javascript"></script>
 
-    {# scripts concatenated and minified via ant build script #}
-    <script src="{{ STATIC_URL }}radpress/js/plugins.js"></script>
-    <script src="{{ STATIC_URL }}radpress/js/script.js"></script>
     {% block scripts %}{% endblock %}
 
-    {% if RADPRESS_GA_CODE %}
-      <script>
-        var _gaq=[['_setAccount','{{ RADPRESS_GA_CODE }}'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-      </script>
-    {% endif %}
-    {# /scripts #}
+    {% if RADPRESS_GA_CODE %}{% include "radpress/partials/ga_code.html" %}{% endif %}
   </body>
 </html>

@@ -85,7 +85,10 @@ code {
 
 img { border-style: none }
 
-a { text-decoration: none }
+a {
+    text-decoration: none;
+    color: rgb(104, 174, 207);
+}
 
 a:hover { text-decoration: underline }
 
@@ -681,8 +684,6 @@ h6 {
     background: #f7f7f7;
     border-top: solid 1px #eee;
     width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
     box-sizing: border-box;
     float: left;
     margin: 25px 0 0 0;
@@ -690,6 +691,8 @@ h6 {
     font-size: 12px;
     position: relative;
     color: #A7B5C1;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     -webkit-border-bottom-right-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
     -moz-border-radius-bottomright: 3px;
@@ -700,7 +703,6 @@ h6 {
 
 .post .bar-frame {
     padding: 0 0 5px 0;
-    margin-left: 15px;
     line-height: 18px;
 }
 
@@ -709,17 +711,13 @@ h6 {
     display: inline;
     float: left;
     line-height: 6px;
+    margin-top: 4px;
     margin-right: 5px;
     color: #A7B5C1;
 }
 
 .bar a {
     color: #A7B5C1;
-}
-
-.bar .categories {
-    float: left;
-    margin-right: 20px;
 }
 
 .bar .tags {
@@ -730,6 +728,10 @@ h6 {
     font-size: 32px;
 }
 
+.bar .tags a {
+    margin: 0 5px;
+}
+
 .bar .share {
     float:right;
     margin:-3px 0 0 0;
@@ -737,6 +739,7 @@ h6 {
 }
 
 .bar .share:before {
+    margin-top: 4px;
     content: "f";
     font-family: 'EntypoRegular';
     -webkit-font-smoothing: antialiased;

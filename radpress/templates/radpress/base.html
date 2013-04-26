@@ -52,21 +52,9 @@
             {% radpress_widget_latest_posts %}
           </div>
 
-            {% if tag_list %}
-              <div class="sidebar-box">
-                <h2>{% trans "Tag Cloud" %}</h2>
-
-                <div class="tags">
-                  {% for tag in tag_list %}
-                    <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-                       href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
-                      <i class="icon-tag icon-white"></i>
-                      {{ tag.name }}
-                    </a>
-                  {% endfor %}
-                </div>
-              </div>
-            {% endif %}
+          {% if tag_list %}
+            {% include "radpress/partials/tag_cloud.html" %}
+          {% endif %}
         </div>
       {% endblock %}
 

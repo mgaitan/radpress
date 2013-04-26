@@ -1,5 +1,7 @@
 from django import template
 from django.conf import settings
+from django.contrib.sites.models import Site
+from django.template import Node, TemplateSyntaxError
 from django.utils.safestring import mark_safe
 from radpress import settings as radpress_settings, get_version
 from radpress.models import Article
