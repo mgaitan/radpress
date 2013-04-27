@@ -1,9 +1,9 @@
 import os.path
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.test import TestCase
 from django.test.client import Client
+from radpress.compat import User
 from radpress.models import Article, Page, Tag
 from radpress.templatetags.radpress_tags import restructuredtext
 
@@ -37,9 +37,7 @@ class Test(TestCase):
     def test_open_private_and_public_article_details(self):
         for article in Article.objects.all():
             status_code = 200 if article.is_published else 404
-            response = self.client.get(
-                reverse('radpress-article-detail', args=[article.slug]))
-
+            response = self.client.get(article.get_absolute_url())
             self.assertEqual(response.status_code, status_code)
 
     def test_preview_page(self):

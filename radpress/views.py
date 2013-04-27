@@ -5,17 +5,14 @@ from django.views.generic import (
     ArchiveIndexView, DetailView, FormView, ListView, TemplateView, UpdateView,
     View)
 from radpress.mixins import (
-    ZenModeViewMixin, TagViewMixin, EntryViewMixin, JSONResponseMixin)
+    BaseViewMixin, EntryViewMixin, JSONResponseMixin, TagViewMixin,
+    ZenModeViewMixin)
 from radpress.models import Article, EntryImage, Page
 from radpress.readers import RstReader
 from radpress.settings import DATA
 
 
-class JSONView(JSONResponseMixin, View):
-    pass
-
-
-class ArticleListView(TagViewMixin, ListView):
+class ArticleListView(BaseViewMixin, TagViewMixin, ListView):
     model = Article
 
     def get_queryset(self):
@@ -28,15 +25,16 @@ class ArticleListView(TagViewMixin, ListView):
         return data
 
 
-class ArticleDetailView(TagViewMixin, EntryViewMixin, DetailView):
+class ArticleDetailView(
+        BaseViewMixin, TagViewMixin, EntryViewMixin, DetailView):
     model = Article
 
 
-class PageDetailView(TagViewMixin, EntryViewMixin, DetailView):
+class PageDetailView(BaseViewMixin, TagViewMixin, EntryViewMixin, DetailView):
     model = Page
 
 
-class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
+class ArticleArchiveView(BaseViewMixin, TagViewMixin, ArchiveIndexView):
     model = Article
     date_field = 'created_at'
     paginate_by = 25
@@ -60,32 +58,7 @@ class ArticleArchiveView(TagViewMixin, ArchiveIndexView):
         return data
 
 
-class PreviewView(JSONView):
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(PreviewView, self).dispatch(*args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        content = request.POST.get('content', '')
-        content_body, metadata = RstReader(content).read()
-        image_id = metadata.get('image', '')
-        try:
-            image_url = EntryImage.objects.get(id=int(image_id)).image.url
-        except (EntryImage.DoesNotExist, ValueError):
-            image_url = ''
-
-        context = {
-            'content': content_body,
-            'title': metadata.get('title'),
-            'tags': list(metadata.get('tags', [])),
-            'image_url': image_url
-        }
-
-        return self.render_to_response(context)
-
-
-class SearchView(TemplateView):
+class SearchView(BaseViewMixin, TemplateView):
     template_name = 'radpress/search.html'
     models = (Article, Page)
 
@@ -108,6 +81,30 @@ class SearchView(TemplateView):
         data.update({'object_list': self.get_queryset()})
 
         return data
+
+
+class PreviewView(JSONResponseMixin, View):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PreviewView, self).dispatch(*args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        content = request.POST.get('content', '')
+        content_body, metadata = RstReader(content).read()
+        image_id = metadata.get('image', '')
+        try:
+            image_url = EntryImage.objects.get(id=int(image_id)).image.url
+        except (EntryImage.DoesNotExist, ValueError):
+            image_url = ''
+
+        context = {
+            'content': content_body,
+            'title': metadata.get('title'),
+            'tags': list(metadata.get('tags', [])),
+            'image_url': image_url
+        }
+
+        return self.render_to_response(context)
 
 
 class ZenModeView(ZenModeViewMixin, FormView):

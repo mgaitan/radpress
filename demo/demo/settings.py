@@ -1,8 +1,6 @@
 # Django settings for demo project.
 import sys
-
 import os
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 PROJECT_ROOT = os.path.split(os.path.realpath(os.path.dirname(__file__)))[0]
 
@@ -90,34 +88,22 @@ STATICFILES_FINDERS = (
 SECRET_KEY = '%-$k-+*0v1853)js61nc3$$(^7$sv6axmxgvbed5_257q(62+f'
 
 # List of callables that know how to import templates from various sources.
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    #    'django.template.loaders.eggs.Loader',
-    )
-
-TEMPLATE_CONTEXT_PROCESSORS += ('radpress.context_processors.context_data',)
+    'django.template.loaders.app_directories.Loader')
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    )
+    'django.contrib.messages.middleware.MessageMiddleware')
 
 ROOT_URLCONF = 'demo.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'demo.wsgi.application'
-
-TEMPLATE_DIRS = (
-# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-# Always use forward slashes, even on Windows.
-# Don't forget to use absolute paths, not relative paths.
-)
 
 
 INSTALLED_APPS = (
@@ -130,10 +116,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'south',
-    'easy_thumbnails',
     'django_extensions',
-    'radpress'
-    )
+    'easy_thumbnails',
+    'radpress')
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -167,8 +152,4 @@ LOGGING = {
 RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
 RADPRESS_LIMIT = 5
-# RADPRESS_DISQUS = ''
-# RADPRESS_COVER_SIZE = '652x248'
-# RADPRESS_BOOTSTRAP_CSS_PATH = None
-# RADPRESS_BOOTSTRAP_RESPONSIVE_CSS_PATH = None
-# RADPRESS_MODERNIZR_PATH = None
+RADPRESS_DISQUS = 'gkmengrgen'
