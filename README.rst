@@ -7,6 +7,9 @@ Radpress is a simple blog application for Djangonauts. It doesn't use WYSIWYG
 editor. The default markup syntax is `reStructuredText`_ and you can preview
 your entry simply before published it.
 
+Radpress' default theme is based on `Author theme_` of Mike McAlister. Thank
+you for the support.
+
 Features
 --------
 - Zen mode for writing articles
@@ -22,3 +25,4 @@ Authors
 Gökmen Görgen, <gokmen[@]radity.com>
 
 .. _restructuredtext: http://docutils.sourceforge.net/rst.html
+.. _Author theme: http://themes.okaythemes.com/author/
