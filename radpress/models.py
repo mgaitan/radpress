@@ -1,12 +1,12 @@
 import datetime
 import os
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Count
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from easy_thumbnails.files import get_thumbnailer
+from radpress.compat import User
 from radpress.settings import MORE_TAG
 from radpress.readers import RstReader
 

@@ -1,9 +1,9 @@
 import os.path
-from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.test import TestCase
 from django.test.client import Client
+from radpress.compat import User
 from radpress.models import Article, Page, Tag
 from radpress.templatetags.radpress_tags import restructuredtext
 
