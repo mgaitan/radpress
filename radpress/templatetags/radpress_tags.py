@@ -4,6 +4,7 @@ from django.contrib.sites.models import Site
 from django.template import Node, TemplateSyntaxError
 from django.utils.safestring import mark_safe
 from radpress import settings as radpress_settings, get_version
+from radpress.compat import User
 from radpress.models import Article
 from radpress.rst_extensions.rstify import rstify
 
@@ -53,8 +54,13 @@ def radpress_static_url(path):
 
 @register.filter
 def radpress_full_name(user):
-    full_name = user.get_full_name()
-    if not full_name:
-        full_name = user.username
+    if not isinstance(user, User):
+        full_name = ''
+
+    else:
+        full_name = user.get_full_name()
+
+        if not full_name:
+            full_name = user.username
 
     return full_name
