@@ -1,10 +1,15 @@
+{% comment %}
+Arguments:
+- summary: Default, 0
+{% endcomment %}
+
 {% load blocktrans trans from i18n %}
 {% load radpress_datetime from radpress_tags %}
 {% load radpress_full_name from radpress_tags %}
 {% load url from future %}
 
 <div class="post-wrap">
-  <div class="post-5 post type-post status-publish format-gallery hentry category-uncategorized post">
+  <div class="post type-post status-publish format-gallery hentry category-uncategorized post">
     <div class="box">
       {% if object.cover_image %}
         <div class="gallery-wrap">
@@ -26,23 +31,28 @@
           </div>
         </div>
         <div class="post-content">
-          {{ object.content_by_more|safe }}
-          <p>
-            <a class="more-link" href="{{ object.get_absolute_url }}">{% trans "Read more" %} →</a>
-          </p>
+          {% if summary %}
+            {{ object.content_by_more|safe }}
+            <p>
+              <a class="more-link" href="{{ object.get_absolute_url }}">{% trans "Read more" %} →</a>
+            </p>
+          {% else %}
+            {{ object.content_body|safe }}
+          {% endif %}
         </div>
         <div class="bar">
           <div class="bar-frame clearfix">
             <div class="meta-info">
-              <div class="share">{% include "radpress/partials/share.html" %}</div>
               {% if object.tags.count %}
                 <div class="tags">
-                  <div class="title entypo">C</div>
                   {% for tag in object.tags.all %}
                     <a rel="tag" title="{% blocktrans %}View all posts in {{ tag.name }}{% endblocktrans %}" href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">{{ tag.name }}</a>
                   {% endfor %}
                 </div>
               {% endif %}
+              <div class="share">
+                {% include "radpress/partials/share.html" %}
+              </div>
             </div>
           </div>
         </div>

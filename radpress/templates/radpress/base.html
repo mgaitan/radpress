@@ -26,17 +26,16 @@
         </div>
       </div>
       <div class="secondary-menu-wrap">
-        <div class="menu-hello-menu-container">
-          <ul id="menu-hello-menu-1" class="secondary-menu">
-            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11">
-              <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
-            </li>
-            <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11">
-              <a href="{% url 'radpress-article-archive' %}">{% trans "Archive" %}</a>
-            </li>
-          </ul>
-        </div>
+        <ul class="secondary-menu">
+          <li>
+            <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
+          </li>
+          <li>
+            <a href="{% url 'radpress-article-archive' %}">{% trans "Archive" %}</a>
+          </li>
+        </ul>
       </div>
+
 
       {% block base_content %}
         <div id="content">

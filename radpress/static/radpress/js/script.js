@@ -39,17 +39,18 @@ var getParam = function(key) {
 window.RADPESS_PARAMS = getParams();
 
 // Highlight table fixings
-var articleDiv = $('.article');
-var articleContentDiv = $('.article-content');
+var postContentDiv = $('.post-content');
 var highlighttable = $('td.code pre');
 
 if (highlighttable.length) {
     var preWidth;
-    var spaces = parseInt(articleDiv.css('padding-left').split('px')[0])
-               + $('td.linenos').width();
+    var spaces = parseInt(postContentDiv.css('padding-left').split('px')[0])
+            + parseInt(postContentDiv.css('padding-right').split('px')[0])
+            + $('td.linenos').width()
+            - $('td.code pre').css('padding-left').split('px')[0] / 2;
 
     $(window).on('load resize', function() {
-        preWidth = articleContentDiv.width() - spaces;
+        preWidth = postContentDiv.width() - spaces;
         $('td.code pre').css('width', preWidth);
     });
 }
