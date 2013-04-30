@@ -92,7 +92,14 @@ class Entry(models.Model):
     The `created_at` is set datetime information automatically when a 'new'
     blog entry saved, but `updated_at` will be updated in each save method ran.
     """
+    MARKUP_CHOICES = (
+        ('M', 'Markdown'),
+        ('R', 'RestructuredText'),
+    )
     title = models.CharField(max_length=500)
+    markup = models.CharField(max_length=1,
+                              choices=MARKUP_CHOICES,
+                              default='R')
     slug = models.SlugField(unique=True)
     content = models.TextField()
     content_body = models.TextField(editable=False)
