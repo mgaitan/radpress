@@ -2,7 +2,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from radpress.models import Article, EntryImage, Page, Tag
-from radpress.readers import RstReader
+from radpress.readers import RstReader, MarkdownReader
 
 
 class PageForm(forms.ModelForm):
@@ -13,7 +13,7 @@ class PageForm(forms.ModelForm):
 class ZenModeForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ('content', )
+        fields = ('content', 'markup', )
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -45,7 +45,11 @@ class ZenModeForm(forms.ModelForm):
 
     def clean_content(self):
         field = self.cleaned_data.get('content')
-        self.content_body, self.metadata = RstReader(field).read()
+        markup = self.data.get('markup')
+        if markup == 'R':
+            self.content_body, self.metadata = RstReader(field).read()
+        elif markup == 'M':
+            self.content_body, self.metadata = MarkdownReader(field).read()
 
         slug = self.metadata.get('slug')
 
@@ -78,11 +82,12 @@ class ZenModeForm(forms.ModelForm):
         article.content = content
         article.content_body = self.content_body
         article.is_published = is_published
+        article.markup = self.data.get('markup')
 
         # update cover image if it specified
         try:
             image = EntryImage.objects.get(id=int(image_id))
-        except (EntryImage.DoesNotExist, ValueError):
+        except (EntryImage.DoesNotExist, ValueError, TypeError):
             image = None
         article.cover_image = image
 

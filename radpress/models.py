@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 from radpress.compat import User
 from radpress.settings import MORE_TAG
-from radpress.readers import RstReader
+from radpress.readers import RstReader, MarkdownReader
 
 
 class ThumbnailModelMixin(object):
@@ -117,7 +117,10 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        content_body, metadata = RstReader(self.content).read()
+        if self.markup == 'R':
+            content_body, metadata = RstReader(self.content).read()
+        elif self.markup == 'M':
+            content_body, metadata = MarkdownReader(self.content).read()
 
         if not self.content_body:
             self.content_body = content_body
