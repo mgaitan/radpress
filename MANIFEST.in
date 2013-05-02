@@ -1,4 +1,6 @@
+recursive-include radpress *.py
+recursive-include radpress/static *
+recursive-include radpress/templates *.html
 include README.rst
 include LICENSE
 include requirements/global.txt
-recursive-include radpress *
