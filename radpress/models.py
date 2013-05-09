@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 from radpress.compat import User
 from radpress.settings import MORE_TAG
-from radpress.readers import RstReader, MarkdownReader
+from radpress.readers import get_reader, get_markup_choices
 
 
 class ThumbnailModelMixin(object):
@@ -97,9 +97,8 @@ class Entry(models.Model):
         ('R', 'RestructuredText'),
     )
     title = models.CharField(max_length=500)
-    markup = models.CharField(max_length=1,
-                              choices=MARKUP_CHOICES,
-                              default='R')
+    markup = models.CharField(
+        max_length=1, choices=get_markup_choices(), default='R')
     slug = models.SlugField(unique=True)
     content = models.TextField()
     content_body = models.TextField(editable=False)
