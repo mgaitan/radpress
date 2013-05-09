@@ -43,9 +43,9 @@ def radpress_widget_latest_posts():
     """
     Receives latest posts.
     """
-    object_limit = radpress_settings.DATA['RADPRESS_LIMIT']
+    limit = radpress_settings.LIMIT
     context = {
-        'object_list': Article.objects.all_published()[:object_limit]
+        'object_list': Article.objects.all_published()[:limit]
     }
     return context
 

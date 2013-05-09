@@ -7,16 +7,16 @@ from django.views.generic import (
 from radpress.mixins import (
     BaseViewMixin, EntryViewMixin, JSONResponseMixin, TagViewMixin,
     ZenModeViewMixin)
+from radpress import settings as radpress_settings
 from radpress.models import Article, EntryImage, Page
 from radpress.readers import RstReader, MarkdownReader
-from radpress.settings import DATA
 
 
 class ArticleListView(BaseViewMixin, TagViewMixin, ListView):
     model = Article
 
     def get_queryset(self):
-        return self.model.objects.all_published()[:DATA.get('RADPRESS_LIMIT')]
+        return self.model.objects.all_published()[:radpress_settings.LIMIT]
 
     def get_context_data(self, **kwargs):
         data = super(ArticleListView, self).get_context_data(**kwargs)

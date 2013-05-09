@@ -13,7 +13,7 @@ class BaseViewMixin(object):
         context = super(BaseViewMixin, self).get_context_data(**kwargs)
         context.update({'RADPRESS_MENUS': Menu.objects.get_menu_context()})
 
-        for key, value in settings.DATA.items():
+        for key, value in settings.CONTEXT_DATA.items():
             if key.isupper() and key.startswith('RADPRESS_'):
                 context.update({key: value})
 
