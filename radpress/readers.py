@@ -18,11 +18,18 @@ class Reader(object):
     """
     Thanks to pelican contributors.
     """
+    enabled = False
+
     def __init__(self, source):
         self.source = smart_str(source)
 
 
 class RstReader(Reader):
+    """
+    Radpress' default reader. It should be always enabled.
+    """
+    enabled = True
+
     def _parse_metadata(self, document):
         output = {
             'title': document.get('title'),
@@ -79,6 +86,8 @@ class RstReader(Reader):
 
 
 class MarkdownReader(Reader):
+    enabled = bool(Markdown)
+
     def convertRSTmetaToMD(self):
         token = re.compile(r":(\w+:)")
         # http://stackoverflow.com/questions/2212933/python-regex-for-reading-csv-like-rows  # NOPEP8
