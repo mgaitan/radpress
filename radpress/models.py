@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 from radpress.compat import User
-from radpress.settings import MORE_TAG
+from radpress.settings import MORE_TAG, DEFAULT_READER
 from radpress.readers import get_reader, get_markup_choices
 
 
@@ -92,13 +92,11 @@ class Entry(models.Model):
     The `created_at` is set datetime information automatically when a 'new'
     blog entry saved, but `updated_at` will be updated in each save method ran.
     """
-    MARKUP_CHOICES = (
-        ('M', 'Markdown'),
-        ('R', 'RestructuredText'),
-    )
+    MARKUP_CHOICES = get_markup_choices()
+
     title = models.CharField(max_length=500)
     markup = models.CharField(
-        max_length=1, choices=get_markup_choices(), default='R')
+        max_length=20, choices=MARKUP_CHOICES, default=DEFAULT_READER)
     slug = models.SlugField(unique=True)
     content = models.TextField()
     content_body = models.TextField(editable=False)
