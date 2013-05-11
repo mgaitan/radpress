@@ -114,10 +114,8 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        if self.markup == 'R':
-            content_body, metadata = RstReader(self.content).read()
-        elif self.markup == 'M':
-            content_body, metadata = MarkdownReader(self.content).read()
+        reader = get_reader(name=self.markup)
+        content_body, metadata = reader(self.content).read()
 
         if not self.content_body:
             self.content_body = content_body

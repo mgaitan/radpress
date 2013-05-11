@@ -4,26 +4,8 @@ from django.utils.safestring import mark_safe
 from radpress import settings as radpress_settings, get_version
 from radpress.compat import User
 from radpress.models import Article
-from radpress.rst_extensions.rstify import rstify
-from radpress.rst_extensions.mdify import mdify
 
 register = template.Library()
-
-
-@register.filter()
-def restructuredtext(text):
-    """
-    Convert rst content to html markup language in template files.
-    """
-    return mark_safe(rstify(text))
-
-
-@register.filter()
-def markdown(text):
-    """
-    Convert markdown content to HTML markup in template files.
-    """
-    return mark_safe(mdify(text))
 
 
 @register.inclusion_tag('radpress/tags/datetime.html')
