@@ -3,7 +3,7 @@ from docutils.core import publish_programmatically
 from docutils.writers import html4css1
 from django.utils.encoding import force_unicode
 
-from radpress.readers import Reader
+from radpress.readers import BaseReader
 from radpress.rst_extensions import register_directives
 from radpress.settings import RST_SETTINGS
 
@@ -11,10 +11,11 @@ from radpress.settings import RST_SETTINGS
 register_directives()
 
 
-class RstReader(Reader):
+class Reader(BaseReader):
     """
     Radpress' default reader. It should be always enabled.
     """
+    name = 'reStructuredText'
     enabled = True
 
     def _parse_metadata(self, document):
