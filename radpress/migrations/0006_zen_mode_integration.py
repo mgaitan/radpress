@@ -3,16 +3,19 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
-from radpress.readers import RstReader
+from radpress.readers import get_reader
+
 
 class Migration(DataMigration):
     no_dry_run = True
 
     def forwards(self, orm):
+        reader = get_reader()
         model_names = ['radpress.Article', 'radpress.Page']
+
         for model_name in model_names:
             for entry in orm[model_name].objects.all():
-                content_body, metadata = RstReader(entry.content).read()
+                content_body, metadata = reader(entry.content).read()
                 entry.content_body = content_body
 
                 if model_name == 'radpress.Article':
