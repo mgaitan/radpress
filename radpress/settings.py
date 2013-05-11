@@ -6,6 +6,8 @@ DESCRIPTION = getattr(
 LIMIT = getattr(settings, 'RADPRESS_LIMIT', 5)
 GOOGLE_ANALYTICS_CODE = getattr(settings, 'RADPRESS_GA_CODE', None)
 DISQUS = getattr(settings, 'RADPRESS_DISQUS', None)
+DEFAULT_READER = getattr(
+    settings, 'RADPRESS_DEFAULT_READER', 'restructuredtext')
 
 CONTEXT_DATA = {
     'RADPRESS_TITLE': TITLE,
