@@ -3,10 +3,11 @@ try:
     from markdown import Markdown
 except ImportError:
     Markdown = None  # NOQA
-from radpress.readers import Reader
+from radpress.readers import BaseReader
 
 
-class MarkdownReader(Reader):
+class Reader(BaseReader):
+    name = 'Markdown'
     enabled = bool(Markdown)
 
     def convertRSTmetaToMD(self):
