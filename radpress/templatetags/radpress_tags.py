@@ -1,6 +1,5 @@
 from django import template
 from django.conf import settings
-from django.utils.safestring import mark_safe
 from radpress import settings as radpress_settings, get_version
 from radpress.compat import User
 from radpress.models import Article

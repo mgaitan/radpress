@@ -2,7 +2,7 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from radpress.models import Article, EntryImage, Page, Tag
-from radpress.readers import RstReader, MarkdownReader
+from radpress.readers import get_reader
 
 
 class PageForm(forms.ModelForm):
@@ -46,11 +46,8 @@ class ZenModeForm(forms.ModelForm):
     def clean_content(self):
         field = self.cleaned_data.get('content')
         markup = self.data.get('markup')
-        if markup == 'R':
-            self.content_body, self.metadata = RstReader(field).read()
-        elif markup == 'M':
-            self.content_body, self.metadata = MarkdownReader(field).read()
-
+        reader = get_reader(name=markup)
+        self.content_body, self.metadata = reader(field).reader()
         slug = self.metadata.get('slug')
 
         if self.metadata.get('title') is None or slug is None:

@@ -9,7 +9,7 @@ from radpress.mixins import (
     ZenModeViewMixin)
 from radpress import settings as radpress_settings
 from radpress.models import Article, EntryImage, Page
-from radpress.readers import RstReader, MarkdownReader
+from radpress.readers import get_reader
 
 
 class ArticleListView(BaseViewMixin, TagViewMixin, ListView):
@@ -90,11 +90,9 @@ class PreviewView(JSONResponseMixin, View):
 
     def post(self, request, *args, **kwargs):
         content = request.POST.get('content', '')
-        markup = request.POST.get('markup', 'R')
-        if markup == 'R':
-            content_body, metadata = RstReader(content).read()
-        elif markup == 'M':
-            content_body, metadata = MarkdownReader(content).read()
+        markup = request.POST.get('markup')
+        reader = get_reader(name=markup)
+        content_body, metadata = reader(content).read()
         image_id = metadata.get('image', '')
         try:
             image_url = EntryImage.objects.get(id=int(image_id)).image.url

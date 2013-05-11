@@ -37,7 +37,7 @@ def get_markup_choices():
         if module_name.startswith('__'):
             continue
         name = os.path.splitext(module_name)[0]
-        reader = get_reader(name)
+        reader = get_reader(name=name)
 
         if reader.enabled is True:
             available_reader_list.append((module_name, reader.name))

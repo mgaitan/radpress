@@ -60,7 +60,7 @@ class Test(TestCase):
     def test_restructuredtext_contents(self):
         reader = get_reader()  # default markup name is reStructuredText
         for article in Article.objects.all():
-            content_body, metadata = get_reader(article.content).read()
+            content_body, metadata = reader(article.content).read()
             self.assertEqual(article.content_body, content_body)
 
     def test_tags(self):
