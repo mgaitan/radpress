@@ -629,6 +629,17 @@ h6 {
     border-top-right-radius: 3px;
 }
 
+.title-wrap a.edit-button {
+    display: none;
+}
+
+.title-wrap:hover a.edit-button,
+.title-wrap a.edit-button:focus {
+    display: block;
+    float: right;
+    text-decoration: none;
+}
+
 .entry-title {
     font-family: 'Merriweather', serif;
     font-weight: 400;
@@ -1205,7 +1216,8 @@ cite {
     font-family: 'Merriweather', Georgia, serif;
 }
 
-.form-submit #submit {
+.form-submit #submit,
+a.edit-button {
     font-family: 'Merriweather', Georgia, serif;
     background:#e0e6e8;
     padding:8px 15px 7px 15px;
@@ -1221,7 +1233,8 @@ cite {
     border: none;
 }
 
-.form-submit #submit:hover {
+.form-submit #submit:hover,
+a.edit-button:active {
     background: #687a8a;
     color: #fff;
     cursor: pointer;

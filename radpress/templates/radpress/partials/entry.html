@@ -22,6 +22,9 @@ Arguments:
 
       <div class="frame">
         <div class="title-wrap">
+          {% if user == object.author %}
+            <a href="{% url 'radpress-zen-mode-update' object.pk %}" class="edit-button">{% trans "Edit" %}</a>
+          {% endif %}
           <h2 class="entry-title">
             <a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a>
           </h2>

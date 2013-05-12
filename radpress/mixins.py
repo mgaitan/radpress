@@ -50,6 +50,9 @@ class ZenModeViewMixin(object):
         # and redirect
         return super(ZenModeViewMixin, self).form_valid(form)
 
+    def form_invalid(self, form):
+        return super(ZenModeViewMixin, self).form_invalid(form)
+
 
 class TagViewMixin(object):
     """

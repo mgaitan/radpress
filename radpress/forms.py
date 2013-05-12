@@ -13,7 +13,7 @@ class PageForm(forms.ModelForm):
 class ZenModeForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ('content', 'markup', )
+        fields = ('content', 'markup')
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
