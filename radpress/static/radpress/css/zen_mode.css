@@ -95,6 +95,19 @@ body, html {
     float: right;
 }
 
+.alert {
+    position: fixed;
+    top: 0;
+    padding: 5px 10px;
+    background-color: red;
+    color: #fff;
+    text-shadow: 0 0 1px #999;
+}
+
+.content-space {
+    padding: 15px;
+}
+
 #zen-header {
     padding: 0 50px;
     background-color: #1a1a1a;
@@ -164,7 +177,6 @@ body, html {
 }
 
 #zen-preview {
-    padding: 0 15px;
     overflow: auto;
     color: #ECE5CE;
     background: #1e1e1e;
@@ -174,15 +186,11 @@ body, html {
 }
 
 #zen-preview h1.title {
+    margin: 0;
     font-size: 32px;
     line-height: 40px;
 }
 
-.alert {
-    position: fixed;
-    top: 0;
-    padding: 5px 10px;
-    background-color: red;
-    color: #fff;
-    text-shadow: 0 0 1px #999;
+#zen-preview img {
+    width: 100%;
 }
