@@ -40,6 +40,6 @@ def get_markup_choices():
         reader = get_reader(name=name)
 
         if reader.enabled is True:
-            available_reader_list.append((module_name, reader.name))
+            available_reader_list.append((name, reader.name))
 
     return available_reader_list

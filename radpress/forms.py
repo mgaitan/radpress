@@ -47,7 +47,7 @@ class ZenModeForm(forms.ModelForm):
         field = self.cleaned_data.get('content')
         markup = self.data.get('markup')
         reader = get_reader(name=markup)
-        self.content_body, self.metadata = reader(field).reader()
+        self.content_body, self.metadata = reader(field).read()
         slug = self.metadata.get('slug')
 
         if self.metadata.get('title') is None or slug is None:
