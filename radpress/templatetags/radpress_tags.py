@@ -1,22 +1,10 @@
 from django import template
 from django.conf import settings
-from django.contrib.sites.models import Site
-from django.template import Node, TemplateSyntaxError
-from django.utils.safestring import mark_safe
 from radpress import settings as radpress_settings, get_version
 from radpress.compat import User
 from radpress.models import Article
-from radpress.rst_extensions.rstify import rstify
 
 register = template.Library()
-
-
-@register.filter()
-def restructuredtext(text):
-    """
-    Convert rst content to html markup language in template files.
-    """
-    return mark_safe(rstify(text))
 
 
 @register.inclusion_tag('radpress/tags/datetime.html')
@@ -36,9 +24,9 @@ def radpress_widget_latest_posts():
     """
     Receives latest posts.
     """
-    object_limit = radpress_settings.DATA['RADPRESS_LIMIT']
+    limit = radpress_settings.LIMIT
     context = {
-        'object_list': Article.objects.all_published()[:object_limit]
+        'object_list': Article.objects.all_published()[:limit]
     }
     return context
 

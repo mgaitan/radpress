@@ -5,7 +5,8 @@ from django.test import TestCase
 from django.test.client import Client
 from radpress.compat import User
 from radpress.models import Article, Page, Tag
-from radpress.templatetags.radpress_tags import restructuredtext
+from radpress.readers import get_reader
+from radpress.settings import CONTEXT_DATA
 
 
 class Test(TestCase):
@@ -56,9 +57,10 @@ class Test(TestCase):
             slug = slugify(article.slug)
             self.assertEqual(article.slug, slug)
 
-    def test_contents(self):
+    def test_restructuredtext_contents(self):
+        reader = get_reader()  # default markup name is reStructuredText
         for article in Article.objects.all():
-            content_body = restructuredtext(article.content)
+            content_body, metadata = reader(article.content).read()
             self.assertEqual(article.content_body, content_body)
 
     def test_tags(self):
@@ -125,3 +127,12 @@ class Test(TestCase):
         response_article, response_page = get_responses()
         self.assertEqual(response_article.status_code, 200)
         self.assertEqual(response_page.status_code, 404)
+
+    def test_context_data(self):
+        """
+        Important! All context data keys should be start with `RADPRESS_`
+        prefix and uppercase.
+        """
+        for context in CONTEXT_DATA.keys():
+            self.assertTrue(context.startswith('RADPRESS_'))
+            self.assertEqual(context, context.upper())

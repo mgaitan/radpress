@@ -7,16 +7,16 @@ from django.views.generic import (
 from radpress.mixins import (
     BaseViewMixin, EntryViewMixin, JSONResponseMixin, TagViewMixin,
     ZenModeViewMixin)
+from radpress import settings as radpress_settings
 from radpress.models import Article, EntryImage, Page
-from radpress.readers import RstReader
-from radpress.settings import DATA
+from radpress.readers import get_reader
 
 
 class ArticleListView(BaseViewMixin, TagViewMixin, ListView):
     model = Article
 
     def get_queryset(self):
-        return self.model.objects.all_published()[:DATA.get('RADPRESS_LIMIT')]
+        return self.model.objects.all_published()[:radpress_settings.LIMIT]
 
     def get_context_data(self, **kwargs):
         data = super(ArticleListView, self).get_context_data(**kwargs)
@@ -90,7 +90,9 @@ class PreviewView(JSONResponseMixin, View):
 
     def post(self, request, *args, **kwargs):
         content = request.POST.get('content', '')
-        content_body, metadata = RstReader(content).read()
+        markup = request.POST.get('markup')
+        reader = get_reader(name=markup)
+        content_body, metadata = reader(content).read()
         image_id = metadata.get('image', '')
         try:
             image_url = EntryImage.objects.get(id=int(image_id)).image.url

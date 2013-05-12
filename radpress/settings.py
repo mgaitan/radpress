@@ -1,16 +1,25 @@
 from django.conf import settings
 
-DATA = {
-    'RADPRESS_TITLE': getattr(settings, 'RADPRESS_TITLE', "Radpress"),
-    'RADPRESS_DESCRIPTION': getattr(
-        settings, 'RADPRESS_DESCRIPTION',
-        "A blogging application for Djangonauts"),
-    'RADPRESS_LIMIT': getattr(settings, 'RADPRESS_LIMIT', 5),
-    'RADPRESS_GA_CODE': getattr(settings, 'RADPRESS_GA_CODE', None),
-    'RADPRESS_DISQUS': getattr(settings, 'RADPRESS_DISQUS', None),
-    'RADPRESS_DEBUG': getattr(settings, 'RADPRESS_DEBUG', settings.DEBUG),
+TITLE = getattr(settings, 'RADPRESS_TITLE', "Radpress")
+DESCRIPTION = getattr(
+    settings, 'RADPRESS_DESCRIPTION', "A blog application for Djangonauts")
+LIMIT = getattr(settings, 'RADPRESS_LIMIT', 5)
+GOOGLE_ANALYTICS_CODE = getattr(settings, 'RADPRESS_GA_CODE', None)
+DISQUS = getattr(settings, 'RADPRESS_DISQUS', None)
+DEFAULT_READER = getattr(
+    settings, 'RADPRESS_DEFAULT_READER', 'restructuredtext')
+
+CONTEXT_DATA = {
+    'RADPRESS_TITLE': TITLE,
+    'RADPRESS_DESCRIPTION': DESCRIPTION,
+    'RADPRESS_DISQUS': DISQUS,
+    'RADPRESS_GA_CODE': GOOGLE_ANALYTICS_CODE
 }
+
+# reader settings
 MORE_TAG = '<!-- more -->'
+
+# restructuredtext settings
 RST_SETTINGS = getattr(settings, 'RESTRUCTUREDTEXT_FILTER_SETTINGS', {})
 RST_SETTINGS.update({
     'initial_header_level': 2,

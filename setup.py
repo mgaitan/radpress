@@ -11,6 +11,12 @@ requires_file_name = os.path.join(
 with file(requires_file_name) as install_requires:
     install_requires = map(lambda x: x.strip(), install_requires.readlines())
 
+try:
+    import importlib
+
+except ImportError:
+    install_requires.append('importlib')
+
 setup(
     name=pkg_name,
     version=version,
