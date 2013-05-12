@@ -137,4 +137,4 @@ LOGGING = {
 RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
 RADPRESS_LIMIT = 5
-RADPRESS_DISQUS = 'gkmengrgen'
+RADPRESS_DISQUS = ''
