@@ -17,6 +17,16 @@ class Reader(BaseReader):
     """
     name = 'reStructuredText'
     enabled = True
+    initial = """
+        Title here
+        ##########
+        :slug: title-here
+        :tags: world, big bang, sheldon
+        :published: no
+        :image: not specified
+
+        Content here...
+    """
 
     def _parse_metadata(self, document):
         output = {

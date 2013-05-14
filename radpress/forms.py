@@ -2,7 +2,8 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from radpress.models import Article, EntryImage, Page, Tag
-from radpress.readers import get_reader
+from radpress.readers import get_reader, get_reader_initial
+from radpress.settings import DEFAULT_READER
 
 
 class PageForm(forms.ModelForm):
@@ -19,6 +20,7 @@ class ZenModeForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(ZenModeForm, self).__init__(*args, **kwargs)
 
+        markup = getattr(self.instance, 'markup', DEFAULT_READER)
         if self.instance.pk is None:
             zen_mode_url = reverse('radpress-zen-mode')
 
@@ -26,27 +28,15 @@ class ZenModeForm(forms.ModelForm):
             zen_mode_url = reverse(
                 'radpress-zen-mode-update', args=[self.instance.pk])
 
-        content_initial = [
-            "Title here",
-            "##########",
-            ":slug: title-here",
-            ":tags: world, big bang, sheldon",
-            ":published: no",
-            ":image: not specified",
-            "",
-            "Content here..."
-        ]
-
         content = self.fields['content']
         content.widget = forms.Textarea(attrs={'class': 'zen-mode-textarea'})
-        content.initial = '\n'.join(content_initial)
-        content.help_text = _("You can also edit with "
-                              "<a href='%s'>zen mode</a>.") % zen_mode_url
+        content.initial = get_reader_initial(markup=markup)
+        content.help_text = _(
+            "You can also edit with <a href='%s'>zen mode</a>.") % zen_mode_url
 
     def clean_content(self):
         field = self.cleaned_data.get('content')
-        markup = self.data.get('markup')
-        reader = get_reader(name=markup)
+        reader = get_reader(name=self.data.get('markup'))
         self.content_body, self.metadata = reader(field).read()
         slug = self.metadata.get('slug')
 
