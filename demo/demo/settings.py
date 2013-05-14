@@ -1,6 +1,7 @@
 # Django settings for demo project.
 import sys
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 PROJECT_ROOT = os.path.split(os.path.realpath(os.path.dirname(__file__)))[0]
 
@@ -74,16 +75,7 @@ SECRET_KEY = '%-$k-+*0v1853)js61nc3$$(^7$sv6axmxgvbed5_257q(62+f'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.request")
-
+TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
