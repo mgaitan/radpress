@@ -29,6 +29,7 @@
         {% else %}
           <li><a href="{% url 'admin:radpress_article_add' %}">{% trans "Create from admin panel" %}</a></li>
         {% endif %}
+        <li><a href="{% url 'admin:radpress_entryimage_changelist' %}" target="_blank">{% trans "Image gallery" %}</a></li>
       </ul>
     </div>
     <div id="zen-container">

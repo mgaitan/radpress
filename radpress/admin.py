@@ -52,7 +52,7 @@ admin.site.register(Menu, admin.ModelAdmin)
 
 
 class EntryImageAdmin(admin.ModelAdmin):
-    list_display = ('thumbnail_tag', '__unicode__', 'name')
+    list_display = ('id', 'thumbnail_tag', '__unicode__', 'name')
     list_display_links = ('__unicode__',)
     search_fields = ('image', 'name')
 
