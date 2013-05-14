@@ -71,7 +71,7 @@ if (shareUrls.length) {
     var url;
 
     $.each(shareUrls, function(key, url) {
-        url = $(this).attr('href') + window.location.href + $(this).data('url').replace(/^\/|\/$/g, '') + '/';
+        url = $(this).attr('href') + $(this).data('url').replace(/^\/|\/$/g, '') + '/';
         $(this).attr('href', url);
     });
 

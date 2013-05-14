@@ -1,4 +1,6 @@
-{% with url=object.get_absolute_url title=object.title %}
+{% load radpress_get_url from radpress_tags %}
+{% with title=object.title %}
+{% radpress_get_url object as url %}
 {# google plus #}
 <a class="share-google" href="https://plus.google.com/share?url=" title="{{ title }}" target="blank" data-url="{{ url }}">google</a>
 
