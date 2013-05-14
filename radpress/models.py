@@ -114,7 +114,7 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        reader = get_reader(name=self.markup)
+        reader = get_reader(markup=self.markup)
         content_body, metadata = reader(self.content).read()
 
         if not self.content_body:

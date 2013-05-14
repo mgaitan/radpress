@@ -36,7 +36,7 @@ class ZenModeForm(forms.ModelForm):
 
     def clean_content(self):
         field = self.cleaned_data.get('content')
-        reader = get_reader(name=self.data.get('markup'))
+        reader = get_reader(markup=self.data.get('markup'))
         self.content_body, self.metadata = reader(field).read()
         slug = self.metadata.get('slug')
 

@@ -18,17 +18,17 @@ class BaseReader(object):
         self.source = smart_str(source)
 
 
-def get_reader(name=None):
-    if name is None:
-        name = DEFAULT_MARKUP
+def get_reader(markup=None):
+    if markup is None:
+        markup = DEFAULT_MARKUP
 
-    module_path = 'radpress.readers.%s_reader' % name
+    module_path = 'radpress.readers.%s_reader' % markup
     reader = importlib.import_module(module_path).Reader
     return reader
 
 
 def get_reader_initial(markup=None):
-    reader = get_reader(name=markup)
+    reader = get_reader(markup=markup)
     return trim(reader.initial)
 
 
@@ -42,11 +42,11 @@ def get_markup_choices():
         lambda x: x.endswith('_reader.py'), os.listdir(module_dir))
 
     for module_name in module_names:
-        name = module_name.split('_')[0]
-        reader = get_reader(name=name)
+        markup = module_name.split('_')[0]
+        reader = get_reader(markup=markup)
 
         if reader.enabled is True:
-            available_reader_list.append((name, reader.name))
+            available_reader_list.append((markup, reader.name))
 
     return available_reader_list
 

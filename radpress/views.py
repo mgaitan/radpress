@@ -91,7 +91,7 @@ class PreviewView(JSONResponseMixin, View):
     def post(self, request, *args, **kwargs):
         content = request.POST.get('content', '')
         markup = request.POST.get('markup')
-        reader = get_reader(name=markup)
+        reader = get_reader(markup=markup)
         content_body, metadata = reader(content).read()
         image_id = metadata.get('image', '')
         try:
