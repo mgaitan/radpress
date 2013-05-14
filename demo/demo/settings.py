@@ -141,3 +141,4 @@ RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
 RADPRESS_LIMIT = 5
 RADPRESS_DISQUS = ''
+# RADPRESS_DEFAULT_MARKUP = 'markdown'
