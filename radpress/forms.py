@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext as _
 from radpress.models import Article, EntryImage, Page, Tag
 from radpress.readers import get_reader, get_reader_initial
-from radpress.settings import DEFAULT_READER
+from radpress.settings import DEFAULT_MARKUP
 
 
 class PageForm(forms.ModelForm):
@@ -20,7 +20,7 @@ class ZenModeForm(forms.ModelForm):
         self.user = kwargs.pop('user', None)
         super(ZenModeForm, self).__init__(*args, **kwargs)
 
-        markup = getattr(self.instance, 'markup', DEFAULT_READER)
+        markup = getattr(self.instance, 'markup', DEFAULT_MARKUP)
         if self.instance.pk is None:
             zen_mode_url = reverse('radpress-zen-mode')
 

@@ -3,7 +3,7 @@ import os
 import sys
 from django.utils.encoding import smart_str
 
-from radpress.settings import DEFAULT_READER
+from radpress.settings import DEFAULT_MARKUP
 
 
 class BaseReader(object):
@@ -20,7 +20,7 @@ class BaseReader(object):
 
 def get_reader(name=None):
     if name is None:
-        name = DEFAULT_READER
+        name = DEFAULT_MARKUP
 
     module_path = 'radpress.readers.%s_reader' % name
     reader = importlib.import_module(module_path).Reader

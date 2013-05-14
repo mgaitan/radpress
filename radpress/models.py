@@ -7,7 +7,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 from radpress.compat import User
-from radpress.settings import MORE_TAG, DEFAULT_READER
+from radpress.settings import MORE_TAG, DEFAULT_MARKUP
 from radpress.readers import get_reader, get_markup_choices
 
 
@@ -96,7 +96,7 @@ class Entry(models.Model):
 
     title = models.CharField(max_length=500)
     markup = models.CharField(
-        max_length=20, choices=MARKUP_CHOICES, default=DEFAULT_READER)
+        max_length=20, choices=MARKUP_CHOICES, default=DEFAULT_MARKUP)
     slug = models.SlugField(unique=True)
     content = models.TextField()
     content_body = models.TextField(editable=False)
