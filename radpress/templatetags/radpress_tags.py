@@ -1,5 +1,6 @@
 from django import template
 from django.conf import settings
+from django.core.urlresolvers import reverse, NoReverseMatch
 from radpress import settings as radpress_settings, get_version
 from radpress.compat import User
 from radpress.models import Article
@@ -57,3 +58,17 @@ def radpress_full_name(user):
 @register.assignment_tag(takes_context=True)
 def radpress_get_url(context, o):
     return context['request'].build_absolute_uri(o.get_absolute_url())
+
+
+@register.assignment_tag
+def radpress_zen_mode_url(entry):
+    try:
+        if not isinstance(entry, Article):
+            url = reverse('radpress-zen-mode')
+        else:
+            url = reverse('radpress-zen-mode-update', args=[entry.pk])
+
+    except NoReverseMatch:
+        url = ''
+
+    return url
