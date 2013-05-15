@@ -14,10 +14,11 @@ class ZenModeAdminMixin(object):
 
 class ArticleAdmin(ZenModeAdminMixin, admin.ModelAdmin):
     list_display = (
-        'title', 'author', 'created_at', 'updated_at', 'tag_list',
+        'title', 'author', 'markup', 'created_at', 'updated_at', 'tag_list',
         'is_published')
-    list_filter = ('is_published', 'tags')
+    list_filter = ('is_published', 'created_at', 'tags')
     list_editable = ('is_published',)
+    search_fields = ('title', 'content')
 
     def tag_list(self, obj):
         tag_list = [tag.name for tag in obj.tags.all()]
