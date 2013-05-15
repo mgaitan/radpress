@@ -9,6 +9,17 @@ from radpress.readers import BaseReader
 class Reader(BaseReader):
     name = 'Markdown'
     enabled = bool(Markdown)
+    initial = """
+        title: Title here
+        slug: title-here
+        tags: world
+              big bang
+              sheldon
+        published: no
+        image: not specified
+
+        Content here...
+    """
 
     def convertRSTmetaToMD(self):
         token = re.compile(r":(\w+:)")
