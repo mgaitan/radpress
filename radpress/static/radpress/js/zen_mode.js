@@ -39,6 +39,11 @@ $(window).on('load', function() {
     generateContent();
 });
 
+// tab override
+TABOVERRIDE.set(textarea);
+TABOVERRIDE.tabSize(4);
+TABOVERRIDE.autoIndent(true);
+
 textarea.trigger('focus');
 textarea.on('keyup', function(e) {
     if (e.keyCode == 13) {
