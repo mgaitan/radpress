@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from radpress.tests.base import BaseTest
+from radpress.tests.base import BaseTest, RestructuredtextTest
 
 if 'django.contrib.admin' in settings.INSTALLED_APPS:
     from radpress.tests.admin import AdminTest

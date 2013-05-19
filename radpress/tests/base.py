@@ -7,7 +7,7 @@ from django.test.client import Client
 from radpress.compat import User
 from radpress.models import Article, Page, Tag
 from radpress.readers import get_reader
-from radpress.settings import CONTEXT_DATA
+from radpress.settings import CONTEXT_DATA, MORE_TAG
 
 
 class RadpressTestCase(TestCase):
@@ -59,12 +59,6 @@ class BaseTest(RadpressTestCase):
         for article in Article.objects.all():
             slug = slugify(article.slug)
             self.assertEqual(article.slug, slug)
-
-    def test_restructuredtext_contents(self):
-        reader = get_reader()  # default markup name is reStructuredText
-        for article in Article.objects.all():
-            content_body, metadata = reader(article.content).read()
-            self.assertEqual(article.content_body, content_body)
 
     def test_tags(self):
         # checks tag count from fixture
@@ -139,3 +133,35 @@ class BaseTest(RadpressTestCase):
         for context in CONTEXT_DATA.keys():
             self.assertTrue(context.startswith('RADPRESS_'))
             self.assertEqual(context, context.upper())
+
+
+class RestructuredtextTest(RadpressTestCase):
+    def setUp(self):
+        # default markup name is reStructuredText
+        self.reader = get_reader()
+
+        # default content_body, metada
+        file_path = os.path.join(os.path.dirname(__file__), 'test_content.rst')
+        content = file(file_path).read()
+        self.content_body, self.metadata = self.reader(content).read()
+
+    def test_contents(self):
+        for article in Article.objects.all():
+            content_body, metadata = self.reader(article.content).read()
+            self.assertEqual(article.content_body, content_body)
+
+    def test_check_metadata(self):
+        self.assertEqual(self.metadata['image'], '1')
+        self.assertTrue(self.metadata['published'])
+        self.assertEqual(self.metadata['slug'], 'samuel-l-ipsum')
+        self.assertEqual(self.metadata['title'], 'Samuel L. Ipsum')
+
+        for tag in ['ipsum', 'samuel', 'lorem']:
+            self.assertIn(tag, self.metadata['tags'])
+
+    def test_pygmentize(self):
+        self.assertIn('<table class="highlighttable">', self.content_body)
+        self.assertIn('<td class="linenos">', self.content_body)
+
+    def test_more_tag(self):
+        self.assertIn(MORE_TAG, self.content_body)
