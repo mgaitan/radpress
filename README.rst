@@ -21,6 +21,11 @@ Features
 - Author information for articles
 - Simple theme like in Octopress.
 
+Supported markup languages
+--------------------------
+- reStructuredText
+- Markdown
+
 Authors
 -------
 Gökmen Görgen, <gokmen[@]radity.com>
