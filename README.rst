@@ -28,7 +28,7 @@ Supported markup languages
 
 Authors
 -------
-Gökmen Görgen, <gokmen[@]radity.com>
+Gökmen Görgen, <gokmen[@]alageek.com>
 
 Contributors
 ------------
