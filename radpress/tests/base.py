@@ -30,6 +30,38 @@ class RadpressTestCase(TestCase):
         self.user2.save()
 
 
+class RadpressReaderTestCase(RadpressTestCase):
+    markup = None
+    file_path = None
+
+    def setUp(self):
+        # default markup name is reStructuredText
+        self.reader = get_reader(markup=self.markup)
+
+        if self.file_path is not None:
+            # default content_body, metada
+            file_path = os.path.join(os.path.dirname(__file__), self.file_path)
+            content = file(file_path).read()
+            self.content_body, self.metadata = self.reader(content).read()
+
+    def test_check_metadata(self):
+        self.assertEqual(self.metadata['image'], '1')
+        self.assertTrue(self.metadata['published'])
+        self.assertEqual(self.metadata['slug'], 'samuel-l-ipsum')
+        self.assertEqual(self.metadata['title'], 'Samuel L. Ipsum')
+
+        for tag in ['ipsum', 'samuel', 'lorem']:
+            self.assertIn(tag, self.metadata['tags'])
+
+    def test_contents(self):
+        for article in Article.objects.filter(markup=self.markup):
+            content_body, metadata = self.reader(article.content).read()
+            self.assertEqual(article.content_body, content_body)
+
+    def test_more_tag(self):
+        self.assertIn(MORE_TAG, self.content_body)
+
+
 class BaseTest(RadpressTestCase):
     def test_all_published_articles(self):
         # check published article count
@@ -135,33 +167,11 @@ class BaseTest(RadpressTestCase):
             self.assertEqual(context, context.upper())
 
 
-class RestructuredtextTest(RadpressTestCase):
-    def setUp(self):
-        # default markup name is reStructuredText
-        self.reader = get_reader()
-
-        # default content_body, metada
-        file_path = os.path.join(os.path.dirname(__file__), 'test_content.rst')
-        content = file(file_path).read()
-        self.content_body, self.metadata = self.reader(content).read()
-
-    def test_contents(self):
-        for article in Article.objects.all():
-            content_body, metadata = self.reader(article.content).read()
-            self.assertEqual(article.content_body, content_body)
-
-    def test_check_metadata(self):
-        self.assertEqual(self.metadata['image'], '1')
-        self.assertTrue(self.metadata['published'])
-        self.assertEqual(self.metadata['slug'], 'samuel-l-ipsum')
-        self.assertEqual(self.metadata['title'], 'Samuel L. Ipsum')
-
-        for tag in ['ipsum', 'samuel', 'lorem']:
-            self.assertIn(tag, self.metadata['tags'])
+class RestructuredtextTest(RadpressReaderTestCase):
+    markup = 'restructuredtext'
+    file_path = 'test_content.rst'
 
     def test_pygmentize(self):
         self.assertIn('<table class="highlighttable">', self.content_body)
         self.assertIn('<td class="linenos">', self.content_body)
 
-    def test_more_tag(self):
-        self.assertIn(MORE_TAG, self.content_body)

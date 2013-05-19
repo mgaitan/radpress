@@ -1,5 +1,6 @@
-from radpress.tests.base import RadpressTestCase
+from radpress.tests.base import RadpressReaderTestCase
 
 
-class MarkdownTest(RadpressTestCase):
-    pass
+class MarkdownTest(RadpressReaderTestCase):
+    markup = 'markdown'
+    file_path = 'test_content.md'
