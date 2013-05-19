@@ -13,7 +13,7 @@ class BaseViewMixin(object):
         context = super(BaseViewMixin, self).get_context_data(**kwargs)
         context.update({'RADPRESS_MENUS': Menu.objects.get_menu_context()})
 
-        for key, value in settings.DATA.items():
+        for key, value in settings.CONTEXT_DATA.items():
             if key.isupper() and key.startswith('RADPRESS_'):
                 context.update({key: value})
 
@@ -49,6 +49,9 @@ class ZenModeViewMixin(object):
 
         # and redirect
         return super(ZenModeViewMixin, self).form_valid(form)
+
+    def form_invalid(self, form):
+        return super(ZenModeViewMixin, self).form_invalid(form)
 
 
 class TagViewMixin(object):

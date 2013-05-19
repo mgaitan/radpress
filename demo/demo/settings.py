@@ -1,6 +1,7 @@
 # Django settings for demo project.
 import sys
 import os
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 PROJECT_ROOT = os.path.split(os.path.realpath(os.path.dirname(__file__)))[0]
 
@@ -8,7 +9,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-# ('Your Name', 'your_email@example.com'),
+    ('demo admin', 'demo@localhost'),
 )
 
 MANAGERS = ADMINS
@@ -69,26 +70,13 @@ STATIC_ROOT = ''
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-# Put strings here, like "/home/html/static" or "C:/www/django/static".
-# Always use forward slashes, even on Windows.
-# Don't forget to use absolute paths, not relative paths.
-)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-    )
-
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '%-$k-+*0v1853)js61nc3$$(^7$sv6axmxgvbed5_257q(62+f'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
+TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader')
@@ -152,4 +140,5 @@ LOGGING = {
 RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
 RADPRESS_LIMIT = 5
-RADPRESS_DISQUS = 'gkmengrgen'
+RADPRESS_DISQUS = ''
+# RADPRESS_DEFAULT_MARKUP = 'markdown'

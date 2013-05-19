@@ -30,7 +30,12 @@ You can install Radpress with `pip` or `easy_install`::
 
 It also installs it's dependencies, but you need some configuration after
 package installation. In your django project, you should add
-``easy_thumbnails`` before ``radpress``.
+``easy_thumbnails`` before ``radpress``. And last, radpress needs a template
+context processor for a simple tag::
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        ...
+        'django.core.context_processors.request')
 
 Python Imaging Library
 ----------------------

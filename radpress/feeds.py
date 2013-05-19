@@ -1,13 +1,13 @@
 from django.contrib.syndication.views import Feed
 from django.core.urlresolvers import reverse_lazy as reverse
+from radpress import settings as radpress_settings
 from radpress.models import Article, Tag
-from radpress.settings import DATA
 
 
 class ArticleFeed(Feed):
     def __init__(self):
-        self.title = DATA.get('RADPRESS_TITLE')
-        self.description = DATA.get('RADPRESS_DESCRIPTION')
+        self.title = radpress_settings.TITLE
+        self.description = radpress_settings.DESCRIPTION
         self.link = reverse('radpress-article-list')
 
     def get_object(self, request, tags=None):

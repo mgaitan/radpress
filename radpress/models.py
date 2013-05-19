@@ -7,8 +7,8 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 from radpress.compat import User
-from radpress.settings import MORE_TAG
-from radpress.readers import RstReader
+from radpress.settings import MORE_TAG, DEFAULT_MARKUP
+from radpress.readers import get_reader, get_markup_choices
 
 
 class ThumbnailModelMixin(object):
@@ -92,7 +92,11 @@ class Entry(models.Model):
     The `created_at` is set datetime information automatically when a 'new'
     blog entry saved, but `updated_at` will be updated in each save method ran.
     """
+    MARKUP_CHOICES = get_markup_choices()
+
     title = models.CharField(max_length=500)
+    markup = models.CharField(
+        max_length=20, choices=MARKUP_CHOICES, default=DEFAULT_MARKUP)
     slug = models.SlugField(unique=True)
     content = models.TextField()
     content_body = models.TextField(editable=False)
@@ -110,7 +114,8 @@ class Entry(models.Model):
         return unicode(self.title)
 
     def save(self, **kwargs):
-        content_body, metadata = RstReader(self.content).read()
+        reader = get_reader(markup=self.markup)
+        content_body, metadata = reader(self.content).read()
 
         if not self.content_body:
             self.content_body = content_body

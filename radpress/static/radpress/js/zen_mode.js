@@ -1,16 +1,16 @@
 var container = $('#zen-container');
 var containerMargin = 50;
 var containerHeight;
-var formDiv = container.find('#zen-mode');
+var form = $('#zen-mode');
 var previewDiv = container.find('#zen-preview');
 var textarea = container.find('textarea');
-var buttons = previewDiv.find('.button-group');
+var buttons = $('#zen-header .zen-menu');
 
 var generateContent = function() {
-    var data = formDiv.find('form').serialize();
+    var data = form.serialize();
 
     $.ajax({
-        url: formDiv.find('form').data('preview-url'),
+        url: form.data('preview-url'),
         data: data,
         type: 'POST',
         success: function(response) {
@@ -22,8 +22,8 @@ var generateContent = function() {
 };
 
 var resizeContent = function() {
-    containerHeight = $(window).height() - containerMargin * 2;
-    previewDiv.find('#zen-preview-content').height(containerHeight - previewDiv.find('.button-group').height());
+    containerHeight = $(window).height() - containerMargin * 2 - 35;
+    previewDiv.height(containerHeight);
     textarea.height(containerHeight);
 };
 
@@ -39,6 +39,11 @@ $(window).on('load', function() {
     generateContent();
 });
 
+// tab override
+TABOVERRIDE.set(textarea);
+TABOVERRIDE.tabSize(4);
+TABOVERRIDE.autoIndent(true);
+
 textarea.trigger('focus');
 textarea.on('keyup', function(e) {
     if (e.keyCode == 13) {
@@ -47,7 +52,11 @@ textarea.on('keyup', function(e) {
 });
 
 buttons.find('.zen-button-save').on('click', function() {
-    formDiv.find('form').submit();
+    form.submit();
+});
+
+buttons.find('.zen-button-preview').on('click', function() {
+    previewDiv.toggle();
 });
 
 var alerts = $('.alert');

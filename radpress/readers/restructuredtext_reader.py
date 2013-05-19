@@ -1,7 +1,9 @@
 import docutils
 from docutils.core import publish_programmatically
 from docutils.writers import html4css1
-from django.utils.encoding import force_unicode, smart_str
+from django.utils.encoding import force_unicode
+
+from radpress.readers import BaseReader
 from radpress.rst_extensions import register_directives
 from radpress.settings import RST_SETTINGS
 
@@ -9,15 +11,23 @@ from radpress.settings import RST_SETTINGS
 register_directives()
 
 
-class Reader(object):
+class Reader(BaseReader):
     """
-    Thanks to pelican contributors.
+    Radpress' default reader. It should be always enabled.
     """
-    def __init__(self, source):
-        self.source = smart_str(source)
+    name = 'reStructuredText'
+    enabled = True
+    initial = """
+        Title here
+        ##########
+        :slug: title-here
+        :tags: world, big bang, sheldon
+        :published: no
+        :image: not specified
 
+        Content here...
+    """
 
-class RstReader(Reader):
     def _parse_metadata(self, document):
         output = {
             'title': document.get('title'),
