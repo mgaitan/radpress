@@ -3,7 +3,7 @@
 {% load blocktrans trans from i18n %}
 {% load url from future %}
 
-{% load radpress_static_url from radpress_tags %}
+{% load radpress_static_url from radpress_tags %}"
 {% load radpress_widget_latest_posts from radpress_tags %}
 
 {% block heads %}
@@ -11,22 +11,22 @@
 {% endblock %}
 
 {% block body %}
-  <div id="wrapper" class="clearfix">
-    <div id="main" class="clearfix">
-      <div class="header-wrapper clearfix">
-        <div class="logo-default">
-          <div class="logo-text">
-            <a href="{% url 'radpress-article-list' %}" title="{{ RADPRESS_TITLE }}">{{ RADPRESS_TITLE }}</a>
-            {% if RADPRESS_DESCRIPTION %}
-              <br />
-              <span>{{ RADPRESS_DESCRIPTION }}</span>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-      <div class="secondary-menu-wrap">
-        <ul class="secondary-menu">
-          <li>
+  <div id="header">
+    <div class="container">
+      <h1 class="header-title">
+        <a href="{% url 'radpress-article-list' %}" title="{{ RADPRESS_TITLE }}">{{ RADPRESS_TITLE }}</a>
+      </h1>
+      {% if RADPRESS_DESCRIPTION %}
+        <h4>{{ RADPRESS_DESCRIPTION }}</h4>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="navbar navbar-static-top" id="navigation">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <li class="active">
             <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
           </li>
           <li>
@@ -34,38 +34,45 @@
           </li>
         </ul>
       </div>
+    </div>
+  </div>
 
-
-      {% block base_content %}
-        <div id="content">
-          {% block content %}{% endblock %}
+  <div id="wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="span8">
+          {% block base_content %}
+            <div id="content">
+              {% block content %}{% endblock %}
+            </div>
+          {% endblock %}
         </div>
 
-        <div id="sidebar">
-          <div id="search-2" class="widget widget_search">
-            {% include "radpress/partials/search_form.html" %}
-          </div>
+        <div class="span4">
+          <div id="sidebar">
+            <div id="search">
+              {% include "radpress/partials/search_form.html" %}
+            </div>
 
-          <div id="recent-posts-2" class="widget">
-            {% radpress_widget_latest_posts %}
-          </div>
+            <div id="recent-posts-2" class="widget">
+              {% radpress_widget_latest_posts %}
+            </div>
 
-          {% if tag_list %}
-            {% include "radpress/partials/tag_cloud.html" %}
-          {% endif %}
-        </div>
-      {% endblock %}
-
-      <div id="footer" class="clearfix">
-        <div class="footer-copy">
-          <div class="menu-footer-wrapper">
-            <p class="copyright">
-              © {% now "Y" %} -
-              {% blocktrans with url="https://github.com/gkmngrgn/radpress" %}Powered by <a href="{{ url }}" target="_blank">RadPress</a>{% endblocktrans %}
-            </p>
+            {% if tag_list %}
+              {% include "radpress/partials/tag_cloud.html" %}
+            {% endif %}
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <p class="copyright">
+        © {% now "Y" %} -
+        {% blocktrans with url="https://github.com/gkmngrgn/radpress" %}Powered by <a href="{{ url }}" target="_blank">RadPress</a>{% endblocktrans %}
+      </p>
     </div>
   </div>
 {% endblock %}

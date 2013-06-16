@@ -1,0 +1,72 @@
+.no-box-shadow {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.box-shadow(@color, @horizontal, @vertical, @blur) {
+    box-shadow: @color @horizontal @vertical @blur;
+    -moz-box-shadow: @color @horizontal @vertical @blur;
+    -webkit-box-shadow: @color @horizontal @vertical @blur;
+}
+
+.content-space {
+    padding: 20px;
+}
+
+body {
+    font: 14px/22px Georgia, serif;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+#header {
+    background-color: @white;
+
+    h1 {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        margin-top: 5px;
+        color: @grayLight;
+        font-weight: normal;
+    }
+}
+
+#navigation {
+    z-index: 10;
+    ul.nav {
+        padding-left: 0;
+    }
+
+    .navbar-inner {
+        .no-box-shadow;
+    }
+}
+
+#wrapper {
+    margin-top: 85px;
+
+    .post {
+        margin-bottom: 85px;
+        background-color: @white;
+        box-shadow: 0px 0px 3px @postShadowColor;
+    }
+
+    .title {
+        background-color: @postBlueBackground;
+
+        h1 {
+            margin: 0;
+        }
+    }
+
+    .post-footer {
+        background-color: @postBlueBackground;
+    }
+}
