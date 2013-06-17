@@ -24,6 +24,16 @@ a {
     }
 }
 
+::selection {
+    color: @textColor;
+    background: @textSelectionColor;
+}
+
+::-moz-selection {
+    color: @textColor;
+    background: @textSelectionColor;
+}
+
 #header {
     background-color: @white;
 
@@ -39,7 +49,6 @@ a {
 }
 
 #navigation {
-    z-index: 10;
     ul.nav {
         padding-left: 0;
     }
@@ -56,6 +65,10 @@ a {
         margin-bottom: 50px;
         background-color: @white;
         box-shadow: 0px 0px 3px @postShadowColor;
+
+        p {
+            font-size: 16px;
+        }
     }
 
     .title {
@@ -63,6 +76,16 @@ a {
 
         h1 {
             margin: 0;
+        }
+    }
+
+    .title-meta {
+        margin-top: 5px;
+
+        span {
+            margin-right: 15px;
+            font-size: 11px;
+            color: @grayLight;
         }
     }
 
