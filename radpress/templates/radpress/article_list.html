@@ -10,12 +10,14 @@
   {% for object in object_list %}
     {% include "radpress/partials/entry.html" with summary=1 %}
   {% empty %}
-    <p>{% trans "There's no post for now." %}</p>
+    <p>{% trans "No posts found." %}</p>
   {% endfor %}
+{% endblock %}
 
-  <div class="post-nav">
-    <div class="postnav-left">
-      <a href="{% url 'radpress-article-archive' %}">&larr; {% trans "older posts" %}</a>
-    </div>
-  </div>
+{% block extra_content %}
+  <ul class="pager">
+    <li class="previous">
+      <a href="{% url "radpress-article-archive" %}">&larr; {% trans "older posts" %}</a>
+    </li>
+  </ul>
 {% endblock %}

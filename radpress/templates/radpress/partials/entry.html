@@ -19,7 +19,7 @@ Arguments:
     {% if user == object.author %}
       <a href="{% url 'radpress-zen-mode-update' object.pk %}" class="edit-button">{% trans "Edit" %}</a>
     {% endif %}
-    <h1><a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a></h1>
+    <h2><a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a></h2>
     <div class="title-meta">
       <span>{{ object.author|radpress_full_name }}</span>
       <span>{% radpress_datetime object.updated_at %}</span>
@@ -35,7 +35,7 @@ Arguments:
     {% endif %}
   </div>
 
-  <div class="post-footer content-space">
+  <div class="post-footer">
     <div class="share pull-right">
       {% include "radpress/partials/share.html" %}
     </div>

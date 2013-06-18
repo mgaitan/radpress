@@ -10,6 +10,18 @@
     -webkit-box-shadow: @color @horizontal @vertical @blur;
 }
 
+.box-sizing(@value) {
+    -webkit-box-sizing: @value;
+    -moz-box-sizing: @value;
+    box-sizing: @value;
+}
+
+.border-radius(@value) {
+    -webkit-border-radius: @value;
+    -moz-border-radius: @value;
+    border-radius: @value;
+}
+
 .content-space {
     padding: 20px;
 }
@@ -37,22 +49,19 @@ a {
 #header {
     background-color: @white;
 
-    h1 {
-        margin-bottom: 0;
+    h2 {
+        margin: 20px 0 0 0;
+        font-size: 28px;
     }
 
-    h4 {
-        margin-top: 5px;
+    h6 {
+        margin: 0 0 25px 0;
         color: @grayLight;
         font-weight: normal;
     }
 }
 
 #navigation {
-    ul.nav {
-        padding-left: 0;
-    }
-
     .navbar-inner {
         .no-box-shadow;
     }
@@ -73,10 +82,7 @@ a {
 
     .title {
         background-color: @postBlueBackground;
-
-        h1 {
-            margin: 0;
-        }
+        h2 { margin: 0; }
     }
 
     .title-meta {
@@ -90,6 +96,68 @@ a {
     }
 
     .post-footer {
+        padding: 10px 20px;
         background-color: @postBlueBackground;
+
+        a {
+            color: @grayLight;
+            font-size: 12px;
+        }
+    }
+}
+
+#footer {
+    padding: 30px 0;
+    background-color: @white;
+    color: @grayLight;
+    .box-shadow(@postShadowColor, 0, 0, 5px);
+
+    p { margin: 0; }
+}
+
+.pager {
+    margin-bottom: 40px;
+
+    li {
+        a {
+            background-color: @pagerBackground;
+            border: none;
+            font-weight: bold;
+
+            &:hover, &:focus, &:active {
+                background-color: @white;
+            }
+        }
+    }
+}
+
+.search-form {
+    .text {
+        font-size: 12px;
+        font-style: italic;
+        font-family: Georgia, serif;
+        border: none;
+        float: left;
+        width: 100%;
+        background: @white url('../img/search.png') no-repeat 10px 9px;
+        padding: 8px 7px 8px 30px;
+        border: solid 4px #e4e9eb;
+        color: #898e99;
+
+        .box-sizing(border-box);
+        .border-radius(20px);
+    }
+
+    .submit {
+        background: #666 url(../img/search.png) no-repeat center center;
+        width: 26px;
+        height: 28px;
+        font-size: 0;
+        line-height: 0;
+        text-indent: -9999px;
+        border: 0;
+        cursor: pointer;
+        float: right;
+        display: none;
     }
 }

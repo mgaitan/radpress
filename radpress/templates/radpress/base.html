@@ -13,11 +13,11 @@
 {% block body %}
   <div id="header">
     <div class="container">
-      <h1 class="header-title">
+      <h2 class="header-title">
         <a href="{% url 'radpress-article-list' %}" title="{{ RADPRESS_TITLE }}">{{ RADPRESS_TITLE }}</a>
-      </h1>
+      </h2>
       {% if RADPRESS_DESCRIPTION %}
-        <h4>{{ RADPRESS_DESCRIPTION }}</h4>
+        <h6>{{ RADPRESS_DESCRIPTION }}</h6>
       {% endif %}
     </div>
   </div>
@@ -40,15 +40,17 @@
   <div id="wrapper">
     <div class="container">
       <div class="row">
-        <div class="span8">
+        <div class="span9">
           {% block base_content %}
             <div id="content">
               {% block content %}{% endblock %}
             </div>
           {% endblock %}
+
+          {% block extra_content %}{% endblock %}
         </div>
 
-        <div class="span4">
+        <div class="span3">
           <div id="sidebar">
             <div id="search">
               {% include "radpress/partials/search_form.html" %}
