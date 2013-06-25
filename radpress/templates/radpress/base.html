@@ -52,13 +52,8 @@
 
         <div class="span3">
           <div id="sidebar">
-            <div id="search">
-              {% include "radpress/partials/search_form.html" %}
-            </div>
-
-            <div id="recent-posts-2" class="widget">
-              {% radpress_widget_latest_posts %}
-            </div>
+            {% include "radpress/partials/search_form.html" %}
+            {% radpress_widget_latest_posts %}
 
             {% if tag_list %}
               {% include "radpress/partials/tag_cloud.html" %}
