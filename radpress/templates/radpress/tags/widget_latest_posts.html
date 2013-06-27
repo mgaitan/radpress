@@ -2,10 +2,10 @@
 {% load url from future %}
 {% load radpress_datetime from radpress_tags %}
 
-<div class="widget">
+<div class="widget recent-posts-widget">
   <h2 class="widget-title">{% trans "Recent posts" %}</h2>
 
-  <ul class="recent-posts-widget">
+  <ul>
     {% for object in object_list %}
       <li{% if forloop.last %} class="no-border"{% endif %}>
         <h3>
