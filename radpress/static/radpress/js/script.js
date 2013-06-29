@@ -46,12 +46,11 @@ if (highlighttable.length) {
     var preWidth;
     var spaces = parseInt(postContentDiv.css('padding-left').split('px')[0])
             + parseInt(postContentDiv.css('padding-right').split('px')[0])
-            + $('td.linenos').width()
-            - $('td.code pre').css('padding-left').split('px')[0] / 2;
+            + $('td.linenos').width() + 2;
 
     $(window).on('load resize', function() {
         preWidth = postContentDiv.width() - spaces;
-        $('td.code pre').css('width', preWidth);
+        highlighttable.css('width', preWidth);
     });
 }
 
