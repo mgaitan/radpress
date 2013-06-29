@@ -3,18 +3,14 @@
 {% load trans from i18n %}
 
 {% block content %}
-  <div id="blog-archive" class="set-content-margin">
-    <div class="post page clearfix project">
-      <div class="box">
-        <div class="frame frame-full">
-          <div class="title-wrap">
-            <h2 class="entry-title">{% trans "Search results" %}</h2>
-          </div>
+  <div id="blog-archive">
+    <div class="post box clearfix">
+      <div class="title content-space">
+        <h2 class="entry-title">{% trans "Search results" %}</h2>
+      </div>
 
-          <div id="archive" class="post-content">
-            {% include "radpress/partials/archive_list.html" %}
-          </div>
-        </div>
+      <div id="archive" class="content-space">
+        {% include "radpress/partials/archive_list.html" %}
       </div>
     </div>
 

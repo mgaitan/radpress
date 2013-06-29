@@ -3,7 +3,7 @@
 <div class="widget widget-no-border">
   <div class="tagcloud">
     {% for tag in tag_list %}
-      <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
+      <a class="label{% if tag.slug == enabled_tag %} label-info{% endif %}"
          href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
         <i class="icon-tag icon-white"></i>
         {{ tag.name }}

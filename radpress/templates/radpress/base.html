@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block body %}
-  <div id="header">
+  <div class="navbar navbar-static-top" id="header">
     <div class="container">
       <h2 class="header-title">
         <a href="{% url 'radpress-article-list' %}" title="{{ RADPRESS_TITLE }}">{{ RADPRESS_TITLE }}</a>
@@ -26,7 +26,7 @@
     <div class="navbar-inner">
       <div class="container">
         <ul class="nav">
-          <li class="active">
+          <li>
             <a href="{% url 'radpress-article-list' %}">{% trans "Blog" %}</a>
           </li>
           <li>

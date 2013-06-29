@@ -17,7 +17,7 @@ Arguments:
 
   <div class="title content-space">
     {% if user == object.author %}
-      <a href="{% url 'radpress-zen-mode-update' object.pk %}" class="edit-button">{% trans "Edit" %}</a>
+      <a href="{% url 'radpress-zen-mode-update' object.pk %}" class="edit-button pull-right">{% trans "Edit" %}</a>
     {% endif %}
     <h2><a href="{{ object.get_absolute_url }}" title="{{ object.title }}">{{ object.title }}</a></h2>
     <div class="title-meta">

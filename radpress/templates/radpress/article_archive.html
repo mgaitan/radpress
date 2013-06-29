@@ -35,16 +35,6 @@
       </a>
     {% endif %}
 
-    <div class="tags">
-      {% for tag in tag_list %}
-        <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-           href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
-          <i class="icon-tag icon-white"></i>
-          {{ tag.name }}
-        </a>
-      {% empty %}
-        <span class="warning">{% trans "No tag found." %}</span>
-      {% endfor %}
-    </div>
+    {% include "radpress/partials/tag_cloud.html" %}
   </div>
 {% endblock %}
