@@ -1,5 +1,5 @@
 var container = $('#zen-container');
-var containerMargin = 50;
+var containerMargin = 20;
 var containerHeight;
 var form = $('#zen-mode');
 var previewDiv = container.find('#zen-preview');
@@ -15,8 +15,10 @@ var generateContent = function() {
         type: 'POST',
         success: function(response) {
             previewDiv.find('.cover-image').html('<img src="' + response.image_url + '" />');
-            previewDiv.find('.title.space').html(response.title);
-            previewDiv.find('.content.space').html(response.content);
+            previewDiv.find('.title').html(response.title);
+            previewDiv.find('.content').html(response.content);
+
+            $(window).trigger('resize');
         }
     });
 };
