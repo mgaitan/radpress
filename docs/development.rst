@@ -10,6 +10,14 @@ Then, see the issues in Github: https://github.com/gkmngrgn/radpress/issues
 If you want to send your changes to us, create your fork, open the branch about
 your changes, commit them and send a pull request. That's all.
 
+LESS Usage
+----------
+Do NOT try to edit ``main.css`` file directly. Learn LessCSS_ and edit less
+files that you can find them it ``static/radpress/less`` directory. To compile
+less files and convert to css::
+
+    $ lessc --yui-compress less/main.less > css/main.css
+
 JS Components
 -------------
 jquery.js
@@ -24,3 +32,6 @@ taboverride.min.js
 It's required to override tab behaviour in zen mode textarea.
 
 http://wjbryant.github.io/taboverride/
+
+
+.. _LessCSS: http://lesscss.org/
