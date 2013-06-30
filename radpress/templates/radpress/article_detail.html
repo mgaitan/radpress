@@ -10,11 +10,9 @@
   {% include "radpress/partials/entry.html" %}
 
   {% if RADPRESS_DISQUS %}
-    <div id="comment-jump" class="comments">
-      <div id="comments">
-        <div class="comments-wrap">
-          {% include "radpress/partials/disqus.html" %}
-        </div>
+    <div id="comments" class="post box">
+      <div class="content-space">
+        {% include "radpress/partials/disqus.html" %}
       </div>
     </div>
   {% endif %}

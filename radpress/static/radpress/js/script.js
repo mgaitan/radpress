@@ -39,17 +39,24 @@ var getParam = function(key) {
 window.RADPESS_PARAMS = getParams();
 
 // Highlight table fixings
-var postContentDiv = $('.post-content');
-var highlighttable = $('td.code pre');
+var alwaysCalculateHighlightTableWidth;
+var postContentDiv;
+if ($('body').hasClass('zen-mode')) {
+    postContentDiv = $('#zen-preview').find('.content-space');
+    alwaysCalculateHighlightTableWidth = true;
+} else {
+    postContentDiv = $('.post-content');
+    alwaysCalculateHighlightTableWidth = false;
+}
 
-if (highlighttable.length) {
+if (alwaysCalculateHighlightTableWidth || postContentDiv.length) {
     var preWidth;
-    var spaces = parseInt(postContentDiv.css('padding-left').split('px')[0])
-            + parseInt(postContentDiv.css('padding-right').split('px')[0])
-            + $('td.linenos').width()
-            - $('td.code pre').css('padding-left').split('px')[0] / 2;
+    var spaces;
 
     $(window).on('load resize', function() {
+        spaces = parseInt(postContentDiv.css('padding-left').split('px')[0])
+            + parseInt(postContentDiv.css('padding-right').split('px')[0])
+            + $('td.linenos').width() + 2;
         preWidth = postContentDiv.width() - spaces;
         $('td.code pre').css('width', preWidth);
     });
@@ -65,16 +72,8 @@ if (searchForm.length) {
     }
 }
 
-
 var shareUrls = $('.meta-info .share a');
 if (shareUrls.length) {
-    var url;
-
-    $.each(shareUrls, function(key, url) {
-        url = $(this).attr('href') + $(this).data('url').replace(/^\/|\/$/g, '') + '/';
-        $(this).attr('href', url);
-    });
-
     shareUrls.on('click', function() {
         window.open(
             $(this).attr('href'),

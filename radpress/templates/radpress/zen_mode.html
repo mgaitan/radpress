@@ -5,14 +5,15 @@
 {% load radpress_static_url from radpress_tags %}
 
 {% block heads %}
-  <link rel="stylesheet" href="{% radpress_static_url 'css/zen_mode.css' %}" />
-  <link rel="stylesheet" href="{% radpress_static_url 'css/pygmentize.css' %}" />
+  <link rel="stylesheet" href="{% radpress_static_url 'css/main.css' %}" />
 {% endblock %}
 
 {% block scripts %}
   <script src="{{ STATIC_URL }}radpress/js/taboverride.min.js"></script>
   <script src="{{ STATIC_URL }}radpress/js/zen_mode.js"></script>
 {% endblock %}
+
+{% block body_attrs %}class="zen-mode"{% endblock %}
 
 {% block body %}
   <form action="" method="POST" data-preview-url="{% url 'radpress-preview' %}" id="zen-mode">
@@ -50,8 +51,8 @@
           <div id="zen-preview">
             <div class="cover-image"></div>
             <div class="content-space">
-              <h1 class="title space"></h1>
-              <div class="content space"></div>
+              <h1 class="title"></h1>
+              <div class="content"></div>
             </div>
           </div>
         </div>

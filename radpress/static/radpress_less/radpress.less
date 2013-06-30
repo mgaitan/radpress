@@ -1,0 +1,163 @@
+.no-box-shadow {
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+.box-shadow(@color, @horizontal, @vertical, @blur) {
+    box-shadow: @color @horizontal @vertical @blur;
+    -moz-box-shadow: @color @horizontal @vertical @blur;
+    -webkit-box-shadow: @color @horizontal @vertical @blur;
+}
+
+.box-sizing(@value) {
+    -webkit-box-sizing: @value;
+    -moz-box-sizing: @value;
+    box-sizing: @value;
+}
+
+.border-radius(@value) {
+    -webkit-border-radius: @value;
+    -moz-border-radius: @value;
+    border-radius: @value;
+}
+
+.content-space {
+    padding: 20px;
+}
+
+body {
+    font: 14px/22px Georgia, serif;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+::selection {
+    color: @textColor;
+    background: @textSelectionColor;
+}
+
+::-moz-selection {
+    color: @textColor;
+    background: @textSelectionColor;
+}
+
+#header {
+    padding: 0 20px;
+    background-color: @white;
+
+    h2 {
+        margin: 20px 0 0 0;
+        font-size: 28px;
+    }
+
+    h6 {
+        margin: 0 0 25px 0;
+        color: @grayLight;
+        font-weight: normal;
+    }
+}
+
+#navigation {
+    .navbar-inner {
+        .no-box-shadow;
+
+        ul.nav {
+            margin-left: -15px;
+        }
+    }
+}
+
+#wrapper {
+    margin-top: 50px;
+
+    .post {
+        margin-bottom: 50px;
+        background-color: @white;
+        box-shadow: 0px 0px 3px @postShadowColor;
+
+        p {
+            font-size: 16px;
+        }
+    }
+
+    .title {
+        background-color: @postBlueBackground;
+        h2 { margin: 0; }
+    }
+
+    .title-meta {
+        margin-top: 5px;
+
+        span {
+            margin-right: 15px;
+            font-size: 11px;
+            color: @grayLight;
+        }
+    }
+
+    .post-footer {
+        padding: 10px 20px;
+        background-color: @postBlueBackground;
+        border-top: 1px solid @postBorderColor;
+
+        a {
+            color: @grayLight;
+            font-size: 13px;
+        }
+
+        .tags {
+            a {
+                margin-right: 12px;
+            }
+        }
+
+        .share {
+            a {
+                margin-left: 12px;
+            }
+        }
+    }
+}
+
+#footer {
+    padding: 30px 0;
+    background-color: @white;
+    color: @grayLight;
+    .box-shadow(@postShadowColor, 0, 0, 5px);
+
+    p { margin: 0; }
+}
+
+.pager {
+    margin-bottom: 40px;
+
+    li {
+        a {
+            background-color: @pagerBackground;
+            border: none;
+            font-weight: bold;
+
+            &:hover, &:focus, &:active {
+                background-color: @white;
+            }
+        }
+    }
+}
+
+.archive-item {
+    margin-bottom: 20px;
+    border-bottom: 5px solid @postBlueBackground;
+
+    h2 {
+        margin: 0 0 20px 0;
+    }
+
+    &.no-border {
+        border-bottom: none;
+    }
+}

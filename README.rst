@@ -21,13 +21,23 @@ Features
 - Author information for articles
 - Simple theme like in Octopress.
 
+Supported markup languages
+--------------------------
+- reStructuredText
+- Markdown
+
 Authors
 -------
-Gökmen Görgen, <gokmen[@]radity.com>
+Gökmen Görgen, <gokmen[@]alageek.com>
 
 Contributors
 ------------
 Ben Stott, <bgbnbigben[@]contextualsystems.com>
+
+Licensing
+---------
+Radpress is free software under terms of the MIT License. For more information, 
+see the LICENSE file.
 
 .. _restructuredtext: http://docutils.sourceforge.net/rst.html
 .. _Markdown: http://daringfireball.net/projects/markdown/

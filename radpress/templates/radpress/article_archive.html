@@ -4,17 +4,15 @@
 {% load url from future %}
 
 {% block content %}
-  <div id="blog-archive" class="set-content-margin">
-    <div class="post page clearfix project">
-      <div class="box">
-        <div class="frame frame-full">
-          <div class="title-wrap">
-            <h2 class="entry-title">{% trans "Post archives" %}</h2>
-          </div>
+  <div id="blog-archive">
+    <div class="post box clearfix">
+      <div class="frame frame-full">
+        <div class="title content-space">
+          <h2 class="entry-title">{% trans "Post archives" %}</h2>
+        </div>
 
-          <div id="archive" class="post-content">
-            {% include "radpress/partials/archive_list.html" %}
-          </div>
+        <div id="archive" class="content-space">
+          {% include "radpress/partials/archive_list.html" %}
         </div>
       </div>
     </div>
@@ -24,7 +22,7 @@
 {% endblock %}
 
 {% block sidebar %}
-  <div class="sidebar-box">
+  <div class="sidebar-widget">
     {% include "radpress/partials/search_form.html" %}
   </div>
 
@@ -37,16 +35,6 @@
       </a>
     {% endif %}
 
-    <div class="tags">
-      {% for tag in tag_list %}
-        <a class="label {% if tag.slug != enabled_tag %} label-info{% endif %}"
-           href="{% url 'radpress-article-archive' %}?tag={{ tag.slug }}">
-          <i class="icon-tag icon-white"></i>
-          {{ tag.name }}
-        </a>
-      {% empty %}
-        <span class="warning">{% trans "No tag found." %}</span>
-      {% endfor %}
-    </div>
+    {% include "radpress/partials/tag_cloud.html" %}
   </div>
 {% endblock %}
