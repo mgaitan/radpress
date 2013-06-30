@@ -30,3 +30,10 @@ RADPRESS_DISQUS
 Set shortname if you want to enable Disqus comments support.
 
 **Default:** None
+
+RADPRESS_HIDE_EMAIL
+-------------------
+If you define this variable as "False", author emails can be visible in RSS or
+only author name seems.
+
+**Default:** True

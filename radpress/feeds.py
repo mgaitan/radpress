@@ -29,6 +29,18 @@ class ArticleFeed(Feed):
     def items(self, obj):
         return obj
 
+    def item_author_name(self, item):
+        return item.author.get_full_name() or item.author.username
+
+    def item_author_email(self, item):
+        if radpress_settings.HIDE_EMAIL:
+            email = None
+
+        else:
+            email = item.author.email
+
+        return email
+
     def item_title(self, item):
         return item.title
 

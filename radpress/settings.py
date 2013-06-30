@@ -8,6 +8,7 @@ GOOGLE_ANALYTICS_CODE = getattr(settings, 'RADPRESS_GA_CODE', None)
 DISQUS = getattr(settings, 'RADPRESS_DISQUS', None)
 DEFAULT_MARKUP = getattr(
     settings, 'RADPRESS_DEFAULT_MARKUP', 'restructuredtext')
+HIDE_EMAIL = getattr(settings, 'RADPRESS_HIDE_EMAIL', True)
 
 CONTEXT_DATA = {
     'RADPRESS_TITLE': TITLE,
