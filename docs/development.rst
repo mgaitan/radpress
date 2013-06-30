@@ -13,10 +13,10 @@ your changes, commit them and send a pull request. That's all.
 LESS Usage
 ----------
 Do NOT try to edit ``main.css`` file directly. Learn LessCSS_ and edit less
-files that you can find them it ``static/radpress/less`` directory. To compile
+files that you can find them it ``static/radpress_less`` directory. To compile
 less files and convert to css::
 
-    $ lessc --yui-compress less/main.less > css/main.css
+    $ lessc --yui-compress radpress_less/main.less > radpress/css/main.css
 
 JS Components
 -------------
