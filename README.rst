@@ -2,6 +2,10 @@ Radpress
 ========
 
 .. image:: https://travis-ci.org/gkmngrgn/radpress.png?branch=develop
+        :target: https://travis-ci.org/gkmngrgn/radpress
+
+.. image:: https://pypip.in/d/radpress/badge.png
+        :target: https://crate.io/packages/radpress
 
 Radpress is a simple blog application for Djangonauts. It doesn't use a WYSIWYG
 editor; the default markup syntax is `reStructuredText`_ and you can preview
