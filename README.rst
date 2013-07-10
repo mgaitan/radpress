@@ -1,5 +1,14 @@
-Radpress
-========
+::
+
+     _____             _
+    |  __ \           | |
+    | |__) | __ _   __| | _ __   _ __  ___  ___  ___
+    |  _  / / _` | / _` || '_ \ | '__|/ _ \/ __|/ __|
+    | | \ \| (_| || (_| || |_) || |  |  __/\__ \\__ \
+    |_|  \_\\__,_| \__,_|| .__/ |_|   \___||___/|___/
+                         | |
+                         |_|
+
 
 .. image:: https://travis-ci.org/gkmngrgn/radpress.png?branch=develop
         :target: https://travis-ci.org/gkmngrgn/radpress
