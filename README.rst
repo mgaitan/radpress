@@ -16,6 +16,8 @@
 .. image:: https://pypip.in/d/radpress/badge.png
         :target: https://crate.io/packages/radpress
 
+.. image:: https://www.codeship.io/projects/6c7769b0-d79e-0130-7a63-0ab07b3eac12/status
+
 Radpress is a simple blog application for Djangonauts. It doesn't use a WYSIWYG
 editor; the default markup syntax is `reStructuredText`_ and you can preview
 your entry simply before publishing it. Radpress now ships with a `Markdown`_
