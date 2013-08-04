@@ -1,7 +1,6 @@
 # Django settings for demo project.
 import sys
 import os
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 PROJECT_ROOT = os.path.split(os.path.realpath(os.path.dirname(__file__)))[0]
 
@@ -75,7 +74,6 @@ SECRET_KEY = '%-$k-+*0v1853)js61nc3$$(^7$sv6axmxgvbed5_257q(62+f'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
-TEMPLATE_CONTEXT_PROCESSORS += ('django.core.context_processors.request',)
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -92,7 +90,6 @@ ROOT_URLCONF = 'demo.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'demo.wsgi.application'
-
 
 INSTALLED_APPS = (
     'django.contrib.auth',

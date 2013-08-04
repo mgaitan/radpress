@@ -56,8 +56,8 @@ def radpress_full_name(user):
 
 
 @register.assignment_tag(takes_context=True)
-def radpress_get_url(context, o):
-    return context['request'].build_absolute_uri(o.get_absolute_url())
+def radpress_get_url(context, obj):
+    return '%s%s' % (context['DOMAIN'], obj.get_absolute_url())
 
 
 @register.assignment_tag
