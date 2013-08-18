@@ -27,6 +27,7 @@ class Reader(BaseReader):
 
         Content here...
     """
+    description = initial
 
     def _parse_metadata(self, document):
         output = {

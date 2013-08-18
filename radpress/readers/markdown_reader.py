@@ -20,6 +20,7 @@ class Reader(BaseReader):
 
         Content here...
     """
+    description = initial
 
     def convertRSTmetaToMD(self):
         token = re.compile(r":(\w+:)")
