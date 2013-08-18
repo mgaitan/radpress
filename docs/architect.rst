@@ -10,3 +10,14 @@ object directly, metadata will be update for object fields::
 
   model --> form
   - update metadata for fields
+
+Some metadata elements should be required in content field:
+
+- title
+- slug
+
+Optional elements:
+
+- tags
+- is_published (default: false)
+- image
