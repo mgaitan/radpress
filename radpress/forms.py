@@ -14,7 +14,6 @@ class PageForm(forms.ModelForm):
 class ZenModeForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ('content', 'markup')
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -81,7 +80,7 @@ class ZenModeForm(forms.ModelForm):
 
         # reset tags
         article.articletag_set.all().delete()
-        for tag_name in self.metadata.get('tags'):
+        for tag_name in self.metadata.get('tags', []):
             tag = Tag.objects.get_or_create(name=tag_name)[0]
             article.articletag_set.create(tag=tag)
 

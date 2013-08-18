@@ -94,15 +94,16 @@ class Entry(models.Model):
     """
     MARKUP_CHOICES = get_markup_choices()
 
-    title = models.CharField(max_length=500)
+    title = models.CharField(max_length=500, editable=False)
     markup = models.CharField(
         max_length=20, choices=MARKUP_CHOICES, default=DEFAULT_MARKUP)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, editable=False)
     content = models.TextField()
     content_body = models.TextField(editable=False)
-    is_published = models.BooleanField()
+    is_published = models.BooleanField(editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(default=datetime.datetime.now)
+    updated_at = models.DateTimeField(
+        default=datetime.datetime.now, editable=False)
 
     objects = EntryManager()
 
@@ -131,7 +132,8 @@ class Entry(models.Model):
 
 class Article(Entry):
     author = models.ForeignKey(User, null=True, editable=False)
-    cover_image = models.ForeignKey(EntryImage, blank=True, null=True)
+    cover_image = models.ForeignKey(
+        EntryImage, blank=True, null=True, editable=False)
     tags = models.ManyToManyField(
         Tag, null=True, blank=True, through='ArticleTag')
 
