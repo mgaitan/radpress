@@ -28,6 +28,7 @@
 
 body {
     font: 14px/22px Georgia, serif;
+    background-color: @body-bg-color;
 }
 
 a {
@@ -37,13 +38,13 @@ a {
 }
 
 ::selection {
-    color: @textColor;
-    background: @textSelectionColor;
+    color: @text-color;
+    background: @text-selection-color;
 }
 
 ::-moz-selection {
-    color: @textColor;
-    background: @textSelectionColor;
+    color: @text-color;
+    background: @text-selection-color;
 }
 
 #header {
@@ -57,13 +58,15 @@ a {
 
     h6 {
         margin: 0 0 25px 0;
-        color: @grayLight;
+        color: @gray-light;
         font-weight: normal;
     }
 }
 
 #navigation {
-    .navbar-inner {
+    background-color: @navbar-bg-color;
+
+    .navbar-collapse {
         .no-box-shadow;
 
         ul.nav {
@@ -78,15 +81,21 @@ a {
     .post {
         margin-bottom: 50px;
         background-color: @white;
-        box-shadow: 0px 0px 3px @postShadowColor;
+        .box-shadow(@post-shadow-color, 0, 0, 3px);
 
         p {
             font-size: 16px;
         }
     }
 
+    .post-image {
+        img {
+            width: 100%;
+        }
+    }
+
     .title {
-        background-color: @postBlueBackground;
+        background-color: @post-bg-color;
         h2 { margin: 0; }
     }
 
@@ -96,18 +105,18 @@ a {
         span {
             margin-right: 15px;
             font-size: 11px;
-            color: @grayLight;
+            color: @gray-light;
         }
     }
 
     .post-footer {
         padding: 10px 20px;
-        background-color: @postBlueBackground;
-        border-top: 1px solid @postBorderColor;
-        min-height: 22px;
+        background-color: @post-bg-color;
+        border-top: 1px solid @post-border-color;
+        min-height: 43px;
 
         a {
-            color: @grayLight;
+            color: @gray-light;
             font-size: 13px;
         }
 
@@ -128,8 +137,8 @@ a {
 #footer {
     padding: 30px 0;
     background-color: @white;
-    color: @grayLight;
-    .box-shadow(@postShadowColor, 0, 0, 5px);
+    color: @gray-light;
+    .box-shadow(@post-shadow-color, 0, 0, 5px);
 
     p { margin: 0; }
 }
@@ -139,7 +148,7 @@ a {
 
     li {
         a {
-            background-color: @pagerBackground;
+            background-color: @pager-bg-color;
             border: none;
             font-weight: bold;
 
@@ -152,7 +161,7 @@ a {
 
 .archive-item {
     margin-bottom: 20px;
-    border-bottom: 5px solid @postBlueBackground;
+    border-bottom: 5px solid @post-bg-color;
 
     h2 {
         margin: 0 0 20px 0;
