@@ -13,11 +13,11 @@
 {% block body %}
   <div id="header">
     <div class="container">
-      <h2 class="header-title">
+      <h1 class="header-title">
         <a href="{% url 'radpress-article-list' %}" title="{{ RADPRESS_TITLE }}">{{ RADPRESS_TITLE }}</a>
-      </h2>
+      </h1>
       {% if RADPRESS_DESCRIPTION %}
-        <h6>{{ RADPRESS_DESCRIPTION }}</h6>
+        <h5>{{ RADPRESS_DESCRIPTION }}</h5>
       {% endif %}
     </div>
   </div>
@@ -34,7 +34,7 @@
           </li>
         </ul>
 
-        <ul class="nav pull-right">
+        <ul class="nav navbar-nav pull-right">
           <li>
             <a href="{% url 'radpress-rss' %}">{% trans "RSS" %}</a>
           </li>

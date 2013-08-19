@@ -2633,8 +2633,22 @@ td.visible-print {
   padding: 20px;
 }
 body {
-  font: 14px/22px Georgia, serif;
+  font-family: "Liberation Serif", Georgia, serif;
   background-color: #f0f3f4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Liberation Serif", Georgia, serif;
 }
 a:hover {
   text-decoration: none;
@@ -2651,11 +2665,10 @@ a:hover {
   padding: 0 20px;
   background-color: #ffffff;
 }
-#header h2 {
+#header h1 {
   margin: 20px 0 0 0;
-  font-size: 28px;
 }
-#header h6 {
+#header h5 {
   margin: 0 0 25px 0;
   color: #999999;
   font-weight: normal;
@@ -2663,13 +2676,8 @@ a:hover {
 #navigation {
   background-color: #e2e5e8;
 }
-#navigation .navbar-collapse {
-  box-shadow: none;
-  -moz-box-shadow: none;
-  -webkit-box-shadow: none;
-}
 #navigation .navbar-collapse ul.nav {
-  margin-left: -15px;
+  margin: 0 -15px;
 }
 #wrapper {
   margin-top: 50px;
@@ -2783,7 +2791,7 @@ a:hover {
   color: #a7b5c1;
 }
 #sidebar .recent-posts-widget li {
-  padding-bottom: 10px;
+  padding: 10px 0;
   border-bottom: 1px solid #e6e6e6;
 }
 #sidebar .recent-posts-widget li.no-border {

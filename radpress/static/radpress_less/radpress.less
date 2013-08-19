@@ -27,8 +27,12 @@
 }
 
 body {
-    font: 14px/22px Georgia, serif;
+    font-family: "Liberation Serif", Georgia, serif;
     background-color: @body-bg-color;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Liberation Serif", Georgia, serif;
 }
 
 a {
@@ -51,12 +55,11 @@ a {
     padding: 0 20px;
     background-color: @white;
 
-    h2 {
+    h1 {
         margin: 20px 0 0 0;
-        font-size: 28px;
     }
 
-    h6 {
+    h5 {
         margin: 0 0 25px 0;
         color: @gray-light;
         font-weight: normal;
@@ -67,10 +70,8 @@ a {
     background-color: @navbar-bg-color;
 
     .navbar-collapse {
-        .no-box-shadow;
-
         ul.nav {
-            margin-left: -15px;
+            margin: 0 -15px;
         }
     }
 }
