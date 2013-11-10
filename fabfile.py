@@ -17,4 +17,4 @@ def compile_less():
         PROJECT_DIR, 'radpress', 'static', 'radpress_less', 'main.less')
     dst = os.path.join(
         PROJECT_DIR, 'radpress', 'static', 'radpress', 'main.css')
-    local('%s --yui-compress %s > %s' % (command, src, dst))
+    local('%s %s > %s' % (command, src, dst))
