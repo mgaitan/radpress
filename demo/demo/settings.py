@@ -133,6 +133,8 @@ LOGGING = {
     }
 }
 
+TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+
 RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
 RADPRESS_LIMIT = 5
