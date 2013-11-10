@@ -39,6 +39,23 @@ Supported markup languages
 - reStructuredText
 - Markdown
 
+How to contribute?
+------------------
+I work with Python virtualenv. After I activated my virtualenv, I install
+all requires with a command::
+
+    $ pip install -r requirements/development.txt
+
+Then, I install latest stable version of Node. Node is required for compiling
+".less" files. After installed Node and NPM, I install all node modules with a
+command::
+
+    $ fab install_node_modules
+
+To compile less files::
+
+    $ fab compile_less
+
 Authors
 -------
 Gökmen Görgen, <gokmen[@]alageek.com>

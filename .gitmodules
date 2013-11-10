@@ -1,3 +1,0 @@
-[submodule "radpress/static/bootstrap"]
-	path = radpress/static/bootstrap
-	url = https://github.com/twbs/bootstrap.git

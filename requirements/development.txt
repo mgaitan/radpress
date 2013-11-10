@@ -1,6 +1,7 @@
 -r global.txt
 -r travis.txt
 
+Fabric
 Sphinx
 ipython
 ipdb
