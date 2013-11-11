@@ -1,8 +1,7 @@
 -r global.txt
 -r travis.txt
 
+Fabric
 Sphinx
 ipython
 ipdb
-pygraphviz
-markdown>=2.3.1

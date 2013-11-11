@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse, NoReverseMatch
 from radpress import settings as radpress_settings, get_version
 from radpress.compat import User
 from radpress.models import Article
+from radpress.readers import get_markup_choices, get_reader, trim
 
 register = template.Library()
 
@@ -41,6 +42,25 @@ def radpress_static_url(path):
     return '%sradpress/%s?ver=%s' % (settings.STATIC_URL, path, version)
 
 
+@register.assignment_tag
+def radpress_get_markup_descriptions():
+    """
+    Provides markup options. It used for adding descriptions in admin and
+    zen mode.
+
+    :return: list
+    """
+    result = []
+    for markup in get_markup_choices():
+        markup_name = markup[0]
+        result.append({
+            'name': markup_name,
+            'title': markup[1],
+            'description': trim(get_reader(markup=markup_name).description)
+        })
+    return result
+
+
 @register.filter
 def radpress_full_name(user):
     if not isinstance(user, User):
@@ -56,8 +76,8 @@ def radpress_full_name(user):
 
 
 @register.assignment_tag(takes_context=True)
-def radpress_get_url(context, o):
-    return context['request'].build_absolute_uri(o.get_absolute_url())
+def radpress_get_url(context, obj):
+    return '%s%s' % (context['DOMAIN'], obj.get_absolute_url())
 
 
 @register.assignment_tag

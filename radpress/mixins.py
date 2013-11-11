@@ -11,7 +11,10 @@ from radpress.models import Menu, Tag
 class BaseViewMixin(object):
     def get_context_data(self, **kwargs):
         context = super(BaseViewMixin, self).get_context_data(**kwargs)
-        context.update({'RADPRESS_MENUS': Menu.objects.get_menu_context()})
+        context.update({
+            'RADPRESS_MENUS': Menu.objects.get_menu_context(),
+            'DOMAIN': self.request.build_absolute_uri().strip('/')
+        })
 
         for key, value in settings.CONTEXT_DATA.items():
             if key.isupper() and key.startswith('RADPRESS_'):

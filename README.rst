@@ -1,7 +1,20 @@
-Radpress
-========
+::
+
+     _____             _
+    |  __ \           | |
+    | |__) | __ _   __| | _ __   _ __  ___  ___  ___
+    |  _  / / _` | / _` || '_ \ | '__|/ _ \/ __|/ __|
+    | | \ \| (_| || (_| || |_) || |  |  __/\__ \\__ \
+    |_|  \_\\__,_| \__,_|| .__/ |_|   \___||___/|___/
+                         | |
+                         |_|
+
 
 .. image:: https://travis-ci.org/gkmngrgn/radpress.png?branch=develop
+        :target: https://travis-ci.org/gkmngrgn/radpress
+
+.. image:: https://pypip.in/d/radpress/badge.png
+        :target: https://crate.io/packages/radpress
 
 Radpress is a simple blog application for Djangonauts. It doesn't use a WYSIWYG
 editor; the default markup syntax is `reStructuredText`_ and you can preview
@@ -25,6 +38,23 @@ Supported markup languages
 --------------------------
 - reStructuredText
 - Markdown
+
+How to contribute?
+------------------
+I work with Python virtualenv. After I activated my virtualenv, I install
+all requires with a command::
+
+    $ pip install -r requirements/development.txt
+
+Then, I install latest stable version of Node. Node is required for compiling
+".less" files. After installed Node and NPM, I install all node modules with a
+command::
+
+    $ fab install_node_modules
+
+To compile less files::
+
+    $ fab compile_less
 
 Authors
 -------

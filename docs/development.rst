@@ -16,7 +16,7 @@ Do NOT try to edit ``main.css`` file directly. Learn LessCSS_ and edit less
 files that you can find them it ``static/radpress_less`` directory. To compile
 less files and convert to css::
 
-    $ lessc --yui-compress radpress_less/main.less > radpress/css/main.css
+    $ fab compile_less
 
 JS Components
 -------------

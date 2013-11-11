@@ -1,5 +1,6 @@
 import os.path
 from django.core.urlresolvers import reverse
+from django.template import Context, Template
 from django.template.defaultfilters import slugify
 from django.test import TestCase
 from django.test.client import Client
@@ -8,6 +9,7 @@ from radpress.compat import User
 from radpress.models import Article, Page, Tag
 from radpress.readers import get_reader
 from radpress.settings import CONTEXT_DATA, MORE_TAG
+from radpress.templatetags.radpress_tags import radpress_get_url
 
 
 class RadpressTestCase(TestCase):
@@ -28,6 +30,10 @@ class RadpressTestCase(TestCase):
         self.user2 = User.objects.get(username='defne')
         self.user2.set_password('secret')
         self.user2.save()
+
+    def render_template(self, template, context):
+        context = Context(context)
+        return Template(template).render(context)
 
 
 class RadpressReaderTestCase(RadpressTestCase):
@@ -166,6 +172,15 @@ class BaseTest(RadpressTestCase):
             self.assertTrue(context.startswith('RADPRESS_'))
             self.assertEqual(context, context.upper())
 
+    def test_radpress_get_url_tag(self):
+        response = self.client.get(reverse('radpress-article-list'))
+        self.assertIn('DOMAIN', response.context_data)
+
+        context = response.context_data
+        for article in Article.objects.all():
+            article_url = context['DOMAIN'] + article.get_absolute_url()
+            expected_url = radpress_get_url(context, article)
+            self.assertEqual(article_url, expected_url)
 
 class RestructuredtextTest(RadpressReaderTestCase):
     markup = 'restructuredtext'

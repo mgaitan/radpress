@@ -2,17 +2,19 @@
 {% load url from future %}
 {% load radpress_static_url from radpress_tags %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang="{{ LANGUAGE_CODE }}" xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
   <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ RADPRESS_DESCRIPTION }}">
     <meta name="author" content="{{ RADPRESS_TITLE }}">
-    <meta content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0" name="viewport" />
-    <title>{% block title %}{% endblock %}</title>
+
     <link href="{% url 'radpress-rss' %}" title="{{ RADPRESS_TITLE }} » {% trans "Feed" %}" type="application/rss+xml" rel="alternate" />
     <link href="{% radpress_static_url 'img/favicon.png' %}" rel="shortcut icon" />
-    <link href="http://fonts.googleapis.com/css?family=Merriweather%3A400%2C300%2C700%2C900" media="all" type="text/css" rel="stylesheet">
+
     {% block heads %}{% endblock %}
   </head>
 

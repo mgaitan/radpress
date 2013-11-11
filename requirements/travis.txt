@@ -1,4 +1,3 @@
 Pillow
 South
-django-extensions
 markdown>=2.3.1

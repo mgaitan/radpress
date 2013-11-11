@@ -13,6 +13,7 @@ class BaseReader(object):
     name = None
     enabled = False
     initial = ''
+    description = ''
 
     def __init__(self, source):
         self.source = smart_str(source)

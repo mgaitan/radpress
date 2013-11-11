@@ -10,6 +10,10 @@ class ZenModeAdminMixin(object):
         css = {
             'all': ('radpress/css/zen_mode_admin.css',)
         }
+        js = [
+            'radpress/js/jquery.js',
+            'radpress/js/admin.js'
+        ]
 
 
 class ArticleAdmin(ZenModeAdminMixin, admin.ModelAdmin):
@@ -17,7 +21,6 @@ class ArticleAdmin(ZenModeAdminMixin, admin.ModelAdmin):
         'title', 'author', 'markup', 'created_at', 'updated_at', 'tag_list',
         'is_published')
     list_filter = ('is_published', 'created_at', 'tags')
-    list_editable = ('is_published',)
     search_fields = ('title', 'content')
 
     def tag_list(self, obj):

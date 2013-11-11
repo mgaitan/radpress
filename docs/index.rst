@@ -12,6 +12,7 @@ Contents
    what_is_radpress
    configuration
    development
+   architect
    screenshots
 
 Indices and tables
