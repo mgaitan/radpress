@@ -1,7 +1,7 @@
+import json
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponse
-from django.utils import simplejson as json
 from django.utils.decorators import method_decorator
 from radpress import settings
 from radpress.forms import ZenModeForm

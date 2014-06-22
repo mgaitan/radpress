@@ -81,7 +81,7 @@ class Reader(BaseReader):
 
     def _parse_metadata(self, meta):
         out = meta
-        for key in out.iterkeys():
+        for key in out.keys():
             if len(out[key]) == 1:
                 out[key] = "".join(out[key])
             if key == "published":
