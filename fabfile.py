@@ -16,5 +16,5 @@ def compile_less():
     src = os.path.join(
         PROJECT_DIR, 'radpress', 'static', 'radpress_less', 'main.less')
     dst = os.path.join(
-        PROJECT_DIR, 'radpress', 'static', 'radpress', 'main.css')
+        PROJECT_DIR, 'radpress', 'static', 'radpress', 'css', 'main.css')
     local('%s %s > %s' % (command, src, dst))
