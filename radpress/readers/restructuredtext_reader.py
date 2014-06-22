@@ -1,11 +1,12 @@
 import docutils
 from docutils.core import publish_programmatically
 from docutils.writers import html4css1
-from django.utils.encoding import force_unicode
 
+from radpress.compat import force_text
 from radpress.readers import BaseReader
 from radpress.rst_extensions import register_directives
 from radpress.settings import RST_SETTINGS
+
 
 # register radpress customized directives
 register_directives()
@@ -79,6 +80,6 @@ class Reader(BaseReader):
     def read(self):
         pub = self._get_publisher()
         metadata = self._parse_metadata(pub.document)
-        content = force_unicode(pub.writer.parts.get('body'))
+        content = force_text(pub.writer.parts.get('body'))
 
         return content, metadata
