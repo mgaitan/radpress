@@ -1,18 +1,22 @@
 import datetime
 import os
+from django.core.urlresolvers import reverse
+from django.utils.encoding import python_2_unicode_compatible
 from django.conf import settings
 from django.db import models
 from django.db.models import Count
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
+
 from radpress.compat import User
 from radpress.settings import MORE_TAG, DEFAULT_MARKUP
 from radpress.readers import get_reader, get_markup_choices
 
 
 class ThumbnailModelMixin(object):
-    def get_thumbnail(self, path, size):
+    @staticmethod
+    def get_thumbnail(path, size):
         thumbnailer = get_thumbnailer(path)
         thumb = thumbnailer.get_thumbnail({'size': size, 'crop': True})
 
@@ -38,13 +42,14 @@ class TagManager(models.Manager):
             article__count__gt=0, article__is_published=True)
 
 
+@python_2_unicode_compatible
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(unique=True)
     objects = TagManager()
 
-    def __unicode__(self):
-        return unicode(self.name)
+    def __str__(self):
+        return self.name
 
     def save(self, **kwargs):
         if not self.slug:
@@ -53,6 +58,7 @@ class Tag(models.Model):
         return super(Tag, self).save(**kwargs)
 
 
+@python_2_unicode_compatible
 class EntryImage(ThumbnailModelMixin, models.Model):
     name = models.CharField(
         max_length=100, blank=True,
@@ -63,9 +69,9 @@ class EntryImage(ThumbnailModelMixin, models.Model):
         verbose_name = _("Image")
         verbose_name_plural = _("Images")
 
-    def __unicode__(self):
+    def __str__(self):
         image_name = os.path.split(self.image.name)[1]
-        return u"%s - %s" % (self.name, image_name)
+        return u'{0} - {1}'.format(self.name, image_name)
 
     def thumbnail_tag(self):
         if not self.image:
@@ -82,6 +88,7 @@ class EntryManager(models.Manager):
         return self.filter(is_published=True, **kwargs)
 
 
+@python_2_unicode_compatible
 class Entry(models.Model):
     """
     Radpress' main model. It includes articles to show in Radpress mainpage.
@@ -111,8 +118,8 @@ class Entry(models.Model):
         abstract = True
         ordering = ('-created_at', '-updated_at')
 
-    def __unicode__(self):
-        return unicode(self.title)
+    def __str__(self):
+        return self.title
 
     def save(self, **kwargs):
         reader = get_reader(markup=self.markup)
@@ -143,23 +150,22 @@ class Article(Entry):
         content = content_list[0].strip()
         return content
 
-    @models.permalink
     def get_absolute_url(self):
-        return 'radpress-article-detail', [self.slug]
+        return reverse('radpress-article-detail', args=[self.slug])
 
 
+@python_2_unicode_compatible
 class ArticleTag(models.Model):
     tag = models.ForeignKey(Tag)
     article = models.ForeignKey(Article)
 
-    def __unicode__(self):
-        return u"%s - %s" % (self.tag.name, self.article)
+    def __str__(self):
+        return u'{0} - {1}'.format(self.tag.name, self.article)
 
 
 class Page(Entry):
-    @models.permalink
     def get_absolute_url(self):
-        return 'radpress-page-detail', [self.slug]
+        return reverse('radpress-page-detail', args=[self.slug])
 
 
 class MenuManager(models.Manager):
@@ -174,6 +180,7 @@ class MenuManager(models.Manager):
         return menus
 
 
+@python_2_unicode_compatible
 class Menu(models.Model):
     order = models.PositiveSmallIntegerField(default=3)
     page = models.ForeignKey(Page, unique=True)
@@ -183,5 +190,5 @@ class Menu(models.Model):
     class Meta:
         unique_together = ('order', 'page')
 
-    def __unicode__(self):
-        return u'%s - %s' % (self.order, self.page.title)
+    def __str__(self):
+        return u'{0} - {1}'.format(self.order, self.page.title)

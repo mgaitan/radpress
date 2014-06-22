@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from radpress.models import Article, EntryImage, Menu, Page, Tag
 from radpress.forms import PageForm, ZenModeForm
 
@@ -35,13 +36,9 @@ class ArticleAdmin(ZenModeAdminMixin, admin.ModelAdmin):
 
         obj.save()
 
-admin.site.register(Article, ArticleAdmin)
-
 
 class PageAdmin(admin.ModelAdmin):
     form = PageForm
-
-admin.site.register(Page, PageAdmin)
 
 
 class TagAdmin(admin.ModelAdmin):
@@ -51,13 +48,15 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'articles']
     prepopulated_fields = {'slug': ('name',)}
 
-admin.site.register(Tag, TagAdmin)
-admin.site.register(Menu, admin.ModelAdmin)
-
 
 class EntryImageAdmin(admin.ModelAdmin):
-    list_display = ('id', 'thumbnail_tag', '__unicode__', 'name')
-    list_display_links = ('__unicode__',)
+    list_display = ('id', 'thumbnail_tag', '__str__', 'name')
+    list_display_links = ('__str__',)
     search_fields = ('image', 'name')
 
+
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(Page, PageAdmin)
+admin.site.register(Tag, TagAdmin)
+admin.site.register(Menu, admin.ModelAdmin)
 admin.site.register(EntryImage, EntryImageAdmin)

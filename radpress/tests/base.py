@@ -47,7 +47,7 @@ class RadpressReaderTestCase(RadpressTestCase):
         if self.file_path is not None:
             # default content_body, metada
             file_path = os.path.join(os.path.dirname(__file__), self.file_path)
-            content = file(file_path).read()
+            content = open(file_path).read()
             self.content_body, self.metadata = self.reader(content).read()
 
     def test_check_metadata(self):

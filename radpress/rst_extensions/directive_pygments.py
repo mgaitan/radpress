@@ -41,7 +41,7 @@ class Pygments(Directive):
             lexer = TextLexer()
 
         formatter = (
-            self.options and VARIANTS[self.options.keys()[0]] or DEFAULT)
+            self.options and VARIANTS[list(self.options.keys())[0]] or DEFAULT)
         parsed = highlight(u'\n'.join(self.content), lexer, formatter)
 
         return [nodes.raw('', parsed, format='html')]

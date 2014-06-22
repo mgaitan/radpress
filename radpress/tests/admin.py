@@ -15,4 +15,4 @@ class AdminTest(RadpressTestCase):
         url = reverse('admin:radpress_article_add')
         initial_content = get_reader_initial(markup=DEFAULT_MARKUP)
         response = self.client.get(url)
-        self.assertIn(initial_content, response.content)
+        self.assertContains(response, initial_content)
