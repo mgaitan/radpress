@@ -1,8 +1,8 @@
+from django.utils.encoding import force_text
 import docutils
 from docutils.core import publish_programmatically
 from docutils.writers import html4css1
 
-from radpress.compat import force_text
 from radpress.readers import BaseReader
 from radpress.rst_extensions import register_directives
 from radpress.settings import RST_SETTINGS
