@@ -10,7 +10,7 @@
                          |_|
 
 
-.. image:: https://travis-ci.org/gkmngrgn/radpress.png?branch=develop
+.. image:: https://travis-ci.org/gkmngrgn/radpress.png
         :target: https://travis-ci.org/gkmngrgn/radpress
 
 .. image:: https://pypip.in/d/radpress/badge.png
@@ -20,6 +20,9 @@ Radpress is a simple blog application for Djangonauts. It doesn't use a WYSIWYG
 editor; the default markup syntax is `reStructuredText`_ and you can preview
 your entry simply before publishing it. Radpress now ships with a `Markdown`_
 renderer, too!
+
+.. image:: https://rawgithub.com/twolfson/gittip-badge/0.2.0/dist/gittip.png
+        :target: https://www.gittip.com/gokmen/
 
 Radpress' default theme is based on `Author theme`_ by Mike McAlister. Thank
 you for the support.
@@ -66,7 +69,7 @@ Ben Stott, <bgbnbigben[@]contextualsystems.com>
 
 Licensing
 ---------
-Radpress is free software under terms of the MIT License. For more information, 
+Radpress is free software under terms of the MIT License. For more information,
 see the LICENSE file.
 
 .. _restructuredtext: http://docutils.sourceforge.net/rst.html
