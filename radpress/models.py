@@ -71,7 +71,7 @@ class EntryImage(ThumbnailModelMixin, models.Model):
 
     def __str__(self):
         image_name = os.path.split(self.image.name)[1]
-        return u'{0} - {1}'.format(self.name, image_name)
+        return u'{} - {}'.format(self.name, image_name)
 
     def thumbnail_tag(self):
         if not self.image:
@@ -160,7 +160,7 @@ class ArticleTag(models.Model):
     article = models.ForeignKey(Article)
 
     def __str__(self):
-        return u'{0} - {1}'.format(self.tag.name, self.article)
+        return u'{} - {}'.format(self.tag.name, self.article)
 
 
 class Page(Entry):
@@ -191,4 +191,4 @@ class Menu(models.Model):
         unique_together = ('order', 'page')
 
     def __str__(self):
-        return u'{0} - {1}'.format(self.order, self.page.title)
+        return u'{} - {}'.format(self.order, self.page.title)
