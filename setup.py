@@ -12,17 +12,11 @@ requires_file_name = os.path.join(PROJECT_DIR, 'requirements', 'global.txt')
 with open(requires_file_name) as install_requires:
     install_requires = map(lambda x: x.strip(), install_requires.readlines())
 
-try:
-    import importlib
-
-except ImportError:
-    install_requires.append('importlib')
-
 setup(
     name=pkg_name,
     version=version,
     description='Simple reusable blog application',
-    long_description=file(os.path.join(PROJECT_DIR, 'README.rst')).read(),
+    long_description=open(os.path.join(PROJECT_DIR, 'README.rst')).read(),
     author=u'Gökmen Görgen',
     author_email='gokmen@radity.com',
     license='MIT',
