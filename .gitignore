@@ -22,3 +22,6 @@ venv
 demo/demo.sql
 demo/.media
 requirements/node_modules
+
+# Pycharm
+.idea
