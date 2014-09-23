@@ -7,13 +7,17 @@ from radpress.templatetags.radpress_tags import radpress_zen_mode_url
 
 
 class PageForm(forms.ModelForm):
+
     class Meta:
         model = Page
+        exclude = []
 
 
 class ZenModeForm(forms.ModelForm):
+
     class Meta:
         model = Article
+        exclude = []
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)

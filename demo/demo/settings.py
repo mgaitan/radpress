@@ -136,7 +136,11 @@ SOUTH_MIGRATION_MODULES = {
     'easy_thumbnails': 'easy_thumbnails.south_migrations',
 }
 
+from django import VERSION as DJANGO_VERSION
+
 TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+if DJANGO_VERSION >= (1, 7):
+    TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
