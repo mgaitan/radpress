@@ -139,8 +139,9 @@ SOUTH_MIGRATION_MODULES = {
 from django import VERSION as DJANGO_VERSION
 
 TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
-if DJANGO_VERSION >= (1, 7):
-    TEST_RUNNER = 'django.test.runner.DiscoverRunner'
+# Commenting the fix for this deprecation warning until the tests can be made compatible with the new runner
+#if DJANGO_VERSION >= (1, 7):
+#    TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 RADPRESS_TITLE = 'Radpress demo'
 RADPRESS_DESCRIPTION = "Let's write a simple description to here."
