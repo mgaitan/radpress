@@ -3,6 +3,22 @@ import datetime
 from south.db import db
 from south.v2 import DataMigration
 from django.db import models
+from django import VERSION as DJANGO_VERSION
+
+assert DJANGO_VERSION < (1, 7), "This migration should end it's life at 1.6"
+# Safe User import for Django < 1.5
+# thanks to: http://kevindias.com/writing/django-custom-user-models-south-and-reusable-apps/
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
+
+# With the default User model these will be 'auth.User' and 'auth.user'
+# so instead of using orm['auth.User'] we can use orm[user_orm_label]
+user_orm_label = '%s.%s' % (User._meta.app_label, User._meta.object_name)
+user_model_label = '%s.%s' % (User._meta.app_label, User._meta.module_name)
 
 
 class Migration(DataMigration):
@@ -11,7 +27,7 @@ class Migration(DataMigration):
         "Write your forwards methods here."
         # Note: Remember to use orm['appname.ModelName'] rather than "from appname.models..."
 
-        User = orm['auth.User']
+        User = orm[user_orm_label]
 
         try:
             user = User.objects.all()[0]
@@ -40,21 +56,9 @@ class Migration(DataMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '50'})
         },
-        'auth.user': {
-            'Meta': {'object_name': 'User'},
-            'date_joined': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'groups': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Group']", 'symmetrical': 'False', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'is_staff': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'is_superuser': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
-            'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
-            'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
+        user_model_label: {
+            'Meta': {'object_name': User.__name__, 'db_table': "'{}'".format(User._meta.db_table)},
+            User._meta.pk.attname: ('django.db.models.fields.AutoField', [], {'primary_key': 'True', 'db_column': "'{}'".format(User._meta.pk.column)}),
         },
         'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
@@ -65,7 +69,7 @@ class Migration(DataMigration):
         },
         'radpress.article': {
             'Meta': {'ordering': "('-created_at', '-updated_at')", 'object_name': 'Article'},
-            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['auth.User']", 'null': 'True'}),
+            'author': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['{}']".format(user_orm_label), 'null': 'True'}),
             'content': ('django.db.models.fields.TextField', [], {}),
             'content_body': ('django.db.models.fields.TextField', [], {}),
             'cover_image': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['radpress.EntryImage']", 'null': 'True', 'blank': 'True'}),
