@@ -107,7 +107,7 @@ class Entry(models.Model):
     slug = models.SlugField(unique=True, editable=False)
     content = models.TextField()
     content_body = models.TextField(editable=False)
-    is_published = models.BooleanField(editable=False)
+    is_published = models.BooleanField(editable=False, default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(
         default=datetime.datetime.now, editable=False)
