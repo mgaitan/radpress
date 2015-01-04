@@ -2,7 +2,7 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse, NoReverseMatch
 from radpress import settings as radpress_settings, get_version
-from radpress.compat import User
+from radpress.compat import get_user_model
 from radpress.models import Article
 from radpress.readers import get_markup_choices, get_reader, trim
 
@@ -63,7 +63,7 @@ def radpress_get_markup_descriptions():
 
 @register.filter
 def radpress_full_name(user):
-    if not isinstance(user, User):
+    if not isinstance(user, get_user_model()):
         full_name = ''
 
     else:

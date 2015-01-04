@@ -9,7 +9,7 @@ from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 from easy_thumbnails.files import get_thumbnailer
 
-from radpress.compat import User
+from radpress.compat import import_user_model
 from radpress.settings import MORE_TAG, DEFAULT_MARKUP
 from radpress.readers import get_reader, get_markup_choices
 
@@ -138,7 +138,7 @@ class Entry(models.Model):
 
 
 class Article(Entry):
-    author = models.ForeignKey(User, null=True, editable=False)
+    author = models.ForeignKey(import_user_model(), null=True, editable=False)
     cover_image = models.ForeignKey(
         EntryImage, blank=True, null=True, editable=False)
     tags = models.ManyToManyField(

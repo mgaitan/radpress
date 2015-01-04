@@ -5,7 +5,8 @@ from django.template.defaultfilters import slugify
 from django.test import TestCase
 from django.test.client import Client
 
-from radpress.compat import User
+from radpress.compat import get_user_model
+User = get_user_model()
 from radpress.models import Article, Page, Tag
 from radpress.readers import get_reader
 from radpress.settings import CONTEXT_DATA, MORE_TAG
