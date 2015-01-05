@@ -1,6 +1,0 @@
-{
-    "description": "Nodejs packages that are required by Radpress",
-    "devDependencies": {
-        "less": "1.5.0"
-    }
-}

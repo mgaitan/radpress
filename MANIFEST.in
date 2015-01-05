@@ -6,4 +6,3 @@ include LICENSE
 include requirements/global.txt
 
 prune radpress/static/bootstrap
-prune radpress/static/radpress_less
