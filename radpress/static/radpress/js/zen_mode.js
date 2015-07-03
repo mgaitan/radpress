@@ -55,6 +55,22 @@ textarea.on('keyup', function(e) {
     }
 });
 
+$(document).keypress(function(event) {
+    // Save with cmd+s (Mac) or ctrl+s (Windows)
+    if (event.which == 115 && (event.ctrlKey||event.metaKey)) {
+        event.preventDefault();
+        form.submit();
+        return false;
+
+    // Load article preview with cmd+z (Mac) or ctrl+z (Windows)
+    } else if (event.which == 122 && (event.ctrlKey||event.metaKey)) {
+        event.preventDefault();
+        generateContent();
+        return false;  
+    }
+    return true;
+});
+
 buttons.find('.zen-button-save').on('click', function() {
     form.submit();
 });
