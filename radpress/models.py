@@ -142,7 +142,7 @@ class Article(Entry):
     cover_image = models.ForeignKey(
         EntryImage, blank=True, null=True, editable=False)
     tags = models.ManyToManyField(
-        Tag, null=True, blank=True, through='ArticleTag')
+        Tag, blank=True, through='ArticleTag')
 
     @property
     def content_by_more(self):
@@ -183,7 +183,7 @@ class MenuManager(models.Manager):
 @python_2_unicode_compatible
 class Menu(models.Model):
     order = models.PositiveSmallIntegerField(default=3)
-    page = models.ForeignKey(Page, unique=True)
+    page = models.OneToOneField(Page)
 
     objects = MenuManager()
 
