@@ -14,7 +14,9 @@ var generateContent = function() {
         data: data,
         type: 'POST',
         success: function(response) {
-            previewDiv.find('.cover-image').html('<img src="' + response.image_url + '" />');
+            if (response.image_url) {
+                previewDiv.find('.cover-image').html('<img src="' + response.image_url + '" />');                
+            }
             previewDiv.find('.title').html(response.title);
             previewDiv.find('.content').html(response.content);
 
