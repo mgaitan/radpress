@@ -1,12 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from radpress.views import (
     ArticleArchiveView, ArticleDetailView, ArticleListView, PreviewView,
     PageDetailView, SearchView, ZenModeView, ZenModeUpdateView)
 from radpress.feeds import ArticleFeed
 
-urlpatterns = patterns(
-    '',
-
+urlpatterns = [
     url(r'^$',
         view=ArticleListView.as_view(),
         name='radpress-article-list'),
@@ -46,4 +44,4 @@ urlpatterns = patterns(
     url(r'^rss/(?P<tags>[-/\w]+)/$',
         view=ArticleFeed(),
         name='radpress-rss')
-)
+]
